@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>You're in — Star Thrown</title>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05080f;
+      --accent:     #4f8fff;
+      --gold:       #f0c060;
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .game-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      letter-spacing: 0.06em;
+      background: linear-gradient(160deg, #ffffff 0%, #a8c8ff 45%, #4f8fff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(79, 143, 255, 0.4));
+      margin-bottom: 1.25rem;
+    }
+
+    .checkmark {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(79, 143, 255, 0.12);
+      border: 1px solid rgba(79, 143, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .checkmark svg {
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+    }
+
+    .heading {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0.75rem auto 1.25rem;
+    }
+
+    .message {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+
+    .tagline {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      filter: drop-shadow(0 0 6px rgba(240, 192, 96, 0.4));
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .back-link {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--text);
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .studio-credit {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .studio-link {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .studio-link:hover { color: rgba(255,255,255,0.6); }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <div class="container">
+
+      <p class="game-title">Star Thrown</p>
+
+      <div class="checkmark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+
+      <h1 class="heading">You're in.</h1>
+
+      <div class="divider"></div>
+
+      <p class="message">
+        We'll notify you the moment Star Thrown launches on iOS and Android and round registration opens.
+      </p>
+
+      <p class="tagline">Cast to the Stars. Conquer what is yours.</p>
+
+      <a href="/" class="back-link">← Back to starthrown.com</a>
+
+    </div>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 200;
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.2 + 0.2,
+            alpha: Math.random() * 0.6 + 0.15,
+            twinkle: Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.008 + Math.random() * 0.012,
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      seed();
+      requestAnimationFrame(draw);
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { resize(); seed(); }, 150);
+      });
+    }());
+  </script>
+
+</body>
+</html>
