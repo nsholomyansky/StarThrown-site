@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#1a3a7a" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#05080f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#a8c8ff"/>
+      <stop offset="100%" stop-color="#4f8fff"/>
+    </linearGradient>
+    <filter id="titleGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#05080f"/>
+
+  <!-- Glow blob -->
+  <ellipse cx="600" cy="250" rx="560" ry="340" fill="url(#glow)"/>
+
+  <!-- Stars (hand-placed for OG image) -->
+  <circle cx="102" cy="58" r="1.1" fill="#c8dcff" opacity="0.7"/>
+  <circle cx="240" cy="130" r="0.8" fill="#c8dcff" opacity="0.5"/>
+  <circle cx="380" cy="44" r="1.3" fill="#c8dcff" opacity="0.6"/>
+  <circle cx="510" cy="90" r="0.7" fill="#c8dcff" opacity="0.4"/>
+  <circle cx="670" cy="55" r="1.0" fill="#c8dcff" opacity="0.65"/>
+  <circle cx="820" cy="110" r="0.9" fill="#c8dcff" opacity="0.5"/>
+  <circle cx="990" cy="38" r="1.2" fill="#c8dcff" opacity="0.7"/>
+  <circle cx="1100" cy="85" r="0.8" fill="#c8dcff" opacity="0.45"/>
+  <circle cx="55"  cy="200" r="0.9" fill="#c8dcff" opacity="0.4"/>
+  <circle cx="150" cy="320" r="1.1" fill="#c8dcff" opacity="0.5"/>
+  <circle cx="1050" cy="280" r="1.0" fill="#c8dcff" opacity="0.55"/>
+  <circle cx="1140" cy="420" r="0.8" fill="#c8dcff" opacity="0.4"/>
+  <circle cx="60"  cy="490" r="1.2" fill="#c8dcff" opacity="0.45"/>
+  <circle cx="180" cy="570" r="0.7" fill="#c8dcff" opacity="0.35"/>
+  <circle cx="420" cy="590" r="1.0" fill="#c8dcff" opacity="0.4"/>
+  <circle cx="780" cy="580" r="0.9" fill="#c8dcff" opacity="0.5"/>
+  <circle cx="1000" cy="560" r="1.1" fill="#c8dcff" opacity="0.45"/>
+  <circle cx="320" cy="170" r="0.6" fill="#c8dcff" opacity="0.35"/>
+  <circle cx="860" cy="60"  r="0.8" fill="#c8dcff" opacity="0.5"/>
+  <circle cx="930" cy="200" r="0.7" fill="#c8dcff" opacity="0.4"/>
+
+  <!-- Studio name -->
+  <text x="600" y="188" text-anchor="middle"
+        font-family="'Arial', sans-serif" font-size="18" font-weight="400"
+        letter-spacing="6" fill="#6b84a8" text-transform="uppercase">BOUNDLESS ALCHEMY</text>
+
+  <!-- Thin divider above title -->
+  <line x1="520" y1="205" x2="680" y2="205" stroke="#4f8fff" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Star icon -->
+  <polygon points="600,228 606.2,246 625.4,246.5 610.9,257.3 616.1,275.7 600,265.6 583.9,275.7 589.1,257.3 574.6,246.5 593.8,246"
+           fill="#4f8fff" opacity="0.85"/>
+
+  <!-- Main title -->
+  <text x="600" y="358" text-anchor="middle"
+        font-family="'Arial Black', 'Arial', sans-serif" font-size="96" font-weight="900"
+        letter-spacing="8" fill="url(#titleGrad)" filter="url(#titleGlow)">STAR THROWN</text>
+
+  <!-- Divider -->
+  <line x1="440" y1="385" x2="760" y2="385" stroke="#4f8fff" stroke-width="0.8" opacity="0.4"/>
+
+  <!-- Tagline -->
+  <text x="600" y="430" text-anchor="middle"
+        font-family="'Arial', sans-serif" font-size="22" font-weight="700"
+        letter-spacing="4" fill="#f0c060" opacity="0.9">CAST TO THE STARS. CONQUER WHAT IS YOURS.</text>
+
+  <!-- Genre -->
+  <text x="600" y="476" text-anchor="middle"
+        font-family="'Arial', sans-serif" font-size="14" font-weight="400"
+        letter-spacing="3" fill="#6b84a8">COMPETITIVE MOBILE STRATEGY GAME</text>
+
+  <!-- Bottom URL -->
+  <text x="600" y="578" text-anchor="middle"
+        font-family="'Arial', sans-serif" font-size="14" font-weight="400"
+        letter-spacing="2" fill="#3a5280">starthrown.com</text>
+</svg>
