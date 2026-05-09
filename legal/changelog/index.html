@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal Changelog — Star Thrown</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --border:     rgba(79, 143, 255, 0.15);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .page-header {
+      background-color: var(--bg-mid);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .page-header a {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .page-header a:hover { text-decoration: underline; }
+    .page-header .sep { color: var(--text-muted); font-size: 0.85rem; }
+    .page-header .page-title { color: var(--text-muted); font-size: 0.85rem; }
+
+    .content-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 3rem;
+    }
+
+    .notice {
+      background: rgba(79, 143, 255, 0.07);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    .entry {
+      border-left: 2px solid var(--border);
+      padding-left: 1.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .entry::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .entry-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+
+    .entry-version {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+    }
+
+    .entry ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .entry ul li {
+      font-size: 0.9rem;
+      color: var(--text);
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .entry ul li::before {
+      content: '—';
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .entry ul li a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .entry ul li a:hover { text-decoration: underline; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.1rem 0.45rem;
+      border-radius: 3px;
+      background: rgba(79, 143, 255, 0.15);
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      vertical-align: middle;
+      margin-left: 0.25rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <a href="/">Star Thrown</a>
+    <span class="sep">›</span>
+    <span class="page-title">Legal Changelog</span>
+  </header>
+
+  <div class="content-wrap">
+    <h1>Legal Changelog</h1>
+    <p class="subtitle">A record of all changes to Star Thrown's legal documents.</p>
+
+    <div class="notice">
+      We will notify you in-app at least 7 days before any material changes take effect, except for security updates or court-ordered changes which may take effect immediately.
+    </div>
+
+    <!-- ── Entries (newest first) ──────────────────────────────── -->
+
+    <div class="entry">
+      <div class="entry-date">May 9, 2026</div>
+      <div class="entry-version">v1.0 — Initial Legal Documents <span class="tag">New</span></div>
+      <ul>
+        <li>
+          <a href="/terms" target="_blank">Terms of Service</a> published — covers account registration, purchases, refunds, user content, prohibited activities, dispute resolution (AAA arbitration, Miami-Dade, FL), and governing law (Florida).
+        </li>
+        <li>
+          <a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener">Privacy Policy</a> published — covers data collected via Firebase Auth and Realtime Database, user-generated content (chat, profile pictures), account deletion rights, and contact information.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Add future entries above this line, newest first -->
+
+  </div>
+
+  <footer>
+    <p>
+      &copy; 2025 Boundless Alchemy LLC &nbsp;·&nbsp;
+      <a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener">Privacy Policy</a>
+      &nbsp;·&nbsp;
+      <a href="/terms">Terms of Service</a>
+    </p>
+  </footer>
+
+</body>
+</html>
