@@ -116,18 +116,12 @@
     }
 
     /* ── Logo / game name ───────────────────────────────────────── */
-    .game-title {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2rem, 7vw, 4rem);
-      letter-spacing: 0.04em;
-      line-height: 1;
-      background: linear-gradient(160deg, #ffffff 0%, #a8c8ff 45%, #4f8fff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 32px rgba(79, 143, 255, 0.45));
-      margin-bottom: 0.6rem;
+    .game-logo {
+      width: clamp(240px, 55vw, 520px);
+      height: auto;
+      display: block;
+      margin: 0 auto 0.6rem;
+      filter: none;
     }
 
     /* ── Tagline ────────────────────────────────────────────────── */
@@ -490,7 +484,7 @@
 
         <p class="studio-top">Boundless Alchemy</p>
 
-        <h1 class="game-title">Star Thrown</h1>
+        <img src="StarThrownLogo.png" alt="Star Thrown" class="game-logo" />
 
         <p class="tagline">Cast to the Stars. Conquer what is yours.</p>
 
