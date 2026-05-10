@@ -683,6 +683,7 @@
       var observer = new MutationObserver(function () {
         var inner = successMsg.querySelector('.sib-form-message-panel__inner-text');
         if (inner && successMsg.style.display !== 'none') {
+          observer.disconnect();
           inner.textContent = 'Check your inbox — click the confirmation link and you\'re on the list.';
         }
       });
