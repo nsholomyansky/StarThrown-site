@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Command Captains Guide — assign captains to your fleets, build their stats, and grow your roster in Star Thrown." />
+  <title>Command Captains Guide — Guides — Star Thrown</title>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://starthrown.com/guides/command-captains-guide" />
+  <meta property="og:title" content="Command Captains Guide — Star Thrown" />
+  <meta property="og:description" content="Captains are commanders you assign to your fleets. A good captain makes your ships hit harder, dodge more damage, and fire sooner." />
+  <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
+  <meta property="og:site_name" content="Star Thrown" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --accent-dim: #1a3a72;
+      --glow:       rgba(79, 143, 255, 0.18);
+      --gold:       #f0c060;
+      --gold-dim:   rgba(240, 192, 96, 0.12);
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      width: 100%;
+      flex: 1;
+      padding-top: 3.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .nav-home {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .nav-home:hover { color: var(--accent); }
+
+    .back-link {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '← '; }
+
+    .guide-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 4.5vw, 2rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .guide-lede {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 0 2.5rem;
+    }
+
+    .guide-body h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 2.5rem 0 0.9rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    .guide-body h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 1.75rem 0 0.6rem;
+    }
+
+    .guide-body p {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .guide-body ul,
+    .guide-body ol {
+      padding-left: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .guide-body li {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+
+    .guide-body strong { color: var(--white); font-weight: 500; }
+
+    .guide-body blockquote {
+      border-left: 3px solid var(--accent);
+      background: rgba(79, 143, 255, 0.06);
+      padding: 0.9rem 1.2rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      border: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+
+    thead tr { background: rgba(79, 143, 255, 0.12); }
+
+    thead th {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background 0.15s;
+    }
+    tbody tr:hover { background: rgba(79, 143, 255, 0.06); }
+
+    tbody td { padding: 0.65rem 1rem; color: var(--text); vertical-align: top; }
+
+    .guide-body hr {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin: 2.5rem 0;
+    }
+
+    /* ── See Also links ───────────────────────────────────────── */
+    .see-also {
+      margin-top: 2rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(79, 143, 255, 0.15);
+      border-radius: 8px;
+    }
+
+    .see-also-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .see-also a {
+      display: block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      transition: color 0.2s;
+    }
+    .see-also a:hover { color: #80b0ff; }
+
+    .back-link-bottom {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-top: 2.5rem;
+      transition: color 0.2s;
+    }
+    .back-link-bottom:hover { color: var(--accent); }
+    .back-link-bottom::before { content: '← '; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+
+    .studio-credit {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .studio-link { color: rgba(255, 255, 255, 0.3); text-decoration: none; transition: color 0.2s; }
+    .studio-link:hover { color: rgba(255, 255, 255, 0.6); }
+
+    .footer-press { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
+
+    @media (max-width: 480px) {
+      .page { padding: 1.5rem 1.25rem 2.5rem; }
+      main { padding-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <main>
+
+      <a href="/" class="nav-home">Star Thrown</a>
+      <a href="/guides" class="back-link">Back to Guides</a>
+
+      <h1 class="guide-title">Command Captains Guide</h1>
+      <p class="guide-lede">Captains are commanders you assign to your fleets. A good captain makes your ships hit harder, dodge more damage, and fire sooner. They grow stronger with every battle.</p>
+      <div class="divider"></div>
+
+      <article class="guide-body">
+
+        <!-- ── What Is a Captain? ── -->
+        <h2>What Is a Captain?</h2>
+        <p>Each of your fleets can have one Captain assigned to it. While a Captain is assigned, they improve the fleet's combat performance and earn experience from every battle the fleet fights.</p>
+        <p>Captains have three stats: <strong>Attack</strong>, <strong>Dodge</strong>, and <strong>Speed</strong>. You build these stats up yourself by spending points you earn as the captain gains experience.</p>
+
+        <hr />
+
+        <!-- ── The Three Stats ── -->
+        <h2>What the Three Stats Do</h2>
+        <p><strong>Attack</strong> increases the total damage your fleet deals in battle. More attack means more enemy ships destroyed per tier.</p>
+        <p><strong>Dodge</strong> reduces the damage your fleet takes after enemy shields are stripped. A high-dodge fleet is harder to hurt. See <a href="/guides/combat-101">Combat 101</a> for how dodge fits into the damage calculation.</p>
+        <p><strong>Speed</strong> determines what order your ships fire in. Ships act in speed tiers — higher speed means your ships fire in an earlier tier, before slower enemies get a chance to shoot back. A captain with high speed can push your fleet into an earlier tier, letting you land hits before taking damage.</p>
+
+        <hr />
+
+        <!-- ── How Captains Gain Experience ── -->
+        <h2>How Captains Gain Experience</h2>
+        <p>After every battle, each participating captain earns XP. Winning earns more XP than losing. XP accumulates in the captain's record.</p>
+        <p>When a captain has enough XP relative to their current level, they earn <strong>available stat points</strong> — points you can spend to increase Attack, Dodge, or Speed. Spending a stat point also raises the captain's level. Each level brings your captain one step closer to their maximum potential.</p>
+
+        <hr />
+
+        <!-- ── Assigning a Captain ── -->
+        <h2>Assigning a Captain to a Fleet</h2>
+        <p>Captain assignments are managed from the <strong>Command Fleet</strong> tab, not from the Captains tab.</p>
+        <ol>
+          <li>Open the <strong>Command</strong> panel and tap the <strong>Fleet</strong> tab.</li>
+          <li>Find the fleet you want to assign a captain to.</li>
+          <li>Tap the captain button on that fleet's card.</li>
+          <li>A panel opens showing your available captains. Select one and confirm.</li>
+        </ol>
+        <p>One captain can only be assigned to one fleet at a time. If you reassign a captain to a different fleet, they leave their current fleet and move to the new one. The fleet they left will have no captain until you assign another.</p>
+
+        <hr />
+
+        <!-- ── Growing Your Roster ── -->
+        <h2>Growing Your Captain Roster</h2>
+        <p>The <strong>Captains</strong> tab is where you manage XP and spend stat points.</p>
+
+        <h3>Spending Training Credits</h3>
+        <p>Tap <strong>Train</strong> to spend one Training Credit. Each training roll has a chance to either unlock a new captain or add XP to your available XP pool.</p>
+        <ul>
+          <li>If you unlock a captain you do not already have, they are added to your roster immediately.</li>
+          <li>If you roll a captain you already own, the XP goes directly to that captain instead.</li>
+        </ul>
+        <p>There is no confirmation step before a Credit is spent. Once you tap <strong>Train</strong>, the Credit is used. Make sure you are ready before you tap.</p>
+
+        <h3>Assigning XP to a Captain</h3>
+        <p>XP earned from training rolls goes into a shared pool first. You decide which captain gets it.</p>
+        <ol>
+          <li>In the <strong>Captains</strong> tab, go to the <strong>Assign XP</strong> section.</li>
+          <li>Select a captain from the dropdown.</li>
+          <li>Enter the amount of XP you want to move to that captain.</li>
+          <li>Tap <strong>Assign XP</strong>.</li>
+        </ol>
+        <p>You cannot assign more XP than your available pool holds.</p>
+
+        <h3>Spending Stat Points</h3>
+        <p>Once a captain has enough XP to earn stat points, you can spend them.</p>
+        <ol>
+          <li>In the <strong>Captains</strong> tab, go to the <strong>Assign Points</strong> section.</li>
+          <li>Select the captain from the dropdown.</li>
+          <li>Choose the stat you want to improve: <strong>ATK</strong> (Attack), <strong>SPD</strong> (Speed), or <strong>DOG</strong> (Dodge).</li>
+          <li>Enter the number of points to spend and tap <strong>Assign Points</strong>.</li>
+        </ol>
+        <p>Each point you spend raises that stat by one and increases the captain's level by one. Raising stats also contributes to your Stardom's overall value.</p>
+
+        <hr />
+
+        <!-- ── Choosing the Right Captain ── -->
+        <h2>Choosing the Right Captain</h2>
+        <p>Not every captain fits every situation.</p>
+        <ul>
+          <li><strong>Attack-focused captains</strong> suit aggressive fleets going on the offensive — more damage per tier means battles end faster, which reduces your own losses.</li>
+          <li><strong>Dodge-focused captains</strong> suit fleets you want to keep alive, especially defenders or fleets facing heavy opposition. High dodge is effective when your fleet has already lost its shields.</li>
+          <li><strong>Speed-focused captains</strong> are most valuable when the difference between acting one tier earlier or later is the difference between your ships firing first or not at all. A speed edge matters most in close, high-value fights.</li>
+        </ul>
+        <p>You do not have to specialise. A captain who improves multiple stats is flexible, but one who excels in one area can tilt a specific scenario decisively.</p>
+        <p>Think about what you need a fleet to do before you spend points. Points cannot be undone.</p>
+
+        <hr />
+
+        <!-- ── Things Worth Knowing ── -->
+        <h2>Things Worth Knowing</h2>
+        <ul>
+          <li><strong>Captains earn XP whether your fleet wins or loses.</strong> Wins give more XP, but every battle counts. A captain on an active fleet grows faster than one sitting idle.</li>
+          <li><strong>The Train button has no undo.</strong> Training Credits are consumed the moment you tap. There is no "are you sure?" prompt.</li>
+          <li><strong>If you roll a captain you already own</strong>, the XP from the roll goes straight to that captain — it does not go to your shared XP pool. This is normal behavior.</li>
+          <li><strong>A captain in battle cannot be reassigned</strong> until the fleet returns and recovers. Plan assignments before sending a fleet out.</li>
+          <li><strong>Stat points cannot be moved between captains.</strong> Once spent, points are permanent on that captain. Choose your captain before you invest heavily in them.</li>
+        </ul>
+
+        <!-- ── See Also ── -->
+        <div class="see-also">
+          <p class="see-also-label">See Also</p>
+          <a href="/guides/combat-101">Combat 101 — how speed tiers, dodge, and attack interact in battle</a>
+          <a href="/guides/alliance-fleets-guide">Alliance Fleets Guide — dispatching fleets with captains assigned</a>
+        </div>
+
+      </article>
+
+      <a href="/guides" class="back-link-bottom">Back to Guides</a>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="footer-press"><a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener" class="studio-link">Privacy Policy</a></p>
+    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 260;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            r: Math.random() * 1.2 + 0.2, alpha: Math.random() * 0.6 + 0.15,
+            speed: Math.random() * 0.25 + 0.05, twinkle: Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.008 + Math.random() * 0.012 });
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      resize(); seed(); requestAnimationFrame(draw);
+      let resizeTimer;
+      window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+</body>
+</html>

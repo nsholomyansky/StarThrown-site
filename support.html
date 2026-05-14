@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Get help with Star Thrown. Contact our support team at support@starthrown.com." />
+  <title>Support — Star Thrown</title>
+
+  <!-- Open Graph / link preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://starthrown.com/support" />
+  <meta property="og:title" content="Support — Star Thrown" />
+  <meta property="og:description" content="Get help with Star Thrown. Contact our support team." />
+  <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
+  <meta property="og:site_name" content="Star Thrown" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --accent-dim: #1a3a72;
+      --glow:       rgba(79, 143, 255, 0.18);
+      --gold:       #f0c060;
+      --gold-dim:   rgba(240, 192, 96, 0.12);
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Starfield canvas ──────────────────────────────────────── */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Layout ────────────────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    /* ── Ambient gradient ──────────────────────────────────────── */
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 4rem;
+    }
+
+    /* ── Game name link at top ─────────────────────────────────── */
+    .nav-home {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      transition: color 0.2s;
+    }
+
+    .nav-home:hover {
+      color: var(--accent);
+    }
+
+    /* ── Page heading ──────────────────────────────────────────── */
+    .support-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      text-align: center;
+    }
+
+    /* ── Divider ────────────────────────────────────────────────── */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 auto 1.75rem;
+    }
+
+    /* ── Intro line ─────────────────────────────────────────────── */
+    .support-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Contact card ───────────────────────────────────────────── */
+    .contact-card {
+      width: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(79, 143, 255, 0.06) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.18);
+      border-radius: 12px;
+      padding: 2rem 2rem 1.75rem;
+      box-shadow: 0 0 40px rgba(79, 143, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    /* ── Section label inside card ──────────────────────────────── */
+    .contact-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── Email link ─────────────────────────────────────────────── */
+    .contact-email {
+      display: inline-block;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.2s, text-shadow 0.2s;
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-email:hover {
+      color: #80b0ff;
+      text-shadow: 0 0 16px rgba(79, 143, 255, 0.5);
+    }
+
+    /* ── Response time note ─────────────────────────────────────── */
+    .response-note {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(79, 143, 255, 0.1);
+      padding-top: 1.1rem;
+    }
+
+    /* ── Links section ──────────────────────────────────────────── */
+    .support-links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .support-link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .support-link-item:hover {
+      border-color: rgba(79, 143, 255, 0.3);
+      background: rgba(79, 143, 255, 0.05);
+      color: var(--white);
+    }
+
+    /* Arrow icon on link items */
+    .support-link-item::after {
+      content: '→';
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .support-link-item:hover::after {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* ── Back link ──────────────────────────────────────────────── */
+    .back-link {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--text);
+    }
+
+    .back-link::before {
+      content: '← ';
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+
+    .studio-credit {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .studio-credit span {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .studio-link {
+      color: rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .studio-link:hover {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .footer-press {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .page {
+        padding: 1.5rem 1.25rem 2.5rem;
+      }
+
+      main {
+        padding-top: 2.5rem;
+      }
+
+      .contact-card {
+        padding: 1.5rem 1.25rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <main>
+
+      <!-- Top nav reference back to game name -->
+      <a href="/" class="nav-home">Star Thrown</a>
+
+      <!-- Page heading -->
+      <h1 class="support-heading">Support</h1>
+      <div class="divider"></div>
+
+      <p class="support-intro">Need help? We're here.</p>
+
+      <!-- Contact card: email + response time -->
+      <div class="contact-card">
+        <p class="contact-label">Email us</p>
+        <a href="mailto:support@starthrown.com" class="contact-email">support@starthrown.com</a>
+        <p class="response-note">We typically respond within a few business days.</p>
+      </div>
+
+      <!-- Links section -->
+      <nav class="support-links" aria-label="Support resources">
+        <a href="/guides" class="support-link-item">Guides</a>
+        <a href="/delete-account" class="support-link-item">Delete My Account</a>
+      </nav>
+
+      <!-- Back to home -->
+      <a href="/" class="back-link">Back to home</a>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="footer-press"><a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener" class="studio-link">Privacy Policy</a></p>
+    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    // ── Procedural starfield ───────────────────────────────────────
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+
+      let stars = [];
+      const STAR_COUNT = 260;
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x:            Math.random() * canvas.width,
+            y:            Math.random() * canvas.height,
+            r:            Math.random() * 1.2 + 0.2,
+            alpha:        Math.random() * 0.6 + 0.15,
+            speed:        Math.random() * 0.25 + 0.05,
+            twinkle:      Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.008 + Math.random() * 0.012,
+          });
+        }
+      }
+
+      function draw(ts) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`;
+          ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      seed();
+      requestAnimationFrame(draw);
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { resize(); seed(); }, 150);
+      });
+    }());
+  </script>
+
+</body>
+</html>

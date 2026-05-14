@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Alliance Management Guide — everything a leader or officer needs to run their alliance in Star Thrown." />
+  <title>Alliance Management Guide — Guides — Star Thrown</title>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://starthrown.com/guides/alliance-management-guide" />
+  <meta property="og:title" content="Alliance Management Guide — Star Thrown" />
+  <meta property="og:description" content="Everything an alliance leader or officer needs to run their alliance — from setting up membership rules to running a vote." />
+  <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
+  <meta property="og:site_name" content="Star Thrown" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --accent-dim: #1a3a72;
+      --glow:       rgba(79, 143, 255, 0.18);
+      --gold:       #f0c060;
+      --gold-dim:   rgba(240, 192, 96, 0.12);
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      width: 100%;
+      flex: 1;
+      padding-top: 3.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .nav-home {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .nav-home:hover { color: var(--accent); }
+
+    .back-link {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '← '; }
+
+    .guide-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .guide-lede {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 0 2.5rem;
+    }
+
+    .guide-body h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 2.5rem 0 0.9rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    .guide-body h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 1.75rem 0 0.6rem;
+    }
+
+    .guide-body p { font-size: 0.95rem; color: var(--text); margin-bottom: 1rem; }
+
+    .guide-body ul,
+    .guide-body ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+
+    .guide-body li { font-size: 0.95rem; color: var(--text); margin-bottom: 0.45rem; }
+
+    .guide-body strong { color: var(--white); font-weight: 500; }
+
+    .guide-body blockquote {
+      border-left: 3px solid var(--gold);
+      background: rgba(240, 192, 96, 0.05);
+      padding: 0.9rem 1.2rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      border: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    thead tr { background: rgba(79, 143, 255, 0.12); }
+    thead th {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    tbody tr { border-top: 1px solid rgba(255, 255, 255, 0.05); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(79, 143, 255, 0.06); }
+    tbody td { padding: 0.65rem 1rem; color: var(--text); vertical-align: top; }
+
+    .guide-body hr {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin: 2.5rem 0;
+    }
+
+    .back-link-bottom {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-top: 2.5rem;
+      transition: color 0.2s;
+    }
+    .back-link-bottom:hover { color: var(--accent); }
+    .back-link-bottom::before { content: '← '; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+    .studio-credit { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+    .studio-link { color: rgba(255, 255, 255, 0.3); text-decoration: none; transition: color 0.2s; }
+    .studio-link:hover { color: rgba(255, 255, 255, 0.6); }
+    .footer-press { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
+
+    @media (max-width: 480px) {
+      .page { padding: 1.5rem 1.25rem 2.5rem; }
+      main { padding-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <main>
+
+      <a href="/" class="nav-home">Star Thrown</a>
+      <a href="/guides" class="back-link">Back to Guides</a>
+
+      <h1 class="guide-title">Alliance Management Guide</h1>
+      <p class="guide-lede">Everything an alliance leader (or officer) needs to run their alliance — from setting up membership rules to running a vote.</p>
+      <div class="divider"></div>
+
+      <article class="guide-body">
+
+        <!-- ── What Is an Alliance? ── -->
+        <h2>What Is an Alliance?</h2>
+        <p>An alliance is a group of players who work together to capture outposts, share technology benefits, and compete on the leaderboard. Alliances can negotiate with other alliances, run internal votes, and coordinate attacks and defenses. Solo players can survive, but holding outposts against other alliances takes teamwork.</p>
+
+        <hr />
+
+        <!-- ── Alliance Ranks ── -->
+        <h2>Alliance Ranks</h2>
+        <p>Every member has a rank. Your rank determines what you can do.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Rank</th><th>What they can do</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Leader</strong></td><td>Everything — full control of the alliance</td></tr>
+              <tr><td><strong>General</strong></td><td>Manage members (up to Lieutenant rank), create polls, change settings, set tax rate</td></tr>
+              <tr><td><strong>Lieutenant</strong></td><td>View alliance settings; limited member management (Probationary and Member only)</td></tr>
+              <tr><td><strong>Member</strong></td><td>Vote on polls, view intel, use alliance chat</td></tr>
+              <tr><td><strong>Probationary</strong></td><td>Can use alliance chat, view alliance intel, and dispatch fleets to defend; cannot vote on polls or update combat status</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Who Can Do What — Quick Reference</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Action</th><th>Leader</th><th>General</th><th>Lieutenant</th><th>Member</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Change alliance name / tag</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
+              <tr><td>Change alliance settings (min score, join mode)</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+              <tr><td>Set tax rate</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+              <tr><td>Promote members to General</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
+              <tr><td>Promote members to Lieutenant</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+              <tr><td>Kick members</td><td>Yes (anyone)</td><td>Yes (below their rank)</td><td>No</td><td>No</td></tr>
+              <tr><td>Transfer leadership</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
+              <tr><td>Create / end polls</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+              <tr><td>Vote on polls</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+              <tr><td>View Alliance Management</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+              <tr><td>Start alliance technology research</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+              <tr><td>Update combat triage status</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr />
+
+        <!-- ── Managing Members ── -->
+        <h2>Managing Members</h2>
+
+        <h3>Inviting Players and Reviewing Applications</h3>
+        <p>You set how players join your alliance in <strong>Alliance Management</strong> under <strong>Alliance Settings</strong>:</p>
+        <ul>
+          <li><strong>Auto Accept on</strong> — players who meet your minimum score and value requirements join immediately without review.</li>
+          <li><strong>Auto Accept off</strong> — players submit a join request and a General or Leader must approve it.</li>
+        </ul>
+        <p>To review pending applications, go to <strong>Alliance Applications</strong> from Alliance Home. Each applicant shows their username, score, and value. Tap a name to open their card, then tap <strong>Accept</strong> or <strong>Reject</strong>.</p>
+        <p>When you accept a player, you assign their starting rank from a dropdown. When you reject a player, they receive a notification and can apply again.</p>
+
+        <h3>Setting Membership Requirements</h3>
+        <p>In <strong>Alliance Settings</strong> (General or Leader required):</p>
+        <ul>
+          <li><strong>Min Score</strong> — players below this score cannot apply.</li>
+          <li><strong>Min Value</strong> — players below this value cannot apply.</li>
+          <li><strong>Auto Accept</strong> toggle — controls whether qualifying applicants join automatically or wait for manual approval.</li>
+        </ul>
+        <p>Tap <strong>Save</strong> after making changes.</p>
+
+        <h3>Promoting and Demoting Members</h3>
+        <ol>
+          <li>Open <strong>Alliance Management</strong> and go to the <strong>Members</strong> panel.</li>
+          <li>Tap a member's name to open their card.</li>
+          <li>Select a new rank from the dropdown and tap <strong>Update Rank</strong>.</li>
+        </ol>
+        <p>What you can assign depends on your own rank:</p>
+        <ul>
+          <li><strong>Leaders</strong> can assign any rank, including transferring leadership to another player.</li>
+          <li><strong>Generals</strong> can manage members below their own rank and assign ranks up to Lieutenant or down to Probationary.</li>
+          <li><strong>Lieutenants</strong> can only move members between Probationary and Member.</li>
+        </ul>
+
+        <h3>Kicking Members</h3>
+        <ol>
+          <li>Open the <strong>Members</strong> panel and tap the member's name.</li>
+          <li>Tap <strong>Kick</strong>.</li>
+        </ol>
+        <p>The kick is immediate. There is no confirmation step, so be sure before you tap. The kicked player is removed from the alliance instantly, their alliance tag disappears from the leaderboard, and both they and the alliance receive a news notification. The kicked player can apply to rejoin later.</p>
+        <p><strong>Leaders</strong> can kick anyone except themselves. <strong>Generals</strong> can kick members strictly below their own rank.</p>
+
+        <h3>Transferring Leadership</h3>
+        <p>To hand the alliance to someone else:</p>
+        <ol>
+          <li>Open the <strong>Members</strong> panel and tap the player you want to make Leader.</li>
+          <li>Select <strong>Leader</strong> from the rank dropdown.</li>
+          <li>Tap <strong>Update Rank</strong>.</li>
+        </ol>
+        <p>This is immediate. You are automatically demoted to Member the moment you confirm. There is no undo and no confirmation dialog — verify your choice before tapping.</p>
+
+        <hr />
+
+        <!-- ── Alliance Tax ── -->
+        <h2>Alliance Tax</h2>
+        <p>The alliance tax is a percentage of each member's passive resource income that goes directly into the alliance treasury. Every tick the game runs, a portion of what each member's Stardom produces is automatically collected and added to the shared pool.</p>
+
+        <h3>Who Sets the Tax Rate</h3>
+        <p><strong>Leaders and Generals</strong> can set the tax rate. It is found in <strong>Alliance Settings</strong> inside <strong>Alliance Management</strong>. The rate can be set anywhere from <strong>0% to 20%</strong> — values outside that range are not accepted.</p>
+
+        <h3>What the Treasury Is Used For</h3>
+        <p>Resources in the treasury fund <strong>alliance technology research</strong> — upgrades that benefit every member of the alliance. See the <a href="#starting-technologies" style="color:var(--accent);text-decoration:none;">Starting Technologies</a> section below for how to put those resources to work.</p>
+
+        <h3>What Leaders and Officers Should Know</h3>
+        <ul>
+          <li><strong>Tax applies to passive resource generation only.</strong> Resources members earn from combat are not taxed. Only the resources their Stardom produces over time.</li>
+          <li><strong>A tax rate of 0% means nothing is collected.</strong> If the treasury is empty or growing slowly, check that the tax rate is set above 0%.</li>
+          <li><strong>The treasury balance shown in Alliance Management is a snapshot.</strong> It does not update in real time. Leave the screen and return to see the latest balance.</li>
+          <li><strong>The cap is 20%.</strong> Setting a higher rate is blocked by the game. This is by design.</li>
+        </ul>
+
+        <hr />
+
+        <!-- ── Applications ── -->
+        <h2>Applications</h2>
+        <p>When Auto Accept is off, players submit a join request from Alliance Home. You review those requests in <strong>Alliance Applications</strong>:</p>
+        <ul>
+          <li>The list shows all pending applicants, oldest first.</li>
+          <li>Tap a name to see their username, score, and value.</li>
+          <li>Tap <strong>Accept</strong> to admit them (you pick their starting rank) or <strong>Reject</strong> to decline.</li>
+          <li>Rejected players receive a notification. They can apply again.</li>
+        </ul>
+        <p>If the applicant list looks blank when you open the screen, wait a moment — the list loads from the server on entry and may take a few seconds on a slow connection. Leave and return if it stays blank.</p>
+
+        <hr />
+
+        <!-- ── Alliance Polls ── -->
+        <h2>Alliance Polls</h2>
+        <p>Polls let you put a decision to a vote before acting on it.</p>
+
+        <h3>Creating a Poll (Leaders and Generals Only)</h3>
+        <ol>
+          <li>Open <strong>Alliance Polls</strong> from Alliance Home.</li>
+          <li>Type your question in the <strong>Poll Question</strong> field.</li>
+          <li>Fill in at least two response options. Tap <strong>Add</strong> to include up to six options total.</li>
+          <li>Choose a duration: <strong>1 Hour</strong>, <strong>24 Hours</strong>, <strong>48 Hours</strong>, or <strong>72 Hours</strong>.</li>
+          <li>If you want members to be able to select more than one answer, turn on <strong>Allow multiple selections</strong>.</li>
+          <li>Tap <strong>Create</strong>.</li>
+        </ol>
+        <p>The poll goes live immediately. Only one poll can be active at a time.</p>
+
+        <h3>How Voting Works</h3>
+        <p>Members (Probationary members cannot vote) open <strong>Alliance Vote</strong> from Alliance Home. The screen shows the question and a label that says either <code>Select one option</code> or <code>Select one or more options</code>. They tap their choice and tap <strong>Vote</strong>. Members can change their vote at any time while the poll is active.</p>
+        <p>You can watch the tallies update live from <strong>Alliance Polls</strong> while the poll is running.</p>
+
+        <h3>Ending a Poll</h3>
+        <p>The poll closes automatically when the timer runs out. Leaders and Generals can also end it early by tapping <strong>End</strong> in <strong>Alliance Polls</strong>. When a poll ends, the final results move to the <strong>Completed Polls</strong> section and stay there for 14 days.</p>
+        <p>Poll questions are written in whatever language the creator uses. They are not automatically translated.</p>
+
+        <hr />
+
+        <!-- ── Alliance Relations ── -->
+        <h2>Alliance Relations</h2>
+        <p>Relations let you set the diplomatic status between your alliance and another. There are three relation types:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Relation</th><th>What it means</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Alliance</strong></td><td>Friendly pact. Neither side attacks the other.</td></tr>
+              <tr><td><strong>NAP</strong> (Non-Aggression Pact)</td><td>Neutral agreement. Neither side attacks the other.</td></tr>
+              <tr><td><strong>Hostile</strong></td><td>No agreement. Both sides can attack freely.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>By default, other alliances are treated as neutral — no formal relation.</p>
+        <p>Relations are managed from the <strong>Alliance Relations</strong> screen, accessible from Alliance Home. Only Leaders and Generals can set or change relations.</p>
+        <p>Setting a relation as <strong>Hostile</strong> is unilateral — you do not need the other alliance's agreement. Setting a formal <strong>Alliance</strong> or <strong>NAP</strong> requires both sides to agree.</p>
+        <p>Relations have a duration and expire automatically. When a relation expires, the two alliances return to neutral status.</p>
+
+        <hr />
+
+        <!-- ── Starting Technologies ── -->
+        <h2 id="starting-technologies">Starting Technologies</h2>
+        <p>Alliance technologies are upgrades that benefit every member of your alliance. There are five categories — things like improved mining, stronger shields, and better Stargate management. Once a technology finishes researching, the benefit applies to the whole alliance automatically.</p>
+
+        <h3>Who Can Start Research</h3>
+        <p>Only <strong>Generals and Leaders</strong> can start a technology. Members, Lieutenants, and Probationary members can view the technology list but cannot start anything.</p>
+
+        <h3>How Research Is Funded</h3>
+        <p>Technology research costs <strong>Gold, Mineral, and Power</strong> from the alliance treasury. The treasury fills over time through the alliance tax (see Alliance Tax above).</p>
+
+        <h3>What a Leader Needs to Know</h3>
+        <ul>
+          <li><strong>Only one technology can be researched at a time.</strong> No other research can be started until the current one finishes.</li>
+          <li><strong>Technologies have prerequisites.</strong> Some cannot be started until an earlier technology in the same category is completed.</li>
+          <li><strong>Research stops if the round ends.</strong> Starting research early in a round gives the alliance more time to benefit from it.</li>
+          <li>To view research progress, open <strong>Alliance Technology</strong> from the Alliance menu. The status bar at the top shows what is being researched and how much time remains.</li>
+        </ul>
+
+        <hr />
+
+        <!-- ── What Leaders Cannot Do ── -->
+        <h2>What Leaders Cannot Do</h2>
+        <p>A few things the game prevents entirely, regardless of rank:</p>
+        <ul>
+          <li><strong>Kick themselves.</strong> A Leader cannot kick their own account out of the alliance. Transfer leadership first, then the new leader can remove you if needed.</li>
+          <li><strong>Have more than one active poll at a time.</strong> Your alliance can only run one poll simultaneously. You must wait for the current poll to end (or end it early) before creating a new one.</li>
+          <li><strong>Change the alliance name or tag more than once every 48 hours.</strong> The 48-hour cooldown applies to each field independently. If the name or tag was recently changed, you will see a message showing how many hours remain.</li>
+          <li><strong>Set a tax rate above 20%.</strong> The maximum is 20%. Values outside the 0–20 range are rejected.</li>
+          <li><strong>Assign a rank equal to or above their own (for Generals).</strong> Generals can only promote members to ranks below their own. Only a Leader can promote someone to General or higher.</li>
+        </ul>
+
+        <hr />
+
+        <!-- ── Things Worth Knowing ── -->
+        <h2>A Few Things Worth Knowing</h2>
+        <p><strong>Alliance score stays with the alliance when members leave.</strong> Score a player earns while in the alliance is permanently added to your total. If a member leaves, that score does not leave with them. This is by design.</p>
+        <p><strong>The treasury balance shown in Alliance Management is a snapshot.</strong> It does not update in real time. Leave the screen and return to see the latest balance.</p>
+        <p><strong>Tax applies to passive resource generation, not combat salvage.</strong> Resources your Stardom produces over time are taxed. Resources you gain from battles are not.</p>
+        <p><strong>New member stats may take a moment to sync.</strong> After a player joins, the alliance member count and stats on the leaderboard update within a few seconds. If they look stale, wait briefly and check again.</p>
+
+      </article>
+
+      <a href="/guides" class="back-link-bottom">Back to Guides</a>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="footer-press"><a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener" class="studio-link">Privacy Policy</a></p>
+    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 260;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            r: Math.random() * 1.2 + 0.2, alpha: Math.random() * 0.6 + 0.15,
+            speed: Math.random() * 0.25 + 0.05, twinkle: Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.008 + Math.random() * 0.012 });
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      resize(); seed(); requestAnimationFrame(draw);
+      let resizeTimer;
+      window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+</body>
+</html>

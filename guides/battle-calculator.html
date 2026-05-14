@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Battle Calculator guide — plan a fight before it happens, apply scan data, and read projected outcomes in Star Thrown." />
+  <title>Battle Calculator — Guides — Star Thrown</title>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://starthrown.com/guides/battle-calculator" />
+  <meta property="og:title" content="Battle Calculator — Star Thrown" />
+  <meta property="og:description" content="Use the Battle Calculator to plan a fight before it happens. Build out both sides, apply scan data, and see how the battle might unfold." />
+  <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
+  <meta property="og:site_name" content="Star Thrown" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --accent-dim: #1a3a72;
+      --glow:       rgba(79, 143, 255, 0.18);
+      --gold:       #f0c060;
+      --gold-dim:   rgba(240, 192, 96, 0.12);
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      width: 100%;
+      flex: 1;
+      padding-top: 3.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .nav-home {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .nav-home:hover { color: var(--accent); }
+
+    .back-link {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '← '; }
+
+    .guide-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 4.5vw, 2rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .guide-lede {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 0 2.5rem;
+    }
+
+    /* ── Section numbering ────────────────────────────────────── */
+    .guide-body h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 2.5rem 0 0.9rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    .guide-body h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 1.75rem 0 0.6rem;
+    }
+
+    .guide-body p { font-size: 0.95rem; color: var(--text); margin-bottom: 1rem; }
+
+    .guide-body ul,
+    .guide-body ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+
+    .guide-body li { font-size: 0.95rem; color: var(--text); margin-bottom: 0.45rem; }
+
+    .guide-body strong { color: var(--white); font-weight: 500; }
+
+    .guide-body em { color: var(--text-muted); }
+
+    .guide-body blockquote {
+      border-left: 3px solid var(--accent);
+      background: rgba(79, 143, 255, 0.06);
+      padding: 0.9rem 1.2rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      border: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    thead tr { background: rgba(79, 143, 255, 0.12); }
+    thead th {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    tbody tr { border-top: 1px solid rgba(255, 255, 255, 0.05); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(79, 143, 255, 0.06); }
+    tbody td { padding: 0.65rem 1rem; color: var(--text); vertical-align: top; }
+
+    /* ── Quick-reference card ─────────────────────────────────── */
+    .quick-ref {
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(79,143,255,0.05) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.18);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0 0 2.5rem;
+    }
+
+    .quick-ref-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 0.75rem 1rem 0.5rem;
+      border-bottom: 1px solid rgba(79, 143, 255, 0.12);
+    }
+
+    .quick-ref table { font-size: 0.85rem; }
+    .quick-ref thead th { font-size: 0.6rem; }
+    .quick-ref tbody td:first-child { color: var(--text-muted); white-space: nowrap; }
+    .quick-ref tbody td:last-child { color: var(--text); }
+
+    .guide-body hr {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin: 2.5rem 0;
+    }
+
+    .back-link-bottom {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-top: 2.5rem;
+      transition: color 0.2s;
+    }
+    .back-link-bottom:hover { color: var(--accent); }
+    .back-link-bottom::before { content: '← '; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+    .studio-credit { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+    .studio-link { color: rgba(255, 255, 255, 0.3); text-decoration: none; transition: color 0.2s; }
+    .studio-link:hover { color: rgba(255, 255, 255, 0.6); }
+    .footer-press { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
+
+    @media (max-width: 480px) {
+      .page { padding: 1.5rem 1.25rem 2.5rem; }
+      main { padding-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <main>
+
+      <a href="/" class="nav-home">Star Thrown</a>
+      <a href="/guides" class="back-link">Back to Guides</a>
+
+      <h1 class="guide-title">Battle Calculator</h1>
+      <p class="guide-lede">Use the Battle Calculator to plan a fight before it happens. Build out both sides, apply scan data for accurate numbers, and see how the battle might unfold — before committing your fleets.</p>
+      <div class="divider"></div>
+
+      <article class="guide-body">
+
+        <!-- ── Quick Reference ── -->
+        <div class="quick-ref">
+          <p class="quick-ref-label">Quick Reference</p>
+          <table>
+            <thead><tr><th>What you want to do</th><th>How to get there</th></tr></thead>
+            <tbody>
+              <tr><td>Open a calc for an incoming fight</td><td>Command Home → incoming combat row → <strong>Battle Calculator</strong></td></tr>
+              <tr><td>Open a calc you already saved</td><td>Command Battles → Battle Calcs → tap the calc row</td></tr>
+              <tr><td>Start a calc from scan results</td><td>Scan Results popup → <strong>Battle Calculator</strong></td></tr>
+              <tr><td>Open a calc from Alliance Fleets</td><td>Alliance Fleets → Combat Session Detail panel → <strong>Battle Calculator</strong></td></tr>
+              <tr><td>Add your own fleets</td><td>Inside the calc → <strong>Add</strong> → <strong>My Fleets</strong> tab → tap <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong></td></tr>
+              <tr><td>Add an alliance member's fleet</td><td>Inside the calc → <strong>Add</strong> → <strong>Alliance</strong> tab → search by username → pick fleet</td></tr>
+              <tr><td>Add any player's fleet</td><td>Inside the calc → <strong>Add</strong> → <strong>Any Player</strong> tab → search → pick fleet → set role</td></tr>
+              <tr><td>Add a blank placeholder fleet</td><td>Inside the calc → <strong>Add</strong> → <strong>Dummy</strong> tab → pick fleet → <strong>Add Attacker</strong> or <strong>Add Defender</strong></td></tr>
+              <tr><td>Apply a scan to an enemy row</td><td>Tap <strong>View Available Scan</strong> on that participant's card → pick a scan</td></tr>
+              <tr><td>Re-run the math after changes</td><td><strong>Update</strong> button</td></tr>
+              <tr><td>Pull in latest combat and scan data</td><td><strong>Refresh</strong> button</td></tr>
+              <tr><td>Save the calc</td><td><strong>Save</strong> button — unsaved edits are lost if you close</td></tr>
+              <tr><td>Exit</td><td><strong>Close</strong> button</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ── 1. What Is It? ── -->
+        <h2>1. What Is the Battle Calculator?</h2>
+        <p>The Battle Calculator is a planning tool. Before a battle resolves, you can load the fleets you think will be involved and see a projected outcome: how many ships each side might lose, how much value each side gains or loses, the likely score impact, and — for base attacks — how many asteroids might change hands.</p>
+        <p>Two things to keep in mind:</p>
+        <ul>
+          <li><strong>Results are a projection, not a guarantee.</strong> The calculator uses the same math as the real battle, but accuracy depends on how current and complete your data is. Stale scans, missing fleets, or estimated numbers will make the projection less precise.</li>
+          <li><strong>The calculator does not affect the battle.</strong> It only helps you plan. The fight resolves independently using live data.</li>
+        </ul>
+
+        <hr />
+
+        <!-- ── 2. How to Open ── -->
+        <h2>2. How Do I Open the Battle Calculator?</h2>
+
+        <h3>From an Incoming Combat (Most Common)</h3>
+        <ol>
+          <li>Go to <strong>Command Home</strong>.</li>
+          <li>Find an incoming combat row.</li>
+          <li>Tap <strong>Battle Calculator</strong> on that row. The calc opens linked to that combat.</li>
+        </ol>
+
+        <h3>From a Saved Calc</h3>
+        <ol>
+          <li>Go to <strong>Command Battles</strong>.</li>
+          <li>Tap <strong>Battle Calcs</strong>.</li>
+          <li>Tap any saved calc row to open it.</li>
+        </ol>
+
+        <h3>From Scan Results</h3>
+        <ol>
+          <li>Run a scan on a target.</li>
+          <li>When the Scan Results popup appears, tap <strong>Battle Calculator</strong>. The calc opens with that target's scan data already loaded.</li>
+        </ol>
+
+        <h3>From Alliance Fleets</h3>
+        <p>There are two places within Alliance Fleets where you can open a calc:</p>
+        <ul>
+          <li><strong>Alliance Intel section</strong> — tap <strong>Battle Calculator</strong> on a combat listed there.</li>
+          <li><strong>Combat Session Detail panel</strong> — tap a combat row to open the detail panel, then tap <strong>Open Battle Calculator</strong>.</li>
+        </ul>
+
+        <hr />
+
+        <!-- ── 3. Adding Fleets ── -->
+        <h2>3. Adding Fleets to Your Calc</h2>
+        <p>Tap <strong>Add</strong> to open the Quick Add popup. It has four tabs.</p>
+
+        <h3>My Fleets</h3>
+        <p>Tap <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong> to add one of your own fleets. Fleets you don't have are grayed out.</p>
+        <p>Your role (attacker or defender) is set automatically based on the combat context. Your fleet rows are <strong>locked</strong>: the numbers come directly from your account and cannot be edited. This keeps your side of the projection accurate.</p>
+
+        <h3>Alliance</h3>
+        <ol>
+          <li>Tap the <strong>Alliance</strong> tab.</li>
+          <li>Type an alliance member's username and tap <strong>Search</strong>.</li>
+          <li>Pick a fleet (<strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong>) and set the role (<strong>Add as Attacker</strong> or <strong>Add as Defender</strong>).</li>
+        </ol>
+        <p>Alliance member rows are <strong>locked</strong> — their live fleet data is used directly. This tab is only available when you are in an alliance.</p>
+
+        <h3>Any Player</h3>
+        <ol>
+          <li>Tap the <strong>Any Player</strong> tab.</li>
+          <li>Type any player's username and tap <strong>Search</strong>.</li>
+          <li>Choose whether their fleet fights as an <strong>Attacker</strong> or <strong>Defender</strong>.</li>
+          <li>Pick which fleet to add: <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong>.</li>
+        </ol>
+        <p><strong>Why the fleet choice matters:</strong> Picking <strong>Base</strong> tells the calc this is a base attack — asteroid capture is factored into the projection. Picking <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong> models a fleet engagement with no asteroid impact. Choose whichever matches what you expect will actually be in the fight.</p>
+        <p>Any Player rows start as blank, editable placeholders — stats are zero until you apply a scan. Once you apply a high-detail enhanced scan, the row locks to protect that accuracy. Rows from basic scans remain editable so you can adjust them if needed.</p>
+
+        <h3>Dummy (What-If Planning)</h3>
+        <ol>
+          <li>Tap the <strong>Dummy</strong> tab.</li>
+          <li>Pick <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong> to choose what the dummy represents.</li>
+          <li>Tap <strong>Add Attacker</strong> or <strong>Add Defender</strong>. A blank row named <strong>Dummy 1</strong> appears (then <strong>Dummy 2</strong>, and so on) with all ship counts at zero.</li>
+          <li>Tap any stat field to enter your estimates.</li>
+        </ol>
+        <p>Dummy rows are fully editable. Use them when you don't have scan data and want to model a best guess. Designating a defender dummy as <strong>Base</strong> also engages the asteroid-capture projection so the <strong>Roids</strong> column reflects what attackers would carry off.</p>
+
+        <hr />
+
+        <!-- ── 4. Applying Scan Data ── -->
+        <h2>4. Applying Scan Data to an Enemy Row</h2>
+        <p>Scan data gives the calc real numbers for enemy fleets. Without it, enemy rows have blank or zero stats and the projection is not meaningful.</p>
+        <p>Tap <strong>View Available Scan</strong> on any enemy participant card to open the scan list. Each entry shows the scan type, when it was taken, and who took it (you or a teammate).</p>
+        <ul>
+          <li>Tap <strong>Add</strong> on any row to apply that scan to the participant.</li>
+          <li>If a scan is already applied, it shows an <strong>Applied</strong> badge.</li>
+          <li>If a teammate uploads a fresher scan while the list is open, it appears automatically — you don't need to close and reopen.</li>
+        </ul>
+
+        <h3>Scans From Before the Combat</h3>
+        <p>By default the list shows only scans taken since the combat started. Tap <strong>History</strong> to see older scans too. These are dimmed but still usable — just treat the numbers as estimates if significant time has passed.</p>
+
+        <h3>Enhanced Scans Are Locked</h3>
+        <p>If the applied scan is a high-detail enhanced target-defense scan, the row locks and cannot be edited. That data is treated as accurate. All other scan types leave the row editable so you can adjust numbers if you think the enemy's fleet has changed.</p>
+
+        <hr />
+
+        <!-- ── 5. Reading the Outcome Table ── -->
+        <h2>5. Reading the Projected Outcome Table</h2>
+        <p>After tapping <strong>Update</strong>, each participant gets a row in the Projected Outcome table:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Column</th><th>What it shows</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Ships</strong></td><td>Ships projected to be destroyed. Negative = ships lost (shown in red).</td></tr>
+              <tr><td><strong>Value</strong></td><td>Resource value gained or lost. Red = loss, green = gain.</td></tr>
+              <tr><td><strong>Score</strong></td><td>Projected score change for this participant. Populated for all fight types.</td></tr>
+              <tr><td><strong>Roids</strong></td><td>Asteroids captured or lost. Base attacks only — shows — for fleet-vs-fleet and outpost combat.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>How the Simulation Decides Who Wins</h3>
+        <p>Ships fight in speed order — faster ships act first. Within the same speed tier, both sides fire simultaneously. Getting the first move doesn't prevent the other side from firing back.</p>
+        <p><strong>Damage layers:</strong> Shields absorb hits first. Dodge reduces ships that get hit. Hull determines how many ships are destroyed by the remainder.</p>
+        <p><strong>EMP</strong> damage bypasses shields and dodge entirely. Ships hit by EMP become incapacitated.</p>
+        <p><strong>Retreat:</strong> A participant pulls out when they've lost a configured percentage of their starting fleet value (typically 30%, set per round). Their remaining ships survive but stop fighting from that point. The calculator reads the round's actual retreat threshold so the projection matches the live battle.</p>
+        <p><strong>Who wins:</strong></p>
+        <ul>
+          <li>All attackers gone, defenders remain — defenders win</li>
+          <li>All defenders gone, attackers remain — attackers win</li>
+          <li>Both sides reach zero — the side that lost less total value wins (ties go to the attacker)</li>
+          <li>Neither side reaches zero — same tie-break on value lost</li>
+        </ul>
+        <p><strong>Asteroids (base attacks only):</strong> Attackers capture asteroids as long as they have ships remaining when the fight ends — even if the defenders won.</p>
+
+        <hr />
+
+        <!-- ── 6. Update, Refresh, Save ── -->
+        <h2>6. Update, Refresh, and Save</h2>
+
+        <h3>Update</h3>
+        <p>Re-runs the simulation using the data currently in the calc. Use this after adding participants, changing numbers, or applying a scan. Update does not pull new data — it only recalculates with what is already loaded.</p>
+
+        <h3>Refresh</h3>
+        <p>Pulls the latest combat session data and re-checks all scans. Use this when:</p>
+        <ul>
+          <li>A teammate has uploaded a new scan since you opened the calc.</li>
+          <li>You think the enemy fleet has changed (ships arrived, ships recalled).</li>
+          <li>Another member has joined or left the fight.</li>
+        </ul>
+        <p>Refresh merges changes: it adds newly detected participants, upgrades existing rows with more accurate data, and removes fleets that have been recalled. Dummy participants are never affected by a Refresh.</p>
+
+        <h3>Save</h3>
+        <p>Writes the current calc to your account. If you are in an alliance, the saved calc is shared — alliance members can view and edit it.</p>
+        <p><strong>Save before you close.</strong> Closing the panel without saving discards all edits immediately, with no warning prompt. If you close by accident, reopening from <strong>Command Battles → Battle Calcs</strong> restores the last saved state.</p>
+        <p><strong>Alliance calcs have no conflict protection.</strong> If two members edit the same calc at the same time, the last save overwrites the earlier one. Coordinate before making major edits to a shared calc.</p>
+
+        <hr />
+
+        <!-- ── 7. After the Battle ── -->
+        <h2>7. After the Battle Resolves</h2>
+        <p>Once a linked battle concludes, the calc becomes a <strong>read-only record</strong>. All fields lock and the Save, Refresh, and Add buttons disable. You can still view the projection you built.</p>
+        <p>To compare your projection against what actually happened, check the battle report for that combat.</p>
+
+        <hr />
+
+        <!-- ── 8. Standalone Calcs ── -->
+        <h2>8. Standalone Calcs and the 72-Hour Limit</h2>
+        <p>A calc not linked to an active combat is called a <strong>standalone calc</strong>. Use these for early planning — modeling an attack before you have formally committed to one.</p>
+        <p>Standalone calcs are automatically removed 72 hours after the last save. There is no warning before deletion. If a standalone calc matters to you, save it regularly or build it closer to when you plan to use it.</p>
+        <p>Calcs linked to an active combat are removed when that combat resolves, not after 72 hours.</p>
+
+        <hr />
+
+        <!-- ── 9. Why Was My Projection Different? ── -->
+        <h2>9. Why Was My Projection Different From the Actual Battle?</h2>
+        <p>The Battle Calculator is a planning tool, not a perfect predictor. Common reasons a projection diverges from the actual result:</p>
+        <p><strong>Stale or incomplete scan data.</strong> If the enemy changed their fleet after your last scan, your projection used outdated numbers. A fresher scan improves accuracy, but there is always a window for changes between scan and battle.</p>
+        <p><strong>Missing participants.</strong> If the enemy brought fleets you didn't know about, or if allies joined the defense after you built the calc, those fleets weren't in your simulation.</p>
+        <p><strong>Dummy placeholder data.</strong> Any fleet modeled with a Dummy row used the numbers you typed. If your estimate was off, the projection is off by the same margin.</p>
+
+        <hr />
+
+        <!-- ── Still Have Questions ── -->
+        <h2>Still Have Questions?</h2>
+        <p>If the calc isn't opening from any entry point, or a projection seems completely off, contact support with your Player ID and a description of which entry point you used.</p>
+        <p><a href="/support" style="color:var(--accent);text-decoration:none;font-weight:500;">Contact Support →</a></p>
+
+      </article>
+
+      <a href="/guides" class="back-link-bottom">Back to Guides</a>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="footer-press"><a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener" class="studio-link">Privacy Policy</a></p>
+    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 260;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            r: Math.random() * 1.2 + 0.2, alpha: Math.random() * 0.6 + 0.15,
+            speed: Math.random() * 0.25 + 0.05, twinkle: Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.008 + Math.random() * 0.012 });
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      resize(); seed(); requestAnimationFrame(draw);
+      let resizeTimer;
+      window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+</body>
+</html>

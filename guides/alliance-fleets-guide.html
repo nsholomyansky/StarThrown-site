@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Alliance Fleets Guide — your alliance war room for combat coordination, triage, and dispatching defenders in Star Thrown." />
+  <title>Alliance Fleets Guide — Guides — Star Thrown</title>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://starthrown.com/guides/alliance-fleets-guide" />
+  <meta property="og:title" content="Alliance Fleets Guide — Star Thrown" />
+  <meta property="og:description" content="Alliance Fleets is your alliance's tactical hub for combat coordination — see every active attack, organize your response, and send your fleet to help." />
+  <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
+  <meta property="og:site_name" content="Star Thrown" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --accent-dim: #1a3a72;
+      --glow:       rgba(79, 143, 255, 0.18);
+      --gold:       #f0c060;
+      --gold-dim:   rgba(240, 192, 96, 0.12);
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      width: 100%;
+      flex: 1;
+      padding-top: 3.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .nav-home {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .nav-home:hover { color: var(--accent); }
+
+    .back-link {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '← '; }
+
+    .guide-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .guide-lede {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+
+    .guide-access {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .guide-access strong { color: var(--text); font-weight: 500; }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 0 2.5rem;
+    }
+
+    .guide-body h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 2.5rem 0 0.9rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    .guide-body h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 1.75rem 0 0.6rem;
+    }
+
+    .guide-body p { font-size: 0.95rem; color: var(--text); margin-bottom: 1rem; }
+
+    .guide-body ul,
+    .guide-body ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+
+    .guide-body li { font-size: 0.95rem; color: var(--text); margin-bottom: 0.45rem; }
+
+    .guide-body strong { color: var(--white); font-weight: 500; }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      border: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    thead tr { background: rgba(79, 143, 255, 0.12); }
+    thead th {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    tbody tr { border-top: 1px solid rgba(255, 255, 255, 0.05); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(79, 143, 255, 0.06); }
+    tbody td { padding: 0.65rem 1rem; color: var(--text); vertical-align: top; }
+
+    /* Status colour pills */
+    .status-open   { color: #ff6b6b; font-weight: 500; }
+    .status-partial { color: #f0c060; font-weight: 500; }
+    .status-stand  { color: #4f8fff; font-weight: 500; }
+    .status-green  { color: #5dbb7f; font-weight: 500; }
+
+    .guide-body hr {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin: 2.5rem 0;
+    }
+
+    .back-link-bottom {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-top: 2.5rem;
+      transition: color 0.2s;
+    }
+    .back-link-bottom:hover { color: var(--accent); }
+    .back-link-bottom::before { content: '← '; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+    .studio-credit { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+    .studio-link { color: rgba(255, 255, 255, 0.3); text-decoration: none; transition: color 0.2s; }
+    .studio-link:hover { color: rgba(255, 255, 255, 0.6); }
+    .footer-press { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
+
+    @media (max-width: 480px) {
+      .page { padding: 1.5rem 1.25rem 2.5rem; }
+      main { padding-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <main>
+
+      <a href="/" class="nav-home">Star Thrown</a>
+      <a href="/guides" class="back-link">Back to Guides</a>
+
+      <h1 class="guide-title">Alliance Fleets: Your Alliance War Room</h1>
+      <p class="guide-lede">Alliance Fleets is your alliance's tactical hub for combat coordination. This is where you see every active attack on alliance members and outposts, organize your alliance's response, and send your own fleet to help.</p>
+      <p class="guide-access"><strong>To get there:</strong> Go to <strong>Alliance Home</strong> and tap <strong>Fleets</strong>.</p>
+      <div class="divider"></div>
+
+      <article class="guide-body">
+
+        <!-- ── What You Can See ── -->
+        <h2>What You Can See</h2>
+        <p>Alliance Fleets has three tabs. Each one answers a different question.</p>
+        <p><strong>Member Attacks</strong> — the default tab when you arrive. Shows every active attack on an alliance member's Stardom or fleet. The most urgent threat is at the top. The red badge on the tab shows how many active attacks exist right now. When the badge turns blue, there are no active attacks.</p>
+        <p><strong>Outpost Attacks</strong> — the same idea, but for your alliance's outposts. If an enemy alliance has launched an attack against one of your outposts, it appears here. Tapping a row opens the detail panel for that combat — the same panel as in Member Attacks — where you can scan attackers, open the Battle Calculator, change the triage status (Member rank and above), or dispatch a fleet to defend the outpost.</p>
+        <p><strong>Our Defenders</strong> — shows which alliance fleets are protecting your outposts right now. Fleets that have already arrived are listed as <strong>Stationed</strong>. Fleets still on their way are listed as <strong>En Route</strong>, with an ETA. This tab is read-only — you can see the picture, but you cannot recall or redirect defenders from here yet.</p>
+        <p>Every tab stays current automatically. You do not need to refresh.</p>
+
+        <hr />
+
+        <!-- ── Triage ── -->
+        <h2>Triage — Responding to Incoming Attacks</h2>
+        <p>Triage is how your alliance coordinates its response to incoming threats. Tapping any row in <strong>Member Attacks</strong> or <strong>Outpost Attacks</strong> opens the detail panel for that combat, which shows the full picture: who is being attacked, which fleets are attacking, how much time is left, and what defenders (if any) are already on the way.</p>
+
+        <h3>The Triage Status</h3>
+        <p>Every combat has a status that tells your alliance what is happening with it. Members with the rank of <strong>Member</strong> or higher can set and change this status. Probationary members can see the status but cannot change it.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Status</th><th>Color</th><th>What it means</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="status-open">Open</span></td>
+                <td>Red</td>
+                <td>No one has responded yet. This needs attention.</td>
+              </tr>
+              <tr>
+                <td><span class="status-partial">Partial</span></td>
+                <td>Amber</td>
+                <td>Some defenders are coming, but coverage may be incomplete.</td>
+              </tr>
+              <tr>
+                <td><span class="status-stand">Stand Down</span></td>
+                <td>Blue</td>
+                <td>The alliance has decided not to defend this one.</td>
+              </tr>
+              <tr>
+                <td><span class="status-green">Covered</span></td>
+                <td>Green</td>
+                <td>Another alliance member is sending defenders.</td>
+              </tr>
+              <tr>
+                <td><span class="status-green">Self-Covered</span></td>
+                <td>Green</td>
+                <td>The player being attacked is handling their own defense.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>Covered</strong> and <strong>Self-Covered</strong> are both green because both mean the situation is handled. The difference is who is handling it.</p>
+        <p>To change the status: open the detail panel, tap <strong>Change Status</strong>, and pick from the five options. The new status is visible to your entire alliance immediately. You can change it again at any time — for example, moving from <strong>Stand Down</strong> back to <strong>Covered</strong> if plans change.</p>
+        <p>No confirmation is required when changing status. It is designed to be fast.</p>
+
+        <hr />
+
+        <!-- ── Dispatching Your Fleet ── -->
+        <h2>Dispatching Your Fleet to Help</h2>
+        <p>Any alliance member can dispatch a fleet to defend — including Probationary members.</p>
+        <ol>
+          <li>Tap a row in <strong>Member Attacks</strong> or <strong>Outpost Attacks</strong> to open the detail panel.</li>
+          <li>Tap <strong>Dispatch Fleet</strong>.</li>
+          <li>The fleet picker shows your eligible fleets. Only fleets that can actually go are listed — ineligible fleets are hidden entirely.</li>
+          <li>Tap a fleet to select it, then tap <strong>Confirm Dispatch Fleet N</strong> to send it.</li>
+        </ol>
+
+        <h3>What Makes a Fleet Eligible</h3>
+        <ul>
+          <li>It has at least one ship.</li>
+          <li>It is currently at your Stardom with no active orders, or it has a <strong>Stay</strong> order.</li>
+        </ul>
+        <p>Fleets that are already moving, attacking, defending somewhere else, or returning home cannot be dispatched and will not appear in the picker.</p>
+
+        <h3>The Join Window</h3>
+        <p>There is a time limit on when new defenders can still arrive in time. If the window has closed by the time you confirm, you will see <em>Too late — your fleet can no longer arrive in time.</em> The combat is too close — no further dispatches are possible for it. Check other active combats that still have time remaining.</p>
+
+        <hr />
+
+        <!-- ── Defending Outposts ── -->
+        <h2>Defending Outposts</h2>
+        <p>Outpost defense works differently from defending a member's Stardom. When an enemy attacks your outpost, they fight your stationed defenders — the fleets that are already there. If no defenders are stationed and the outpost has a shield, the attackers hit the shield first instead. Once the shield is gone and no defenders are present, the outpost can fall.</p>
+
+        <p>There are two ways to defend an outpost:</p>
+        <p><strong>Proactive — station fleets before an attack.</strong> Fleets stationed at an outpost fight automatically when combat starts. You do not need to be online or take any action. This is your primary defense. A shield is a second line of defence, not a first. Fleets stationed at an outpost are your real protection.</p>
+        <p><strong>Reactive — dispatch during an active attack.</strong> If an outpost is already under attack, open the <strong>Outpost Attacks</strong> tab, tap the row for that outpost, and use <strong>Dispatch Fleet</strong> in the detail panel to send a fleet as a reinforcement. Dispatched fleets arrive as reinforcements and join the defense only if the join window is still open. If the join window has closed by the time your fleet would arrive, the dispatch is rejected.</p>
+        <p>You can see which fleets are currently stationed or on their way in the <strong>Our Defenders</strong> tab. If an outpost has no defenders and no fleet is en route, your alliance may want to act now.</p>
+        <p>One important note: <strong>EMP ships do not damage shields.</strong> If your alliance is defending against an attack, EMP attackers cannot knock down the shield directly. Only conventional attack damage affects it.</p>
+
+        <hr />
+
+        <!-- ── Scanning Attackers ── -->
+        <h2>Scanning Attackers</h2>
+        <p>Knowing what you are up against helps your alliance prepare. You can scan any attacker directly from the detail panel.</p>
+        <p><strong>Individual scan:</strong> In the detail panel, tap <strong>Scan</strong> next to any attacker. Pick a scan type, and the results appear. Each scan costs resources. If an attacker has already been scanned by someone in your alliance, the existing scan type is shown on that row. You can still run a higher-quality scan if you have one available.</p>
+        <p><strong>Scan All:</strong> Tap <strong>Scan All</strong> at the bottom of the screen (covers all visible unscanned attackers on the current tab) or inside a detail panel (covers that combat only). A confirmation panel opens where you choose the scan type, see the total cost, and confirm. Scans run in the background — no popup appears for each result. Attacker rows update in real time as results come in.</p>
+        <p>Scan All scans are shared with your whole alliance. If another member has already scanned an attacker, Scan All skips them automatically.</p>
+
+        <hr />
+
+        <!-- ── What You Cannot Do Here ── -->
+        <h2>What You Cannot Do Here</h2>
+        <p>A few things players commonly try in Alliance Fleets that belong elsewhere:</p>
+        <ul>
+          <li><strong>Starting a new attack.</strong> Alliance Fleets is for responding to active combats, not launching new ones. Go to the map to attack.</li>
+          <li><strong>Managing outpost settings or technology.</strong> That is in <strong>Alliance Tech</strong> and alliance management scenes, not here.</li>
+          <li><strong>Recalling a defender already sent.</strong> The Our Defenders tab shows stationed and en-route fleets but does not yet support recall. This will be added in a future update.</li>
+          <li><strong>Viewing resolved battles.</strong> Once a combat finishes, its row disappears from Alliance Fleets. To see the outcome, go to <strong>Command Battles</strong>.</li>
+        </ul>
+
+        <hr />
+
+        <!-- ── Things Worth Knowing ── -->
+        <h2>A Few Things Worth Knowing</h2>
+        <p><strong>The detail panel closes if the combat resolves.</strong> If a battle finishes while you have the detail panel open, the panel closes automatically and you return to the tab list. This is normal. The combat is over — no action was needed.</p>
+        <p><strong>Status is last-write-wins.</strong> If two members update the same status at almost the same time, the one that reaches the server last is what sticks. There is no warning when this happens. In practice, your alliance's coordination in chat will prevent most conflicts.</p>
+        <p><strong>Rank changes take effect immediately.</strong> If you are promoted from Probationary to Member while using Alliance Fleets, the <strong>Change Status</strong> button appears right away — you do not need to leave and return.</p>
+
+      </article>
+
+      <a href="/guides" class="back-link-bottom">Back to Guides</a>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="footer-press"><a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener" class="studio-link">Privacy Policy</a></p>
+    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 260;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            r: Math.random() * 1.2 + 0.2, alpha: Math.random() * 0.6 + 0.15,
+            speed: Math.random() * 0.25 + 0.05, twinkle: Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.008 + Math.random() * 0.012 });
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      resize(); seed(); requestAnimationFrame(draw);
+      let resizeTimer;
+      window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+</body>
+</html>

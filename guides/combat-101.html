@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Combat 101 — everything you need to understand how battles work in Star Thrown, and how to come out ahead." />
+  <title>Combat 101 — Guides — Star Thrown</title>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://starthrown.com/guides/combat-101" />
+  <meta property="og:title" content="Combat 101 — Star Thrown" />
+  <meta property="og:description" content="Everything you need to understand how battles work — and how to come out ahead." />
+  <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
+  <meta property="og:site_name" content="Star Thrown" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --accent-dim: #1a3a72;
+      --glow:       rgba(79, 143, 255, 0.18);
+      --gold:       #f0c060;
+      --gold-dim:   rgba(240, 192, 96, 0.12);
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Starfield ────────────────────────────────────────────── */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Layout ───────────────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    /* ── Ambient glow ─────────────────────────────────────────── */
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      width: 100%;
+      flex: 1;
+      padding-top: 3.5rem;
+      padding-bottom: 3rem;
+    }
+
+    /* ── Nav ──────────────────────────────────────────────────── */
+    .nav-home {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .nav-home:hover { color: var(--accent); }
+
+    /* ── Back link ────────────────────────────────────────────── */
+    .back-link {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '← '; }
+
+    /* ── Page title ───────────────────────────────────────────── */
+    .guide-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 4.5vw, 2rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .guide-lede {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Divider ──────────────────────────────────────────────── */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 0 2.5rem;
+    }
+
+    /* ── Article content ──────────────────────────────────────── */
+    .guide-body h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 2.5rem 0 0.9rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    .guide-body h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 1.75rem 0 0.6rem;
+    }
+
+    .guide-body p {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .guide-body ul,
+    .guide-body ol {
+      padding-left: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .guide-body li {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+
+    .guide-body strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ── Blockquote / callout ─────────────────────────────────── */
+    .guide-body blockquote {
+      border-left: 3px solid var(--accent);
+      background: rgba(79, 143, 255, 0.06);
+      padding: 0.9rem 1.2rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    /* ── Tables ───────────────────────────────────────────────── */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      border: 1px solid rgba(79, 143, 255, 0.15);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    thead tr {
+      background: rgba(79, 143, 255, 0.12);
+    }
+
+    thead th {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover {
+      background: rgba(79, 143, 255, 0.06);
+    }
+
+    tbody td {
+      padding: 0.65rem 1rem;
+      color: var(--text);
+      vertical-align: top;
+    }
+
+    /* ── Horizontal rule ──────────────────────────────────────── */
+    .guide-body hr {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin: 2.5rem 0;
+    }
+
+    /* ── Bottom back link ─────────────────────────────────────── */
+    .back-link-bottom {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-top: 2.5rem;
+      transition: color 0.2s;
+    }
+    .back-link-bottom:hover { color: var(--accent); }
+    .back-link-bottom::before { content: '← '; }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+
+    .studio-credit {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .studio-link {
+      color: rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .studio-link:hover { color: rgba(255, 255, 255, 0.6); }
+
+    .footer-press {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .page { padding: 1.5rem 1.25rem 2.5rem; }
+      main { padding-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <main>
+
+      <!-- Top nav -->
+      <a href="/" class="nav-home">Star Thrown</a>
+
+      <!-- Back to guides -->
+      <a href="/guides" class="back-link">Back to Guides</a>
+
+      <!-- Page heading -->
+      <h1 class="guide-title">Combat 101</h1>
+      <p class="guide-lede">Everything you need to understand how battles work — and how to come out ahead.</p>
+      <div class="divider"></div>
+
+      <!-- Article body -->
+      <article class="guide-body">
+
+        <!-- ── What Is Combat? ── -->
+        <h2>What Is Combat?</h2>
+        <p>Combat is when you fight other players or at outposts against AI-controlled enemies or other alliances. The purpose of combat is to capture outposts, score points, capture asteroids, and crush your enemies.</p>
+        <p>You pick a fight by tapping a target on the map — a rival player's base (Stardom), or their fleet, or an outpost. Then choose which of your fleets to send.</p>
+        <p>Your fleet travels to the target. When it arrives, the battle happens automatically. A few seconds later, your battle report appears.</p>
+
+        <hr />
+
+        <!-- ── How a Battle Plays Out ── -->
+        <h2>How a Battle Plays Out</h2>
+        <p>The outcome is calculated the moment your fleet arrives. Here is what happens under the hood:</p>
+
+        <h3>Attack Order</h3>
+        <p>Ships act in order of (firing) speed. The higher the speed stat, the earlier a ship fires. All ships at the same speed act at the same time. This means a fast but fragile ship can deal damage before a slow heavy ship even fires back.</p>
+        <p>Each ship class fires only once during a battle. If it is destroyed before it gets to fire, it never fires at all. If it is disabled by an EMP ship, it also never fires.</p>
+
+        <h3>Shields and Dodge</h3>
+        <p>If a ship has a Shield stat, it blocks incoming damage for all ships within the fleet. Shields are one-time only per battle.</p>
+        <p><strong>Dodge</strong> reduces how much damage gets through the shields, if any remain. This stat allows a ship a chance to dodge damage directed at it.</p>
+
+        <h3>EMP Ships</h3>
+        <p>EMP ships disable enemy vessels instead of destroying them. One important note: <strong>EMP ships cannot damage an outpost shield.</strong> If you are trying to punch through an outpost's energy barrier, bring conventional attack ships, not EMP ships.</p>
+
+        <h3>Both Sides Fire at Once</h3>
+        <p>Within each speed tier, both sides deal damage at the same time before losses are applied. A wounded fleet still hits back.</p>
+
+        <h3>Retreat</h3>
+        <p>If a side loses enough of its ship value during any point in the battle, it retreats. Retreated ships survive but the fleet faces a longer recovery before it can move again.</p>
+
+        <hr />
+
+        <!-- ── Who Wins? ── -->
+        <h2>Who Wins?</h2>
+        <p>The winning side of the battle is determined by the following rules:</p>
+        <ul>
+          <li>If all attackers are gone and defenders remain — defenders win.</li>
+          <li>If all defenders are gone and attackers remain — attackers win.</li>
+          <li>If both sides still have ships — the side that lost <em>less</em> fighting value wins.</li>
+        </ul>
+        <p>Disabled ships count as "lost" when the game works out who won. A fleet full of EMP'd ships is a losing fleet, even if they are technically still floating.</p>
+
+        <hr />
+
+        <!-- ── What You Gain and Lose ── -->
+        <h2>What You Gain and Lose</h2>
+
+        <h3>Score</h3>
+        <p>Every participant earns score — win or lose. To prevent bullying and encourage taking on challenges, sending a fleet with an overwhelming advantage against the other side earns proportionally less score. Likewise, there is an underdog bonus: if you send a smaller fleet against a larger one and win, you earn significantly more score than you would for an equal match.</p>
+        <p>Note that value contributes to your overall score, so value lost also reduces your total score.</p>
+
+        <h3>Value</h3>
+        <p>Asteroids and ships have a value and that will impact the value gained or lost in a battle. All ship losses decrease your Stardom's value. Asteroids gained or lost increase or decrease your Stardom's value.</p>
+
+        <h3>Salvage</h3>
+        <p>When ships are destroyed, both sides recover some of their cost as resources. Defending your own base recovers more than fighting away from home. In base attacks, the defending player can also recover a share of the attacking ships they destroy — so a well-defended base is profitable even in defeat.</p>
+
+        <h3>Captain XP</h3>
+        <p>If your fleet has a Captain assigned, they gain experience from every battle — more for a win, less for a loss. Captains improve attack, dodge, and speed, so keeping them in action is worth it.</p>
+
+        <h3>Asteroids (Base Attacks Only)</h3>
+        <p>When you attack another player's base, surviving attackers can capture some of the defender's asteroids regardless of who won the battle. Even a losing attack can strip asteroids from a base if you kept ships alive. Asteroids provide ongoing resource income, so this is one of the most strategically important outcomes in the game.</p>
+
+        <hr />
+
+        <!-- ── Recovering After a Fight ── -->
+        <h2>Recovering After a Fight</h2>
+        <p>Attackers always return home after a battle. Once home, your fleet needs a recovery period before it can move again. Winning means a short wait. Losing means a longer wait. Retreating means the longest wait of all.</p>
+        <p>Your home defense fleet — the fleet that stays at your base — never gets a recovery lock. It is always available to defend.</p>
+
+        <hr />
+
+        <!-- ── Fleet Attack vs Base Attack ── -->
+        <h2>Attacking a Base vs. Attacking a Fleet</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Fleet Attack</th>
+                <th>Base Attack</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Who defends?</strong></td>
+                <td>That fleet only, plus any dispatched support</td>
+                <td>Every fleet sitting at the base, plus dispatched support</td>
+              </tr>
+              <tr>
+                <td><strong>Asteroids?</strong></td>
+                <td>No</td>
+                <td>Yes — survivors can capture some</td>
+              </tr>
+              <tr>
+                <td><strong>Score preview in Battle Calculator?</strong></td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>When you attack a base, the defender's home fleets are automatically drafted to fight you. Expect a tougher fight than attacking a lone fleet in the open.</p>
+
+        <hr />
+
+        <!-- ── Outpost Combat ── -->
+        <h2>Outpost Combat</h2>
+        <p>Outposts are fixed map locations that generate hourly score and resources for the alliance that owns them. Taking one is a major strategic move.</p>
+
+        <h3>Attacking an AI Outpost</h3>
+        <p>AI outposts are not owned by any player alliance. Tap the outpost, choose a fleet, and send it. Each attacker fights a separate wave of AI defenders. You capture the outpost when the AI runs out of defenders — either because they were defeated or retreated below their combat threshold. Winning attackers automatically become stationed defenders at the outpost if the outpost is captured by them.</p>
+
+        <h3>Attacking an Alliance-Owned Outpost</h3>
+        <p>When another alliance owns an outpost, the same basic flow applies — but there are two important differences.</p>
+        <p><strong>The defending alliance is warned.</strong> They see an incoming-hostiles alert the moment you launch your attack, giving them time to send reinforcements.</p>
+        <p><strong>The outpost may have a shield.</strong> A shield is an energy barrier that protects the outpost when no defending ships are present. To destroy the shield, bring conventional attack ships — EMP ships deal no damage to shields. As long as the shield has any power remaining, you cannot capture the outpost even if you destroy every defending ship. Note that shields regenerate over time.</p>
+        <p>If you capture the outpost you cannot inherit the previous owner's shield. Your alliance needs to have their own shield technology in place.</p>
+
+        <hr />
+
+        <!-- ── Combat Tips ── -->
+        <h2>Combat Tips</h2>
+        <p><strong>Coordinate base attacks with alliance members.</strong> Multiple fleets that arrive within 15 seconds of the first attacker join the same battle. Team up to take on a stronger opponent. Attack multiple players at once to overwhelm the alliance's defenses. Or send multiple attack waves at players.</p>
+        <p><strong>Take the underdog bonus seriously.</strong> A smaller, well-composed fleet punching up earns more score than a dominant fleet punching down. Quality over quantity can pay off.</p>
+        <p><strong>Use EMP ships carefully.</strong> They are powerful against ships, but useless against outpost shields. Always check whether you are facing a shielded outpost before committing an EMP-heavy fleet.</p>
+        <p><strong>Watch your recovery timers.</strong> A fleet that retreated cannot move for a long time. Avoid throwing fleets recklessly at targets you cannot reasonably defeat — a retreated fleet is a fleet your alliance cannot use when it matters.</p>
+
+      </article>
+
+      <!-- Bottom back link -->
+      <a href="/guides" class="back-link-bottom">Back to Guides</a>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="footer-press"><a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener" class="studio-link">Privacy Policy</a></p>
+    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    // ── Procedural starfield ───────────────────────────────────────
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 260;
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x:            Math.random() * canvas.width,
+            y:            Math.random() * canvas.height,
+            r:            Math.random() * 1.2 + 0.2,
+            alpha:        Math.random() * 0.6 + 0.15,
+            speed:        Math.random() * 0.25 + 0.05,
+            twinkle:      Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.008 + Math.random() * 0.012,
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      resize(); seed(); requestAnimationFrame(draw);
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { resize(); seed(); }, 150);
+      });
+    }());
+  </script>
+
+</body>
+</html>

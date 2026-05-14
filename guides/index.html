@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="In-depth guides for mastering Star Thrown — combat, captains, alliances, and more." />
+  <title>Guides — Star Thrown</title>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://starthrown.com/guides" />
+  <meta property="og:title" content="Guides — Star Thrown" />
+  <meta property="og:description" content="In-depth guides for mastering Star Thrown." />
+  <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
+  <meta property="og:site_name" content="Star Thrown" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --accent-dim: #1a3a72;
+      --glow:       rgba(79, 143, 255, 0.18);
+      --gold:       #f0c060;
+      --gold-dim:   rgba(240, 192, 96, 0.12);
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Starfield ────────────────────────────────────────────── */
+    #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* ── Layout ───────────────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    /* ── Ambient glow ─────────────────────────────────────────── */
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 4rem;
+    }
+
+    /* ── Nav ──────────────────────────────────────────────────── */
+    .nav-home {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      transition: color 0.2s;
+    }
+    .nav-home:hover { color: var(--accent); }
+
+    /* ── Page heading ─────────────────────────────────────────── */
+    .page-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      text-align: center;
+    }
+
+    /* ── Divider ──────────────────────────────────────────────── */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 auto 1.25rem;
+    }
+
+    /* ── Intro ────────────────────────────────────────────────── */
+    .page-intro {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 2.75rem;
+    }
+
+    /* ── Guide cards ──────────────────────────────────────────── */
+    .guide-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 3rem;
+    }
+
+    .guide-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1.1rem 1.4rem 1.1rem 1.3rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(79,143,255,0.04) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.15);
+      border-radius: 10px;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      position: relative;
+    }
+
+    .guide-card:hover {
+      border-color: rgba(79, 143, 255, 0.4);
+      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(79,143,255,0.09) 100%);
+      transform: translateX(3px);
+    }
+
+    /* Arrow indicator */
+    .guide-card::after {
+      content: '→';
+      position: absolute;
+      right: 1.3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: color 0.2s, right 0.15s;
+    }
+
+    .guide-card:hover::after {
+      color: var(--accent);
+      right: 1.1rem;
+    }
+
+    .guide-card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      padding-right: 2rem;
+    }
+
+    .guide-card-desc {
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.5;
+      padding-right: 2rem;
+    }
+
+    /* ── Back link ────────────────────────────────────────────── */
+    .back-link {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--text); }
+    .back-link::before { content: '← '; }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+
+    .studio-credit {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .studio-link { color: rgba(255, 255, 255, 0.3); text-decoration: none; transition: color 0.2s; }
+    .studio-link:hover { color: rgba(255, 255, 255, 0.6); }
+
+    .footer-press { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .page { padding: 1.5rem 1.25rem 2.5rem; }
+      main { padding-top: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <main>
+
+      <!-- Top nav -->
+      <a href="/" class="nav-home">Star Thrown</a>
+
+      <!-- Page heading -->
+      <h1 class="page-heading">Guides</h1>
+      <div class="divider"></div>
+      <p class="page-intro">In-depth guides for mastering Star Thrown.</p>
+
+      <!-- Guide cards -->
+      <nav class="guide-list" aria-label="Guides">
+
+        <a href="/guides/combat-101.html" class="guide-card">
+          <span class="guide-card-title">Combat 101</span>
+          <span class="guide-card-desc">How battles work — attack order, shields, EMP, retreat, and what you gain or lose from every fight.</span>
+        </a>
+
+        <a href="/guides/command-captains-guide.html" class="guide-card">
+          <span class="guide-card-title">Command Captains Guide</span>
+          <span class="guide-card-desc">Assign captains to your fleets, build their Attack, Dodge, and Speed stats, and grow your roster with Training Credits.</span>
+        </a>
+
+        <a href="/guides/alliance-management-guide.html" class="guide-card">
+          <span class="guide-card-title">Alliance Management Guide</span>
+          <span class="guide-card-desc">Everything a leader or officer needs — ranks, membership rules, tax, polls, relations, and technology research.</span>
+        </a>
+
+        <a href="/guides/alliance-fleets-guide.html" class="guide-card">
+          <span class="guide-card-title">Alliance Fleets Guide</span>
+          <span class="guide-card-desc">Your alliance war room — track active attacks, set triage status, dispatch defenders, and scan incoming threats.</span>
+        </a>
+
+        <a href="/guides/battle-calculator.html" class="guide-card">
+          <span class="guide-card-title">Battle Calculator</span>
+          <span class="guide-card-desc">Plan a fight before it happens — add fleets, apply scan data, read projected outcomes, and save calcs for your alliance.</span>
+        </a>
+
+      </nav>
+
+      <!-- Back to home -->
+      <a href="/" class="back-link">Back to home</a>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="footer-press"><a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener" class="studio-link">Privacy Policy</a></p>
+    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 260;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            r: Math.random() * 1.2 + 0.2, alpha: Math.random() * 0.6 + 0.15,
+            speed: Math.random() * 0.25 + 0.05, twinkle: Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.008 + Math.random() * 0.012 });
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      resize(); seed(); requestAnimationFrame(draw);
+      let resizeTimer;
+      window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+</body>
+</html>
