@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Delete your Star Thrown account. This action is permanent after a 7-day grace period." />
+  <title>Delete Account — Star Thrown</title>
+
+  <!-- Open Graph / link preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://starthrown.com/delete-account" />
+  <meta property="og:title" content="Delete Account — Star Thrown" />
+  <meta property="og:description" content="Delete your Star Thrown account." />
+  <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
+  <meta property="og:site_name" content="Star Thrown" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --accent-dim: #1a3a72;
+      --glow:       rgba(79, 143, 255, 0.18);
+      --gold:       #f0c060;
+      --gold-dim:   rgba(240, 192, 96, 0.12);
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+      --danger:     #ff4949;
+      --danger-dim: rgba(255, 73, 73, 0.1);
+      --success:    #13ce66;
+      --success-dim: rgba(19, 206, 102, 0.1);
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Starfield canvas ──────────────────────────────────────── */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Layout ────────────────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    /* ── Ambient gradient ──────────────────────────────────────── */
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 520px;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 4rem;
+    }
+
+    /* ── Top nav reference back to game name ───────────────────── */
+    .nav-home {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      transition: color 0.2s;
+    }
+
+    .nav-home:hover {
+      color: var(--accent);
+    }
+
+    /* ── Page heading ──────────────────────────────────────────── */
+    .page-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.4rem, 5vw, 1.9rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      text-align: center;
+    }
+
+    /* ── Divider ────────────────────────────────────────────────── */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0 auto 1.75rem;
+    }
+
+    /* ── Warning banner ─────────────────────────────────────────── */
+    .warning-banner {
+      width: 100%;
+      background: rgba(255, 73, 73, 0.08);
+      border: 1px solid rgba(255, 73, 73, 0.28);
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .warning-banner svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--danger);
+    }
+
+    .warning-banner p {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #f5b0b0;
+      line-height: 1.55;
+    }
+
+    /* ── Form card ──────────────────────────────────────────────── */
+    .form-card {
+      width: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(79, 143, 255, 0.06) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.18);
+      border-radius: 12px;
+      padding: 1.75rem 1.75rem 1.5rem;
+      box-shadow: 0 0 40px rgba(79, 143, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Form field group ───────────────────────────────────────── */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .field-input {
+      width: 100%;
+      background: rgba(5, 8, 15, 0.7);
+      border: 1px solid rgba(79, 143, 255, 0.22);
+      border-radius: 6px;
+      padding: 0.7rem 1rem;
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .field-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .field-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(79, 143, 255, 0.12);
+    }
+
+    .field-input:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* ── Inline error message ───────────────────────────────────── */
+    .inline-error {
+      display: none;
+      font-size: 0.8rem;
+      color: var(--danger);
+      margin-top: 0.5rem;
+      padding: 0.55rem 0.8rem;
+      background: var(--danger-dim);
+      border: 1px solid rgba(255, 73, 73, 0.25);
+      border-radius: 6px;
+      line-height: 1.45;
+    }
+
+    .inline-error.visible {
+      display: block;
+    }
+
+    /* ── Primary button ─────────────────────────────────────────── */
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #2c5fc4 0%, #4f8fff 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: 0.8rem 1.4rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      opacity: 0.88;
+      box-shadow: 0 0 20px rgba(79, 143, 255, 0.4);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* ── Destructive button ─────────────────────────────────────── */
+    .btn-destructive {
+      width: 100%;
+      background: linear-gradient(135deg, #a01a1a 0%, #cc3333 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: 0.8rem 1.4rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-destructive:hover:not(:disabled) {
+      opacity: 0.88;
+      box-shadow: 0 0 20px rgba(204, 51, 51, 0.4);
+    }
+
+    .btn-destructive:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* ── Loading spinner ─────────────────────────────────────────── */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Confirm section (pre-confirm state) ───────────────────── */
+    .confirm-reauth-hint {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.55;
+    }
+
+    /* ── Cancel link ─────────────────────────────────────────────── */
+    .cancel-link {
+      display: block;
+      text-align: center;
+      margin-top: 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      font-family: 'Space Grotesk', sans-serif;
+      width: 100%;
+    }
+
+    .cancel-link:hover {
+      color: var(--text);
+    }
+
+    /* ── Success card ───────────────────────────────────────────── */
+    .success-card {
+      width: 100%;
+      background: var(--success-dim);
+      border: 1px solid rgba(19, 206, 102, 0.28);
+      border-radius: 12px;
+      padding: 1.75rem 1.75rem 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .success-icon {
+      margin: 0 auto 1rem;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(19, 206, 102, 0.15);
+      border-radius: 50%;
+    }
+
+    .success-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--success);
+      margin-bottom: 0.75rem;
+    }
+
+    .success-body {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: 0.6rem;
+    }
+
+    .success-date {
+      font-weight: 500;
+      color: var(--gold);
+    }
+
+    .success-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding-top: 1rem;
+      border-top: 1px solid rgba(19, 206, 102, 0.15);
+      margin-top: 0.85rem;
+    }
+
+    /* ── Back link ──────────────────────────────────────────────── */
+    .back-link {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-top: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--text);
+    }
+
+    .back-link::before {
+      content: '← ';
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+
+    .studio-credit {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .studio-link {
+      color: rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .studio-link:hover {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .footer-press {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .page {
+        padding: 1.5rem 1.25rem 2.5rem;
+      }
+
+      main {
+        padding-top: 2.5rem;
+      }
+
+      .form-card {
+        padding: 1.5rem 1.25rem 1.25rem;
+      }
+
+      .success-card {
+        padding: 1.5rem 1.25rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <main>
+
+      <!-- Top nav reference -->
+      <a href="/" class="nav-home">Star Thrown</a>
+
+      <!-- Page heading -->
+      <h1 class="page-heading">Delete Account</h1>
+      <div class="divider"></div>
+
+      <!-- ── WARNING BANNER (always visible) ───────────────────── -->
+      <div class="warning-banner" role="alert">
+        <!-- Warning triangle icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <p>Account deletion is permanent. After a 7-day grace period, your account, stardoms, alliances, and all associated data are deleted and cannot be recovered.</p>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════
+           STATE 1 — IDLE (sign-in form)
+           Shown on page load. Hidden once auth succeeds.
+      ═══════════════════════════════════════════════════════════ -->
+      <section id="state-idle" class="form-card" aria-label="Sign in to continue">
+        <div class="field-group">
+
+          <!-- Email field -->
+          <div>
+            <label for="input-email" class="field-label">Email</label>
+            <input
+              type="email"
+              id="input-email"
+              class="field-input"
+              placeholder="your@email.com"
+              autocomplete="email"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- Password field -->
+          <div>
+            <label for="input-password" class="field-label">Password</label>
+            <input
+              type="password"
+              id="input-password"
+              class="field-input"
+              placeholder="Your password"
+              autocomplete="current-password"
+            />
+          </div>
+
+        </div>
+
+        <!-- Inline error: shown on auth failure, cleared on next attempt -->
+        <div id="error-auth" class="inline-error" role="alert"></div>
+
+        <!-- Sign In button -->
+        <button id="btn-sign-in" class="btn-primary" type="button">
+          Sign In
+        </button>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           STATE 2 — PRE-CONFIRM (password re-entry confirmation)
+           Shown after successful Firebase auth, before CF call.
+           Hidden by default.
+      ═══════════════════════════════════════════════════════════ -->
+      <section id="state-confirm" class="form-card" aria-label="Confirm account deletion" style="display:none;">
+
+        <!-- Instruction message -->
+        <p class="confirm-reauth-hint">Enter your password one more time to confirm deletion.</p>
+
+        <!-- Password re-entry field -->
+        <div style="margin-bottom:1.25rem;">
+          <label for="input-confirm-password" class="field-label">Password</label>
+          <input
+            type="password"
+            id="input-confirm-password"
+            class="field-input"
+            placeholder="Your password"
+            autocomplete="current-password"
+          />
+        </div>
+
+        <!-- Inline error: shown on re-auth failure or CF failure -->
+        <div id="error-confirm" class="inline-error" role="alert"></div>
+
+        <!-- Confirm Delete button — disabled until password field is non-empty -->
+        <button id="btn-confirm-delete" class="btn-destructive" type="button" disabled>
+          Confirm Deletion
+        </button>
+
+        <!-- Cancel: signs user out and returns to idle -->
+        <button id="btn-cancel" class="cancel-link" type="button">
+          Cancel — sign out and go back
+        </button>
+
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           STATE 3 — SUCCESS
+           Shown after the CF returns successfully.
+           Hidden by default.
+      ═══════════════════════════════════════════════════════════ -->
+      <section id="state-success" class="success-card" aria-label="Account deletion scheduled" style="display:none;">
+
+        <div class="success-icon" aria-hidden="true">
+          <!-- Checkmark icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#13ce66" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+
+        <h2 class="success-heading">Deletion Scheduled</h2>
+
+        <p class="success-body">
+          Your account is scheduled for deletion.
+        </p>
+
+        <p class="success-body">
+          You have until <span class="success-date" id="grace-period-date">—</span> to change your mind.
+          Open Star Thrown and tap <strong>Cancel Deletion</strong> in Account Settings.
+        </p>
+
+        <p class="success-note">
+          You have been signed out of this page.
+        </p>
+
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           STATE 4 — LOADING OVERLAY
+           The sign-in button and confirm button show inline spinners
+           via JS class toggling — no separate section needed.
+           The loading state is communicated through disabled inputs
+           and button label change (spinner + text).
+      ═══════════════════════════════════════════════════════════ -->
+
+      <a href="/support" class="back-link" id="link-back">Back to support</a>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="footer-press"><a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener" class="studio-link">Privacy Policy</a></p>
+    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+  </footer>
+
+  <!-- ── Procedural starfield (verbatim from index.html) ───────── -->
+  <script>
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+
+      let stars = [];
+      const STAR_COUNT = 260;
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x:            Math.random() * canvas.width,
+            y:            Math.random() * canvas.height,
+            r:            Math.random() * 1.2 + 0.2,
+            alpha:        Math.random() * 0.6 + 0.15,
+            speed:        Math.random() * 0.25 + 0.05,
+            twinkle:      Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.008 + Math.random() * 0.012,
+          });
+        }
+      }
+
+      function draw(ts) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`;
+          ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      seed();
+      requestAnimationFrame(draw);
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { resize(); seed(); }, 150);
+      });
+    }());
+  </script>
+
+  <!-- ── Firebase Web SDK v9+ modular (ESM) ────────────────────── -->
+  <script type="module">
+    import { initializeApp }                        from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+    import { getFunctions, httpsCallable }          from "https://www.gstatic.com/firebasejs/11.0.0/firebase-functions.js";
+
+    // ── Firebase config — replace all REPLACE_WITH_PROD_* values before deploy ──
+    const firebaseConfig = {
+      apiKey:            "REPLACE_WITH_PROD_API_KEY",
+      authDomain:        "REPLACE_WITH_PROD_AUTH_DOMAIN",
+      databaseURL:       "REPLACE_WITH_PROD_DATABASE_URL",
+      projectId:         "REPLACE_WITH_PROD_PROJECT_ID",
+      storageBucket:     "REPLACE_WITH_PROD_STORAGE_BUCKET",
+      messagingSenderId: "REPLACE_WITH_PROD_MESSAGING_SENDER_ID",
+      appId:             "REPLACE_WITH_PROD_APP_ID"
+    };
+
+    const app       = initializeApp(firebaseConfig);
+    const auth      = getAuth(app);
+    const functions = getFunctions(app);
+
+    // ── DOM references ────────────────────────────────────────────
+    const stateIdle    = document.getElementById('state-idle');
+    const stateConfirm = document.getElementById('state-confirm');
+    const stateSuccess = document.getElementById('state-success');
+
+    const inputEmail           = document.getElementById('input-email');
+    const inputPassword        = document.getElementById('input-password');
+    const inputConfirmPassword = document.getElementById('input-confirm-password');
+
+    const btnSignIn        = document.getElementById('btn-sign-in');
+    const btnConfirmDelete = document.getElementById('btn-confirm-delete');
+    const btnCancel        = document.getElementById('btn-cancel');
+
+    const errorAuth       = document.getElementById('error-auth');
+    const errorConfirm    = document.getElementById('error-confirm');
+    const gracePeriodDate = document.getElementById('grace-period-date');
+    const linkBack        = document.getElementById('link-back');
+
+    // ── State transitions ─────────────────────────────────────────
+
+    function showIdle() {
+      stateIdle.style.display    = '';
+      stateConfirm.style.display = 'none';
+      stateSuccess.style.display = 'none';
+      linkBack.style.display     = '';
+      inputEmail.disabled        = false;
+      inputPassword.disabled     = false;
+      inputConfirmPassword.value = '';
+      clearError(errorAuth);
+      clearError(errorConfirm);
+      setSignInLoading(false);
+    }
+
+    function showConfirm() {
+      stateIdle.style.display        = 'none';
+      stateConfirm.style.display     = '';
+      stateSuccess.style.display     = 'none';
+      inputConfirmPassword.value     = '';
+      btnConfirmDelete.disabled      = true;
+      clearError(errorConfirm);
+    }
+
+    function showSuccess() {
+      stateIdle.style.display    = 'none';
+      stateConfirm.style.display = 'none';
+      stateSuccess.style.display = '';
+      linkBack.style.display     = '';
+
+      // Calculate T+7 grace period date
+      const deadline = new Date();
+      deadline.setDate(deadline.getDate() + 7);
+      gracePeriodDate.textContent = deadline.toLocaleDateString(undefined, {
+        year:  'numeric',
+        month: 'long',
+        day:   'numeric'
+      });
+    }
+
+    // ── Loading state helpers ─────────────────────────────────────
+
+    function setSignInLoading(loading) {
+      btnSignIn.disabled     = loading;
+      inputEmail.disabled    = loading;
+      inputPassword.disabled = loading;
+      btnSignIn.innerHTML    = loading
+        ? '<span class="spinner" aria-hidden="true"></span>Signing in…'
+        : 'Sign In';
+    }
+
+    function setConfirmLoading(loading) {
+      btnConfirmDelete.disabled      = loading;
+      btnCancel.disabled             = loading;
+      inputConfirmPassword.disabled  = loading;
+      btnConfirmDelete.innerHTML     = loading
+        ? '<span class="spinner" aria-hidden="true"></span>Deleting…'
+        : 'Confirm Deletion';
+    }
+
+    // ── Error helpers ─────────────────────────────────────────────
+
+    function showError(el, message) {
+      el.textContent = message;
+      el.classList.add('visible');
+    }
+
+    function clearError(el) {
+      el.textContent = '';
+      el.classList.remove('visible');
+    }
+
+    // ── Map Firebase Auth error codes to user-facing copy ─────────
+
+    function authErrorMessage(code) {
+      switch (code) {
+        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
+        case 'auth/invalid-email':
+          return 'Email or password incorrect.';
+        case 'auth/user-not-found':
+          return 'No account matches that email.';
+        case 'auth/network-request-failed':
+          return "Couldn’t reach our servers. Try again.";
+        default:
+          return 'Email or password incorrect.';
+      }
+    }
+
+    // ── Map Cloud Function error codes to user-facing copy ────────
+
+    function cfErrorMessage(code, message) {
+      if (code === 'functions/not-found') {
+        return 'No account matches that email.';
+      }
+      if (code === 'functions/already-exists' || (message && message.includes('already'))) {
+        return 'This account is already scheduled for deletion. Open the game and tap Cancel Deletion to reverse it.';
+      }
+      if (code === 'functions/unavailable' || code === 'functions/internal') {
+        return "Couldn’t reach our servers. Try again.";
+      }
+      return 'Something went wrong. Please try again.';
+    }
+
+    // ── STEP 1 — Sign in with email + password ────────────────────
+
+    btnSignIn.addEventListener('click', async () => {
+      clearError(errorAuth);
+
+      const email    = inputEmail.value.trim();
+      const password = inputPassword.value;
+
+      if (!email || !password) {
+        showError(errorAuth, 'Please enter your email and password.');
+        return;
+      }
+
+      setSignInLoading(true);
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showConfirm();
+      } catch (err) {
+        showError(errorAuth, authErrorMessage(err.code));
+        setSignInLoading(false);
+      }
+    });
+
+    // Allow Enter key on password field to trigger sign-in
+    inputPassword.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') btnSignIn.click();
+    });
+
+    // ── STEP 2 — Enable confirm button once password field is non-empty ──
+
+    inputConfirmPassword.addEventListener('input', () => {
+      clearError(errorConfirm);
+      btnConfirmDelete.disabled = inputConfirmPassword.value.length === 0;
+    });
+
+    // Allow Enter key on confirm-password field to trigger deletion
+    inputConfirmPassword.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !btnConfirmDelete.disabled) btnConfirmDelete.click();
+    });
+
+    // ── STEP 3 — Re-authenticate then call deleteUserAccount CF ───
+
+    btnConfirmDelete.addEventListener('click', async () => {
+      const confirmPw = inputConfirmPassword.value;
+      if (!confirmPw) return;
+
+      clearError(errorConfirm);
+      setConfirmLoading(true);
+
+      const deleteUserAccount = httpsCallable(functions, 'deleteUserAccount');
+
+      try {
+        // Re-authenticate to verify the password before destructive action
+        const user       = auth.currentUser;
+        const reAuthCred = EmailAuthProvider.credential(user.email, confirmPw);
+        await reauthenticateWithCredential(user, reAuthCred);
+
+        // Password confirmed — proceed with deletion
+        await deleteUserAccount();
+        await signOut(auth);
+        showSuccess();
+      } catch (err) {
+        // Map re-auth failure to a clear message; fall back for anything else
+        let message;
+        if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+          message = 'Incorrect password.';
+        } else if (err.code && err.code.startsWith('auth/')) {
+          message = 'Incorrect password.';
+        } else {
+          message = cfErrorMessage(err.code, err.message);
+        }
+
+        // Only sign out on non-auth errors (wrong-password keeps user signed in
+        // so they can retry without going back through sign-in)
+        const isReAuthError = err.code && err.code.startsWith('auth/');
+        if (!isReAuthError) {
+          try { await signOut(auth); } catch (_) { /* best-effort */ }
+        }
+
+        showError(errorConfirm, message);
+        setConfirmLoading(false);
+        btnCancel.disabled = false;
+      }
+    });
+
+    // ── Cancel — sign out and return to idle ──────────────────────
+
+    btnCancel.addEventListener('click', async () => {
+      try { await signOut(auth); } catch (_) { /* best-effort */ }
+      inputEmail.value    = '';
+      inputPassword.value = '';
+      showIdle();
+    });
+
+  </script>
+
+</body>
+</html>
