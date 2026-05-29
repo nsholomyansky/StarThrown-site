@@ -172,8 +172,9 @@
       text-align: left !important;
     }
 
-    /* Hide Brevo's own title — we have ours above */
-    .sib-form-block p {
+    /* Hide Brevo's own title and helper texts */
+    .sib-form-block p,
+    .entry__specification {
       display: none !important;
     }
 
@@ -200,12 +201,8 @@
       letter-spacing: 0.08em !important;
       text-transform: uppercase !important;
       color: var(--text-muted) !important;
-      margin-bottom: 0.4rem !important;
-    }
-
-    /* Hide Brevo's helper text ("Provide your email address...") */
-    .entry__specification {
-      display: none !important;
+      margin-bottom: 0.6rem !important;
+      display: block !important;
     }
 
     /* Text + email inputs */
@@ -233,31 +230,105 @@
       outline: none !important;
     }
 
-    /* Select dropdowns */
-    #sib-container select {
-      background: #0a0f1e !important;
-      background-color: #0a0f1e !important;
-      border: 1px solid rgba(240,192,96,0.25) !important;
-      border-radius: 6px !important;
-      color: #ffffff !important;
-      font-family: 'Space Grotesk', sans-serif !important;
-      font-size: 0.9rem !important;
-      padding: 0.7rem 1rem !important;
-      width: 100% !important;
-      appearance: none !important;
-      -webkit-appearance: none !important;
-      cursor: pointer !important;
+    /* ── Custom radio buttons & checkbox ──────────────────────── */
+    .custom-field-group {
+      margin-bottom: 1.25rem;
     }
 
-    #sib-container select:focus {
-      border-color: var(--gold) !important;
-      outline: none !important;
+    .custom-field-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
     }
 
-    #sib-container select option {
-      background: #0a0f1e !important;
-      color: #ffffff !important;
+    .custom-field-label .req { color: #ff4949; }
+
+    .custom-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
+
+    .custom-radio,
+    .custom-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      user-select: none;
+    }
+
+    .custom-radio input[type="radio"],
+    .custom-checkbox input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .custom-radio__dot {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(240,192,96,0.35);
+      border-radius: 50%;
+      background: #0a0f1e;
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .custom-radio__dot::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .custom-radio input[type="radio"]:checked + .custom-radio__dot { border-color: var(--gold); }
+    .custom-radio input[type="radio"]:checked + .custom-radio__dot::after { opacity: 1; }
+
+    .custom-checkbox__box {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(240,192,96,0.35);
+      border-radius: 4px;
+      background: #0a0f1e;
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .custom-checkbox__box::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 6px;
+      height: 10px;
+      border: 2px solid #05080f;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .custom-checkbox input[type="checkbox"]:checked + .custom-checkbox__box {
+      border-color: var(--gold);
+      background: var(--gold);
+    }
+
+    .custom-checkbox input[type="checkbox"]:checked + .custom-checkbox__box::after { opacity: 1; }
 
     /* Submit button */
     .sib-form-block__button {
@@ -316,8 +387,10 @@
 
     /* Spacing between form fields */
     #sib-container .sib-form-block,
-    #sib-container .sib-input {
-      margin-bottom: 1rem !important;
+    #sib-container .sib-input,
+    #sib-container .sib-radiobutton-group,
+    #sib-container .sib-optin {
+      margin-bottom: 1.25rem !important;
     }
 
     /* ── Footer ─────────────────────────────────────────────────── */
@@ -409,11 +482,12 @@
             <div id="sib-container" class="sib-container--large sib-container--vertical">
               <form id="sib-form" method="POST" action="https://f14a0655.sibforms.com/serve/MUIFALi4qvqzH2jfC9aCGPJhvJqvSvGTNyyyTMgj_Xx2HHR-_MPK_eVMM54llHZFgHbPRvZ5sIlC-llMwlahhu4KY8gtw0kANq8kL-yacRwtF5AVyylxNsTN-sqvfU8BeuqKjnPyPKclgF_t1Uo1WRe-VY8LG7VCWivJPPtZ6thbL_Y2-YGccGYdJNnCo9Dr3kZ8Whrq1VEvSMdEyQ==" data-type="subscription">
 
+                <!-- Email -->
                 <div style="padding: 4px 0;">
                   <div class="sib-input sib-form-block">
                     <div class="form__entry entry_block">
                       <div class="form__label-row">
-                        <label class="entry__label" for="EMAIL">Email address</label>
+                        <label class="entry__label" for="EMAIL" data-required="*">Email address</label>
                         <div class="entry__field">
                           <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="your@email.com" data-required="true" required />
                         </div>
@@ -423,8 +497,41 @@
                   </div>
                 </div>
 
+                <!-- Device -->
+                <div class="custom-field-group">
+                  <p class="custom-field-label">What device do you have? <span class="req">*</span></p>
+                  <div class="custom-radio-group">
+                    <label class="custom-radio">
+                      <input type="radio" name="DEVICE" value="1" required />
+                      <span class="custom-radio__dot"></span>
+                      iOS
+                    </label>
+                    <label class="custom-radio">
+                      <input type="radio" name="DEVICE" value="2" required />
+                      <span class="custom-radio__dot"></span>
+                      Android
+                    </label>
+                    <label class="custom-radio">
+                      <input type="radio" name="DEVICE" value="3" required />
+                      <span class="custom-radio__dot"></span>
+                      Both
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Strategy game fan -->
+                <div class="custom-field-group">
+                  <p class="custom-field-label">Are you a strategy game fan?</p>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" name="STRATEGY_GAME_FAN" value="1" id="STRATEGY_GAME_FAN" />
+                    <span class="custom-checkbox__box"></span>
+                    Yes!
+                  </label>
+                </div>
+
                 <div class="g-recaptcha" data-sitekey="6Lcc2twsAAAAAC3sl0NAh5w-azkjzNMRzPU5wo6F" data-callback="invisibleCaptchaCallback" data-size="invisible"></div>
 
+                <!-- Submit -->
                 <div style="padding: 4px 0;">
                   <div class="sib-form-block">
                     <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
