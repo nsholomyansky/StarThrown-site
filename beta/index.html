@@ -253,8 +253,7 @@
       gap: 0.5rem;
     }
 
-    .custom-radio,
-    .custom-checkbox {
+    .custom-radio {
       display: flex;
       align-items: center;
       gap: 0.6rem;
@@ -265,8 +264,7 @@
       user-select: none;
     }
 
-    .custom-radio input[type="radio"],
-    .custom-checkbox input[type="checkbox"] {
+    .custom-radio input[type="radio"] {
       position: absolute;
       opacity: 0;
       width: 0;
@@ -297,38 +295,6 @@
     .custom-radio input[type="radio"]:checked + .custom-radio__dot { border-color: var(--gold); }
     .custom-radio input[type="radio"]:checked + .custom-radio__dot::after { opacity: 1; }
 
-    .custom-checkbox__box {
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(240,192,96,0.35);
-      border-radius: 4px;
-      background: #0a0f1e;
-      flex-shrink: 0;
-      position: relative;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .custom-checkbox__box::after {
-      content: '';
-      position: absolute;
-      left: 4px;
-      top: 1px;
-      width: 6px;
-      height: 10px;
-      border: 2px solid #05080f;
-      border-top: none;
-      border-left: none;
-      transform: rotate(45deg);
-      opacity: 0;
-      transition: opacity 0.15s;
-    }
-
-    .custom-checkbox input[type="checkbox"]:checked + .custom-checkbox__box {
-      border-color: var(--gold);
-      background: var(--gold);
-    }
-
-    .custom-checkbox input[type="checkbox"]:checked + .custom-checkbox__box::after { opacity: 1; }
 
     /* Submit button */
     .sib-form-block__button {
@@ -522,11 +488,18 @@
                 <!-- Strategy game fan -->
                 <div class="custom-field-group">
                   <p class="custom-field-label">Are you a strategy game fan?</p>
-                  <label class="custom-checkbox">
-                    <input type="checkbox" name="STRATEGY_GAME_FAN" value="1" id="STRATEGY_GAME_FAN" />
-                    <span class="custom-checkbox__box"></span>
-                    Yes!
-                  </label>
+                  <div class="custom-radio-group">
+                    <label class="custom-radio">
+                      <input type="radio" name="STRATEGY_GAME_FAN" value="1" />
+                      <span class="custom-radio__dot"></span>
+                      Yes
+                    </label>
+                    <label class="custom-radio">
+                      <input type="radio" name="STRATEGY_GAME_FAN" value="2" />
+                      <span class="custom-radio__dot"></span>
+                      No
+                    </label>
+                  </div>
                 </div>
 
                 <div class="g-recaptcha" data-sitekey="6Lcc2twsAAAAAC3sl0NAh5w-azkjzNMRzPU5wo6F" data-callback="invisibleCaptchaCallback" data-size="invisible"></div>
