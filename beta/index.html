@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Apply to be a beta tester for Star Thrown — a competitive mobile strategy game by Boundless Alchemy." />
+  <title>Beta Access — Star Thrown</title>
+
+  <meta name="robots" content="noindex" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:         #05080f;
+      --bg-mid:     #080d1a;
+      --accent:     #4f8fff;
+      --accent-dim: #1a3a72;
+      --glow:       rgba(79, 143, 255, 0.18);
+      --gold:       #f0c060;
+      --gold-dim:   rgba(240, 192, 96, 0.12);
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Starfield canvas ──────────────────────────────────────── */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Layout ────────────────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    /* ── Ambient gradient ──────────────────────────────────────── */
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Nav ───────────────────────────────────────────────────── */
+    .nav {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 560px;
+      margin-bottom: 2rem;
+    }
+
+    .nav-back {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover {
+      color: var(--text);
+    }
+
+    /* ── Main content ──────────────────────────────────────────── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Page label + heading ──────────────────────────────────── */
+    .page-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      filter: drop-shadow(0 0 6px rgba(240, 192, 96, 0.4));
+    }
+
+    .page-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 1.25rem;
+      opacity: 0.5;
+    }
+
+    .page-desc {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      max-width: 480px;
+    }
+
+    /* ── Form card ─────────────────────────────────────────────── */
+    .form-card {
+      width: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(240,192,96,0.05) 100%);
+      border: 1px solid rgba(240, 192, 96, 0.2);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      box-shadow: 0 0 40px rgba(240, 192, 96, 0.05), inset 0 1px 0 rgba(255,255,255,0.05);
+      margin-bottom: 2rem;
+    }
+
+    /* ── Brevo form overrides ──────────────────────────────────── */
+    .sib-form {
+      background-color: transparent !important;
+      padding: 0 !important;
+      text-align: left !important;
+    }
+
+    /* Hide Brevo's own title — we have ours above */
+    .sib-form-block p {
+      display: none !important;
+    }
+
+    #sib-form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #sib-container {
+      background-color: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      max-width: 100% !important;
+      padding: 0 !important;
+      text-align: left !important;
+    }
+
+    /* Labels */
+    #sib-container .entry__label {
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: 0.78rem !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      color: var(--text-muted) !important;
+      margin-bottom: 0.4rem !important;
+    }
+
+    /* Hide Brevo's helper text ("Provide your email address...") */
+    .entry__specification {
+      display: none !important;
+    }
+
+    /* Text + email inputs */
+    #sib-container input.input {
+      background: #0a0f1e !important;
+      background-color: #0a0f1e !important;
+      border: 1px solid rgba(240,192,96,0.25) !important;
+      border-radius: 6px !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      caret-color: #ffffff !important;
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: 0.9rem !important;
+      padding: 0.7rem 1rem !important;
+      width: 100% !important;
+    }
+
+    #sib-container input.input::placeholder {
+      color: #6b84a8 !important;
+      -webkit-text-fill-color: #6b84a8 !important;
+    }
+
+    #sib-container input.input:focus {
+      border-color: var(--gold) !important;
+      outline: none !important;
+    }
+
+    /* Select dropdowns */
+    #sib-container select {
+      background: #0a0f1e !important;
+      background-color: #0a0f1e !important;
+      border: 1px solid rgba(240,192,96,0.25) !important;
+      border-radius: 6px !important;
+      color: #ffffff !important;
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: 0.9rem !important;
+      padding: 0.7rem 1rem !important;
+      width: 100% !important;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      cursor: pointer !important;
+    }
+
+    #sib-container select:focus {
+      border-color: var(--gold) !important;
+      outline: none !important;
+    }
+
+    #sib-container select option {
+      background: #0a0f1e !important;
+      color: #ffffff !important;
+    }
+
+    /* Submit button */
+    .sib-form-block__button {
+      background: linear-gradient(135deg, #8a6010 0%, #f0c060 100%) !important;
+      border: none !important;
+      border-radius: 6px !important;
+      color: #05080f !important;
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: 0.9rem !important;
+      font-weight: 600 !important;
+      padding: 0.75rem 2rem !important;
+      text-transform: none !important;
+      letter-spacing: 0.02em !important;
+      cursor: pointer !important;
+      transition: opacity 0.2s, box-shadow 0.2s !important;
+      width: 100% !important;
+      margin-top: 0.5rem !important;
+    }
+
+    .sib-form-block__button:hover {
+      opacity: 0.88 !important;
+      box-shadow: 0 0 16px rgba(240, 192, 96, 0.45) !important;
+    }
+
+    /* Success / error messages */
+    #error-message {
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: 0.85rem !important;
+      color: #ff4949 !important;
+      background-color: rgba(255,73,73,0.1) !important;
+      border-color: #ff4949 !important;
+      border-radius: 6px !important;
+      max-width: 100% !important;
+      margin-bottom: 0.75rem !important;
+    }
+
+    #success-message {
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: 0.85rem !important;
+      color: #13ce66 !important;
+      background-color: rgba(19,206,102,0.1) !important;
+      border-color: #13ce66 !important;
+      border-radius: 6px !important;
+      max-width: 100% !important;
+      margin-bottom: 0.75rem !important;
+    }
+
+    .entry__error {
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: 0.8rem !important;
+      color: #ff4949 !important;
+      background: none !important;
+      border: none !important;
+      padding: 0.25rem 0 0 !important;
+    }
+
+    /* Spacing between form fields */
+    #sib-container .sib-form-block,
+    #sib-container .sib-input {
+      margin-bottom: 1rem !important;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      width: 100%;
+    }
+
+    .studio-link {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .studio-link:hover {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .studio-credit {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .footer-press {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .form-card {
+        padding: 1.5rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+
+    <nav class="nav">
+      <a href="/" class="nav-back">← Star Thrown</a>
+    </nav>
+
+    <main>
+
+      <p class="page-label">Limited Spots</p>
+      <h1 class="page-heading">Be First Into the Galaxy</h1>
+      <div class="divider"></div>
+
+      <p class="page-desc">
+        Star Thrown is built by one person. Before it goes live, I need a small group
+        of real players to put it through its paces — find the bugs, stress-test the
+        systems, and make sure the experience actually lands. Beta testers get early
+        access before the game opens to the public. Apply below — I'll reach out to
+        selected testers directly.
+      </p>
+
+      <div class="form-card">
+
+        <!-- Begin Brevo Form -->
+        <div class="sib-form">
+          <div id="sib-form-container" class="sib-form-container">
+            <div id="error-message" class="sib-form-message-panel">
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"/></svg>
+                <span class="sib-form-message-panel__inner-text">Your application could not be saved. Please try again.</span>
+              </div>
+            </div>
+            <div></div>
+            <div id="success-message" class="sib-form-message-panel">
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
+                <span class="sib-form-message-panel__inner-text">Application received! Check your inbox and confirm your email to secure your spot.</span>
+              </div>
+            </div>
+            <div></div>
+            <div id="sib-container" class="sib-container--large sib-container--vertical">
+              <form id="sib-form" method="POST" action="https://f14a0655.sibforms.com/serve/MUIFALi4qvqzH2jfC9aCGPJhvJqvSvGTNyyyTMgj_Xx2HHR-_MPK_eVMM54llHZFgHbPRvZ5sIlC-llMwlahhu4KY8gtw0kANq8kL-yacRwtF5AVyylxNsTN-sqvfU8BeuqKjnPyPKclgF_t1Uo1WRe-VY8LG7VCWivJPPtZ6thbL_Y2-YGccGYdJNnCo9Dr3kZ8Whrq1VEvSMdEyQ==" data-type="subscription">
+
+                <div style="padding: 4px 0;">
+                  <div class="sib-input sib-form-block">
+                    <div class="form__entry entry_block">
+                      <div class="form__label-row">
+                        <label class="entry__label" for="EMAIL">Email address</label>
+                        <div class="entry__field">
+                          <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="your@email.com" data-required="true" required />
+                        </div>
+                      </div>
+                      <label class="entry__error entry__error--primary"></label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="g-recaptcha" data-sitekey="6Lcc2twsAAAAAC3sl0NAh5w-azkjzNMRzPU5wo6F" data-callback="invisibleCaptchaCallback" data-size="invisible"></div>
+
+                <div style="padding: 4px 0;">
+                  <div class="sib-form-block">
+                    <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
+                      <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>
+                      Apply for Beta Access
+                    </button>
+                  </div>
+                </div>
+
+                <input type="text" name="email_address_check" value="" class="input--hidden">
+                <input type="hidden" name="locale" value="en">
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- End Brevo Form -->
+
+      </div>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="footer-press">Press inquiries: <a href="mailto:press@boundlessalchemy.io" class="studio-link">press@boundlessalchemy.io</a></p>
+    <p class="footer-press"><a href="https://www.iubenda.com/privacy-policy/51182608" target="_blank" rel="noopener" class="studio-link">Privacy Policy</a></p>
+    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 260;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.2 + 0.2, alpha: Math.random() * 0.6 + 0.15, twinkle: Math.random() * Math.PI * 2, twinkleSpeed: 0.008 + Math.random() * 0.012 });
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      resize(); seed(); requestAnimationFrame(draw);
+      let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
+    window.LOCALE = 'en';
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+    window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank.";
+    window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+
+</body>
+</html>
