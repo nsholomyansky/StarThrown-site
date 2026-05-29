@@ -519,6 +519,21 @@
       background: #6ba0ff !important;
       box-shadow: 0 0 28px rgba(79,143,255,0.45), inset 0 1px 0 rgba(255,255,255,0.18) !important;
     }
+    .grecaptcha-badge { visibility: hidden !important; }
+
+    .recaptcha-notice {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+    .recaptcha-notice a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .recaptcha-notice a:hover { color: var(--text); }
+
     #error-message, #success-message {
       max-width: 100% !important;
       margin-bottom: 0.75rem !important;
@@ -727,6 +742,7 @@
             </div>
           </div>
         </div>
+        <p class="recaptcha-notice">Protected by reCAPTCHA — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> &amp; <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a></p>
       </div>
 
       <div class="beta-section">
