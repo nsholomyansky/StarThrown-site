@@ -332,6 +332,71 @@
       margin-bottom: 1rem;
     }
 
+    /* ── Beta CTA section ──────────────────────────────────────── */
+    .beta-section {
+      width: 100%;
+      max-width: 520px;
+      margin-bottom: 2rem;
+    }
+
+    .beta-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      filter: drop-shadow(0 0 6px rgba(240, 192, 96, 0.4));
+    }
+
+    .beta-wrapper {
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(240,192,96,0.06) 100%);
+      border: 1px solid rgba(240, 192, 96, 0.22);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 0 40px rgba(240, 192, 96, 0.06), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .beta-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.75rem, 1.6vw, 0.95rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .beta-desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .beta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #8a6010 0%, #f0c060 100%);
+      color: #05080f;
+      border: none;
+      border-radius: 6px;
+      padding: 0.7rem 1.6rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+
+    .beta-btn:hover {
+      opacity: 0.88;
+      box-shadow: 0 0 16px rgba(240, 192, 96, 0.45);
+    }
+
     /* ── Footer ─────────────────────────────────────────────────── */
     footer {
       position: relative;
@@ -474,6 +539,16 @@
         width: 100%;
         padding: 0.75rem;
       }
+
+      .beta-wrapper {
+        padding: 1.25rem;
+      }
+
+      .beta-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem;
+      }
     }
   </style>
 </head>
@@ -565,6 +640,21 @@
               </form>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="beta-section">
+        <p class="beta-label">Beta Testers Wanted</p>
+        <div class="beta-wrapper">
+          <p class="beta-heading">Help Shape the Game</p>
+          <p class="beta-desc">
+            We're looking for a small group of players to test Star Thrown before launch.
+            Beta testers get early access, direct influence on the game, and a spot in the
+            first live round. Apply below — we'll reach out to selected testers directly.
+          </p>
+          <a href="https://f14a0655.sibforms.com/serve/MUIFALi4qvqzH2jfC9aCGPJhvJqvSvGTNyyyTMgj_Xx2HHR-_MPK_eVMM54llHZFgHbPRvZ5sIlC-llMwlahhu4KY8gtw0kANq8kL-yacRwtF5AVyylxNsTN-sqvfU8BeuqKjnPyPKclgF_t1Uo1WRe-VY8LG7VCWivJPPtZ6thbL_Y2-YGccGYdJNnCo9Dr3kZ8Whrq1VEvSMdEyQ==" target="_blank" rel="noopener" class="beta-btn">
+            Apply for Beta Access
+          </a>
         </div>
       </div>
 
