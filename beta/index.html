@@ -230,6 +230,15 @@
       outline: none !important;
     }
 
+    /* Override browser autofill background */
+    #sib-container input.input:-webkit-autofill,
+    #sib-container input.input:-webkit-autofill:hover,
+    #sib-container input.input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 1000px #0a0f1e inset !important;
+      -webkit-text-fill-color: #ffffff !important;
+      caret-color: #ffffff !important;
+    }
+
     /* ── Custom radio buttons & checkbox ──────────────────────── */
     .custom-field-group {
       margin-bottom: 1.25rem;
