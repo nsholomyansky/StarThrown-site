@@ -403,6 +403,22 @@
       margin-top: 0.4rem;
     }
 
+    .grecaptcha-badge { visibility: hidden !important; }
+
+    .recaptcha-notice {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .recaptcha-notice a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .recaptcha-notice a:hover { color: var(--text); }
+
     /* ── Responsive ─────────────────────────────────────────────── */
     @media (max-width: 480px) {
       .form-card {
@@ -535,6 +551,8 @@
           </div>
         </div>
         <!-- End Brevo Form -->
+
+        <p class="recaptcha-notice">Protected by reCAPTCHA — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> &amp; <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a></p>
 
       </div>
 
