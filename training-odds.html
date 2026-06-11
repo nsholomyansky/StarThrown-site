@@ -1,4 +1,4 @@
-<!-- BL-409: generated from TrainingCreditProbabilities (Firebase) on 2026-06-10. MUST be refreshed each round until the auto-generation script ships. -->
+<!-- BL-409: generated from TrainingCreditProbabilities (Firebase) on 2026-06-10 and Captains node (Firebase) on 2026-06-11. MUST be refreshed each round until the auto-generation script ships. Auto-generation script scope: TrainingCreditProbabilities (probability weights) + Captains (levelCap, experienceOnUnlock). -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,7 +200,8 @@
       white-space: nowrap;
     }
 
-    thead th.col-pct { text-align: right; }
+    thead th.col-pct,
+    thead th.col-num { text-align: right; }
 
     tbody tr {
       border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -209,7 +210,8 @@
     tbody tr:hover { background: rgba(79, 143, 255, 0.06); }
 
     tbody td { padding: 0.65rem 1rem; color: var(--text); vertical-align: middle; }
-    tbody td.col-pct { text-align: right; font-variant-numeric: tabular-nums; color: var(--white); }
+    tbody td.col-pct,
+    tbody td.col-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--white); }
 
     /* ── Subtotal / total rows ────────────────────────────────── */
     tbody tr.row-subtotal {
@@ -341,9 +343,11 @@
 
         <!-- Duplicate captain rule -->
         <div class="note-callout">
-          <strong>Already own that captain?</strong> If a Captain Unlock pull lands on a
-          captain you have already unlocked, you receive <strong>1,000 Captain
-          Experience</strong> for that captain instead.
+          <strong>Already own that captain?</strong> A pull that lands on a captain you have
+          not yet unlocked grants that captain plus the <strong>Experience on Unlock</strong>
+          shown in the table below. If you already own the captain, you receive
+          <strong>1,000 Captain Experience</strong> instead — the unlock bonus does not apply
+          to duplicate pulls.
         </div>
 
         <!-- Experience outcomes table -->
@@ -394,8 +398,10 @@
         <h2>Captain Unlock Outcomes</h2>
         <p>
           These pulls unlock the named captain, making them available to assign to your
-          fleets. If you already own the captain, you receive 1,000 Experience instead
-          (see note above).
+          fleets. <strong>Level Cap</strong> is the maximum level that captain can reach.
+          <strong>Experience on Unlock</strong> is the bonus experience automatically granted
+          when you unlock that captain for the first time. If you already own the captain,
+          you receive 1,000 Experience instead (see note above).
         </p>
 
         <div class="table-wrap">
@@ -403,88 +409,128 @@
             <thead>
               <tr>
                 <th>Captain</th>
+                <th class="col-num">Level Cap</th>
+                <th class="col-num">Exp on Unlock</th>
                 <th class="col-pct">Probability</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>Teklan</td>
+                <td class="col-num">12</td>
+                <td class="col-num">1,000</td>
                 <td class="col-pct">3.3%</td>
               </tr>
               <tr>
                 <td>Lirra</td>
+                <td class="col-num">14</td>
+                <td class="col-num">1,000</td>
                 <td class="col-pct">3.2%</td>
               </tr>
               <tr>
                 <td>Malor</td>
+                <td class="col-num">16</td>
+                <td class="col-num">1,000</td>
                 <td class="col-pct">3.1%</td>
               </tr>
               <tr>
                 <td>Vekk</td>
+                <td class="col-num">18</td>
+                <td class="col-num">2,000</td>
                 <td class="col-pct">2.7%</td>
               </tr>
               <tr>
                 <td>Myzon</td>
+                <td class="col-num">20</td>
+                <td class="col-num">3,000</td>
                 <td class="col-pct">2.6%</td>
               </tr>
               <tr>
                 <td>Damar</td>
+                <td class="col-num">22</td>
+                <td class="col-num">4,000</td>
                 <td class="col-pct">2.5%</td>
               </tr>
               <tr>
                 <td>Zenko</td>
+                <td class="col-num">26</td>
+                <td class="col-num">6,000</td>
                 <td class="col-pct">2.4%</td>
               </tr>
               <tr>
                 <td>Jorax</td>
+                <td class="col-num">28</td>
+                <td class="col-num">7,000</td>
                 <td class="col-pct">2.3%</td>
               </tr>
               <tr>
                 <td>Orlin</td>
+                <td class="col-num">30</td>
+                <td class="col-num">8,000</td>
                 <td class="col-pct">2.2%</td>
               </tr>
               <tr>
                 <td>Sovo</td>
+                <td class="col-num">32</td>
+                <td class="col-num">9,000</td>
                 <td class="col-pct">2.1%</td>
               </tr>
               <tr>
                 <td>Cavrel</td>
+                <td class="col-num">34</td>
+                <td class="col-num">10,000</td>
                 <td class="col-pct">2.0%</td>
               </tr>
               <tr>
                 <td>Phex</td>
+                <td class="col-num">36</td>
+                <td class="col-num">11,000</td>
                 <td class="col-pct">1.9%</td>
               </tr>
               <tr>
                 <td>Oneth</td>
+                <td class="col-num">38</td>
+                <td class="col-num">12,000</td>
                 <td class="col-pct">1.8%</td>
               </tr>
               <tr>
                 <td>Erix</td>
+                <td class="col-num">40</td>
+                <td class="col-num">13,000</td>
                 <td class="col-pct">1.6%</td>
               </tr>
               <tr>
                 <td>Bolen</td>
+                <td class="col-num">42</td>
+                <td class="col-num">14,000</td>
                 <td class="col-pct">1.4%</td>
               </tr>
               <tr>
                 <td>Asrel</td>
+                <td class="col-num">44</td>
+                <td class="col-num">15,000</td>
                 <td class="col-pct">1.2%</td>
               </tr>
               <tr>
                 <td>Fenra</td>
+                <td class="col-num">46</td>
+                <td class="col-num">16,000</td>
                 <td class="col-pct">0.9%</td>
               </tr>
               <tr>
                 <td>Quell</td>
+                <td class="col-num">48</td>
+                <td class="col-num">17,000</td>
                 <td class="col-pct">0.6%</td>
               </tr>
               <tr>
                 <td>Graves</td>
+                <td class="col-num">50</td>
+                <td class="col-num">18,000</td>
                 <td class="col-pct">0.3%</td>
               </tr>
               <tr class="row-subtotal">
-                <td>Captain Unlock subtotal</td>
+                <td colspan="3">Captain Unlock subtotal</td>
                 <td class="col-pct">38.1%</td>
               </tr>
             </tbody>
@@ -496,7 +542,7 @@
           <table>
             <tbody>
               <tr class="row-total">
-                <td>Grand Total (all outcomes)</td>
+                <td colspan="3">Grand Total (all outcomes)</td>
                 <td class="col-pct">100.0%</td>
               </tr>
             </tbody>
