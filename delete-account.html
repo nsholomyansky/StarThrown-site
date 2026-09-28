@@ -164,6 +164,20 @@
       line-height: 1.55;
     }
 
+    .warning-banner .banner-body { flex: 1; min-width: 0; }
+    .warning-banner .banner-body p + p,
+    .warning-banner .banner-body p + ul { margin-top: 0.6rem; }
+    .warning-banner ul {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #f5b0b0;
+      line-height: 1.55;
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+    .warning-banner li + li { margin-top: 0.35rem; }
+    .warning-banner strong { color: #ffd6d6; font-weight: 600; }
+
     /* ── Form card ──────────────────────────────────────────────── */
     .form-card {
       width: 100%;
@@ -488,7 +502,23 @@
           <line x1="12" y1="9" x2="12" y2="13"/>
           <line x1="12" y1="17" x2="12.01" y2="17"/>
         </svg>
-        <p>Account deletion is permanent. After a 7-day grace period, your account, stardoms, alliances, and all associated data are deleted and cannot be recovered.</p>
+        <div class="banner-body">
+          <p>To delete your account in the app: sign in, tap the gear icon in the bottom navigation bar to open <strong>Account Settings</strong>, scroll to the <strong>Delete Account</strong> section at the bottom and tap <strong>Delete</strong>. Then tap <strong>Continue</strong>, follow the confirmation steps and tap <strong>Permanently Delete My Account</strong>. Your account is then scheduled for deletion. You have 7 days to cancel: sign back in to the app and tap <strong>Cancel Deletion</strong>. After that, your sign-in account, your stardom and your game data for the current round are deleted and cannot be recovered, except for the items below.</p>
+          <p>If you can't open Account Settings (your account is in vacation mode, you haven't joined a round yet, or your round has ended), request deletion with the form on this page.</p>
+          <ul>
+            <li><strong>Purchase records</strong> stay linked to your account ID, for fraud prevention, refunds and tax. They are not yet deleted automatically.</li>
+            <li><strong>Reports and moderation:</strong> reports you filed or that were filed about you, including the reported chat message, and any moderation action. Kept for player safety, with no set deletion date.</li>
+            <li><strong>Past rounds:</strong> your username and score stay in the final standings of rounds that have ended.</li>
+            <li><strong>A record of the deletion:</strong> your account ID and, where you had them, your former username, stardom ID and alliance ID, with the date and time of each deletion request, cancellation and completion. Kept for compliance; not yet deleted automatically.</li>
+            <li><strong>Other players' games:</strong> your username and account ID can stay in other players' block lists and direct-message lists, your account ID in their mute lists, and your username and stardom ID in their battle reports.</li>
+            <li><strong>The current round:</strong> alliance mail you sent (your username, the subject and your message) and alerts in other players' news feeds about attacks, defence and battles involving you stay until those players delete them or the round's game data is cleared after the round ends. Some alerts also contain your stardom's ID.</li>
+            <li><strong>Profile pictures you uploaded</strong> are not yet deleted.</li>
+            <li><strong>In-game chat</strong> held by our chat provider, Vivox (Unity Technologies): message text is deleted automatically after 7 days, and identifiers within 30 days.</li>
+            <li><strong>Crash reports:</strong> Google (Firebase Crashlytics) keeps them for 90 days, then starts deleting them. They contain device and app-installation identifiers and error details. Current versions of the app tag them with a random ID that is deleted with your account, but some reports can still contain your account ID or a purchase ID until they expire.</li>
+            <li><strong>Our game servers' logs</strong> are deleted automatically 30 days after they are written.</li>
+            <li><strong>Mailing list:</strong> if you joined our mailing list on this website, your email address stays on it until you unsubscribe.</li>
+          </ul>
+        </div>
       </div>
 
       <!-- ══════════════════════════════════════════════════════════
