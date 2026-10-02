@@ -486,6 +486,43 @@
       margin-top: 0.4rem;
     }
 
+    /* ── Two-column layout on wide screens: the details on the left,
+       the form on the right and visible without scrolling ── */
+    .layout,
+    .layout-info,
+    .layout-form {
+      width: 100%;
+    }
+
+    .layout-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      main {
+        max-width: 1080px;
+        padding-top: 2.5rem;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+        gap: 2rem;
+        align-items: start;
+      }
+
+      .layout-form {
+        position: sticky;
+        top: 1.5rem;
+      }
+
+      .warning-banner {
+        margin-bottom: 0;
+      }
+    }
+
     /* ── Responsive ─────────────────────────────────────────────── */
     @media (max-width: 480px) {
       .page {
@@ -520,6 +557,9 @@
       <h1 class="page-heading">Delete Account</h1>
       <div class="divider"></div>
 
+      <div class="layout">
+      <div class="layout-info">
+
       <!-- ── WARNING BANNER (always visible) ───────────────────── -->
       <div class="warning-banner" role="alert">
         <!-- Warning triangle icon -->
@@ -545,6 +585,10 @@
           </ul>
         </div>
       </div>
+
+      </div>
+
+      <div class="layout-form">
 
       <!-- ══════════════════════════════════════════════════════════
            STATE 1 — IDLE (sign-in form)
@@ -680,6 +724,9 @@
       ═══════════════════════════════════════════════════════════ -->
 
       <a href="/support" class="back-link" id="link-back">Back to support</a>
+
+      </div>
+      </div>
 
     </main>
   </div>
