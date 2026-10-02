@@ -319,6 +319,15 @@
     .custom-radio input[type="checkbox"]:checked + .custom-radio__dot::after { opacity: 1; }
     .custom-radio input[type="checkbox"]:focus-visible + .custom-radio__dot { border-color: var(--gold); }
 
+    .email-hint {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: var(--text-muted);
+      margin-top: 0.45rem;
+      margin-bottom: 1.1rem;
+    }
+
     .age-error {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.8rem;
@@ -508,6 +517,9 @@
                       <label class="entry__error entry__error--primary"></label>
                     </div>
                   </div>
+                  <!-- Outside .sib-form-block: the CSS above hides Brevo's helper <p>s there -->
+                  <p class="email-hint">This email address must be the one associated with your App Store or Google Play account.</p>
+                  <p class="age-error" id="EMAIL_error" role="alert" hidden>Please enter your email address.</p>
                 </div>
 
                 <!-- Device -->
@@ -633,9 +645,12 @@
   <script>
     // Brevo's script sets novalidate on the form and validates only its own fields,
     // so `required` alone does not stop a submit. This capture listener runs before
-    // Brevo's submit handler and blocks it until a device is chosen (each tester goes
-    // on the iOS or the Android list) and the age box is ticked (BL-469).
+    // Brevo's submit handler and blocks it until the email is filled in, a device is
+    // chosen (each tester goes on the iOS or the Android list) and the age box is
+    // ticked (BL-469). Brevo still checks the email's format itself.
     (function () {
+      var email = document.getElementById('EMAIL');
+      var emailErr = document.getElementById('EMAIL_error');
       var age = document.getElementById('AGE_18');
       var ageErr = document.getElementById('AGE_18_error');
       var devErr = document.getElementById('DEVICE_error');
@@ -644,19 +659,21 @@
         for (var i = 0; i < devices.length; i++) { if (devices[i].checked) return true; }
         return false;
       }
+      email.addEventListener('input', function () { if (email.value.trim()) emailErr.hidden = true; });
       age.addEventListener('change', function () { if (age.checked) ageErr.hidden = true; });
       for (var i = 0; i < devices.length; i++) {
         devices[i].addEventListener('change', function () { devErr.hidden = true; });
       }
       document.addEventListener('submit', function (e) {
         if (!e.target || e.target.id !== 'sib-form') return;
-        var okDevice = deviceChosen(), okAge = age.checked;
-        if (okDevice && okAge) return;
+        var okEmail = email.value.trim() !== '', okDevice = deviceChosen(), okAge = age.checked;
+        if (okEmail && okDevice && okAge) return;
         e.preventDefault();
         e.stopImmediatePropagation();
+        emailErr.hidden = okEmail;
         devErr.hidden = okDevice;
         ageErr.hidden = okAge;
-        (okDevice ? age : devices[0]).focus();
+        (!okEmail ? email : !okDevice ? devices[0] : age).focus();
       }, true);
     })();
   </script>
