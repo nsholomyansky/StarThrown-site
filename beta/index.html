@@ -524,12 +524,8 @@
                       <span class="custom-radio__dot"></span>
                       Android
                     </label>
-                    <label class="custom-radio">
-                      <input type="radio" name="DEVICE" value="3" required />
-                      <span class="custom-radio__dot"></span>
-                      Both
-                    </label>
                   </div>
+                  <p class="age-error" id="DEVICE_error" role="alert" hidden>Please choose your device.</p>
                 </div>
 
                 <!-- Strategy game fan -->
@@ -635,20 +631,32 @@
     var AUTOHIDE = Boolean(0);
   </script>
   <script>
-    // BL-469: Brevo's script sets novalidate on the form and validates only its own
-    // fields, so `required` alone does not stop a submit. This capture listener runs
-    // before Brevo's submit handler and blocks it until the age box is ticked.
+    // Brevo's script sets novalidate on the form and validates only its own fields,
+    // so `required` alone does not stop a submit. This capture listener runs before
+    // Brevo's submit handler and blocks it until a device is chosen (each tester goes
+    // on the iOS or the Android list) and the age box is ticked (BL-469).
     (function () {
       var age = document.getElementById('AGE_18');
-      var err = document.getElementById('AGE_18_error');
-      age.addEventListener('change', function () { if (age.checked) err.hidden = true; });
+      var ageErr = document.getElementById('AGE_18_error');
+      var devErr = document.getElementById('DEVICE_error');
+      var devices = document.querySelectorAll('input[name="DEVICE"]');
+      function deviceChosen() {
+        for (var i = 0; i < devices.length; i++) { if (devices[i].checked) return true; }
+        return false;
+      }
+      age.addEventListener('change', function () { if (age.checked) ageErr.hidden = true; });
+      for (var i = 0; i < devices.length; i++) {
+        devices[i].addEventListener('change', function () { devErr.hidden = true; });
+      }
       document.addEventListener('submit', function (e) {
-        if (e.target && e.target.id === 'sib-form' && !age.checked) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          err.hidden = false;
-          age.focus();
-        }
+        if (!e.target || e.target.id !== 'sib-form') return;
+        var okDevice = deviceChosen(), okAge = age.checked;
+        if (okDevice && okAge) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        devErr.hidden = okDevice;
+        ageErr.hidden = okAge;
+        (okDevice ? age : devices[0]).focus();
       }, true);
     })();
   </script>
