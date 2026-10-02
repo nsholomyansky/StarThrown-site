@@ -330,6 +330,32 @@
       line-height: 1.55;
     }
 
+    /* ── Environment choice (only when an email has accounts in more than one) ── */
+    .env-option {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      padding: 0.55rem 0.8rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid rgba(79, 143, 255, 0.22);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .env-option input {
+      width: 1rem;
+      height: 1rem;
+      accent-color: var(--danger);
+    }
+
+    .success-list {
+      margin: 0 0 0.9rem;
+      padding-left: 1.1rem;
+      text-align: left;
+    }
+
     /* ── Cancel link ─────────────────────────────────────────────── */
     .cancel-link {
       display: block;
@@ -570,6 +596,12 @@
       ═══════════════════════════════════════════════════════════ -->
       <section id="state-confirm" class="form-card" aria-label="Confirm account deletion" style="display:none;">
 
+        <!-- Environment choice: shown only when the email has accounts in more than one environment -->
+        <div id="env-choice" style="display:none; margin-bottom:1.25rem;">
+          <p class="confirm-reauth-hint" style="margin-bottom:0.75rem;">This email has more than one Star Thrown account. Choose which to delete:</p>
+          <div id="env-list"></div>
+        </div>
+
         <!-- Instruction message -->
         <p class="confirm-reauth-hint">Enter your password one more time to confirm deletion.</p>
 
@@ -616,14 +648,22 @@
 
         <h2 class="success-heading">Deletion Scheduled</h2>
 
-        <p class="success-body">
+        <p class="success-body" id="success-lead">
           Your account is scheduled for deletion.
         </p>
 
-        <p class="success-body">
+        <ul class="success-body success-list" id="success-list" style="display:none;"></ul>
+
+        <p class="success-body" id="success-single">
           You have until <span class="success-date" id="grace-period-date">—</span> to change your mind.
           Open Star Thrown and tap <strong>Cancel Deletion</strong> in Account Settings.
         </p>
+
+        <p class="success-body" id="success-multi" style="display:none;">
+          To change your mind before then, open Star Thrown and tap <strong>Cancel Deletion</strong> in Account Settings.
+        </p>
+
+        <div id="success-failed" class="inline-error" role="alert"></div>
 
         <p class="success-note">
           You have been signed out of this page.
@@ -709,23 +749,42 @@
   <!-- ── Firebase Web SDK v9+ modular (ESM) ────────────────────── -->
   <script type="module">
     import { initializeApp }                        from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, signOut, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+    import { initializeAuth, inMemoryPersistence, signInWithEmailAndPassword, signOut, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
     import { getFunctions, httpsCallable }          from "https://www.gstatic.com/firebasejs/11.0.0/firebase-functions.js";
 
-    // ── Firebase config — replace all REPLACE_WITH_PROD_* values before deploy ──
-    const firebaseConfig = {
-      apiKey:            "REPLACE_WITH_PROD_API_KEY",
-      authDomain:        "REPLACE_WITH_PROD_AUTH_DOMAIN",
-      databaseURL:       "REPLACE_WITH_PROD_DATABASE_URL",
-      projectId:         "REPLACE_WITH_PROD_PROJECT_ID",
-      storageBucket:     "REPLACE_WITH_PROD_STORAGE_BUCKET",
-      messagingSenderId: "REPLACE_WITH_PROD_MESSAGING_SENDER_ID",
-      appId:             "REPLACE_WITH_PROD_APP_ID"
-    };
+    // ── Environments ──────────────────────────────────────────────
+    // The page signs in to every environment that has a config and schedules
+    // deletion wherever the account exists. A player normally matches one and
+    // sees no choice; the choice list appears only when there is more than one.
+    // An environment with config: null is skipped. Before filling one in, it
+    // needs a web app registered for this site AND deleteUserAccount deployed.
+    const ENVIRONMENTS = [
+      { key: 'live',    label: 'Star Thrown',           config: null },  // aiwarsprod: add at launch
+      { key: 'beta',    label: 'Star Thrown — beta',    config: null },  // staging: add once it has the deletion functions
+      { key: 'testing', label: 'Star Thrown — testing', config: {        // ai-wars-dev, web app "Star Thrown Website"
+        apiKey:            "AIzaSyCHO8cbfNlPfC_zsEP5aYuMIWPUn2RuJJc",
+        authDomain:        "ai-wars-dev.firebaseapp.com",
+        databaseURL:       "https://ai-wars-dev-default-rtdb.firebaseio.com",
+        projectId:         "ai-wars-dev",
+        storageBucket:     "ai-wars-dev.firebasestorage.app",
+        messagingSenderId: "570451478437",
+        appId:             "1:570451478437:web:baa73f09992bb82abb0a4c"
+      } }
+    ];
+    const FUNCTIONS_REGION = 'us-central1';  // deleteUserAccount.js LOCATION
 
-    const app       = initializeApp(firebaseConfig);
-    const auth      = getAuth(app);
-    const functions = getFunctions(app);
+    // In-memory auth: nothing is stored in the browser, and closing the tab signs out.
+    const envs = ENVIRONMENTS.filter((e) => e.config).map((e) => {
+      const app = initializeApp(e.config, e.key);
+      return {
+        key:       e.key,
+        label:     e.label,
+        auth:      initializeAuth(app, { persistence: inMemoryPersistence }),
+        functions: getFunctions(app, FUNCTIONS_REGION)
+      };
+    });
+
+    let matched = [];  // environments where sign-in succeeded
 
     // ── DOM references ────────────────────────────────────────────
     const stateIdle    = document.getElementById('state-idle');
@@ -742,8 +801,38 @@
 
     const errorAuth       = document.getElementById('error-auth');
     const errorConfirm    = document.getElementById('error-confirm');
+    const envChoice       = document.getElementById('env-choice');
+    const envList         = document.getElementById('env-list');
     const gracePeriodDate = document.getElementById('grace-period-date');
+    const successLead     = document.getElementById('success-lead');
+    const successList     = document.getElementById('success-list');
+    const successSingle   = document.getElementById('success-single');
+    const successMulti    = document.getElementById('success-multi');
+    const successFailed   = document.getElementById('success-failed');
     const linkBack        = document.getElementById('link-back');
+
+    // ── Helpers ───────────────────────────────────────────────────
+
+    function formatDate(ms) {
+      const d = typeof ms === 'number' ? new Date(ms) : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    function checkedEnvs() {
+      if (matched.length === 1) return matched;
+      return matched.filter((e) => {
+        const box = document.getElementById('env-' + e.key);
+        return box && box.checked;
+      });
+    }
+
+    function updateConfirmEnabled() {
+      btnConfirmDelete.disabled = inputConfirmPassword.value.length === 0 || checkedEnvs().length === 0;
+    }
+
+    async function signOutAll() {
+      await Promise.allSettled(envs.map((e) => signOut(e.auth)));
+    }
 
     // ── State transitions ─────────────────────────────────────────
 
@@ -755,6 +844,7 @@
       inputEmail.disabled        = false;
       inputPassword.disabled     = false;
       inputConfirmPassword.value = '';
+      matched = [];
       clearError(errorAuth);
       clearError(errorConfirm);
       setSignInLoading(false);
@@ -765,24 +855,60 @@
       stateConfirm.style.display     = '';
       stateSuccess.style.display     = 'none';
       inputConfirmPassword.value     = '';
-      btnConfirmDelete.disabled      = true;
       clearError(errorConfirm);
+
+      envList.replaceChildren();
+      if (matched.length > 1) {
+        for (const e of matched) {
+          const label = document.createElement('label');
+          label.className = 'env-option';
+          const box = document.createElement('input');
+          box.type = 'checkbox';
+          box.id   = 'env-' + e.key;
+          box.addEventListener('change', updateConfirmEnabled);
+          label.append(box, document.createTextNode(e.label));
+          envList.append(label);
+        }
+        envChoice.style.display = '';
+      } else {
+        envChoice.style.display = 'none';
+      }
+      updateConfirmEnabled();
     }
 
-    function showSuccess() {
+    function showSuccess(done, failed) {
       stateIdle.style.display    = 'none';
       stateConfirm.style.display = 'none';
       stateSuccess.style.display = '';
       linkBack.style.display     = '';
 
-      // Calculate T+7 grace period date
-      const deadline = new Date();
-      deadline.setDate(deadline.getDate() + 7);
-      gracePeriodDate.textContent = deadline.toLocaleDateString(undefined, {
-        year:  'numeric',
-        month: 'long',
-        day:   'numeric'
-      });
+      successList.replaceChildren();
+      if (matched.length > 1) {
+        successLead.textContent = done.length === 1
+          ? 'This account is scheduled for deletion:'
+          : 'These accounts are scheduled for deletion:';
+        for (const d of done) {
+          const li = document.createElement('li');
+          li.textContent = d.env.label + ' — until ' + formatDate(d.data && d.data.scheduledFinalAt);
+          successList.append(li);
+        }
+        successList.style.display   = '';
+        successSingle.style.display = 'none';
+        successMulti.style.display  = '';
+      } else {
+        successLead.textContent     = 'Your account is scheduled for deletion.';
+        gracePeriodDate.textContent = formatDate(done[0].data && done[0].data.scheduledFinalAt);
+        successList.style.display   = 'none';
+        successSingle.style.display = '';
+        successMulti.style.display  = 'none';
+      }
+
+      if (failed.length > 0) {
+        showError(successFailed, 'We couldn’t schedule deletion for: ' +
+          failed.map((f) => f.env.label).join(', ') + '. Sign in again to retry.');
+      } else {
+        clearError(successFailed);
+      }
     }
 
     // ── Loading state helpers ─────────────────────────────────────
@@ -797,12 +923,14 @@
     }
 
     function setConfirmLoading(loading) {
-      btnConfirmDelete.disabled      = loading;
-      btnCancel.disabled             = loading;
-      inputConfirmPassword.disabled  = loading;
-      btnConfirmDelete.innerHTML     = loading
+      btnCancel.disabled            = loading;
+      inputConfirmPassword.disabled = loading;
+      envList.querySelectorAll('input').forEach((b) => { b.disabled = loading; });
+      btnConfirmDelete.innerHTML    = loading
         ? '<span class="spinner" aria-hidden="true"></span>Deleting…'
         : 'Confirm Deletion';
+      if (loading) btnConfirmDelete.disabled = true;
+      else updateConfirmEnabled();
     }
 
     // ── Error helpers ─────────────────────────────────────────────
@@ -821,17 +949,23 @@
 
     function authErrorMessage(code) {
       switch (code) {
-        case 'auth/wrong-password':
-        case 'auth/invalid-credential':
-        case 'auth/invalid-email':
-          return 'Email or password incorrect.';
-        case 'auth/user-not-found':
-          return 'No account matches that email.';
+        case 'auth/too-many-requests':
+          return 'Too many attempts. Wait a few minutes and try again.';
+        case 'auth/user-disabled':
+          return 'This account has been disabled. Contact support@starthrown.com.';
         case 'auth/network-request-failed':
-          return "Couldn’t reach our servers. Try again.";
+          return 'Couldn’t reach our servers. Try again.';
         default:
           return 'Email or password incorrect.';
       }
+    }
+
+    // With no match anywhere, report the most useful reason across environments.
+    function pickAuthError(codes) {
+      for (const c of ['auth/too-many-requests', 'auth/network-request-failed', 'auth/user-disabled']) {
+        if (codes.includes(c)) return c;
+      }
+      return 'auth/invalid-credential';
     }
 
     // ── Map Cloud Function error codes to user-facing copy ────────
@@ -844,12 +978,12 @@
         return 'This account is already scheduled for deletion. Open the game and tap Cancel Deletion to reverse it.';
       }
       if (code === 'functions/unavailable' || code === 'functions/internal') {
-        return "Couldn’t reach our servers. Try again.";
+        return 'Couldn’t reach our servers. Try again.';
       }
       return 'Something went wrong. Please try again.';
     }
 
-    // ── STEP 1 — Sign in with email + password ────────────────────
+    // ── STEP 1 — Sign in to every environment with email + password ──
 
     btnSignIn.addEventListener('click', async () => {
       clearError(errorAuth);
@@ -864,13 +998,17 @@
 
       setSignInLoading(true);
 
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        showConfirm();
-      } catch (err) {
-        showError(errorAuth, authErrorMessage(err.code));
+      const results = await Promise.allSettled(
+        envs.map((e) => signInWithEmailAndPassword(e.auth, email, password)));
+      matched = envs.filter((e, i) => results[i].status === 'fulfilled');
+
+      if (matched.length === 0) {
+        const codes = results.map((r) => (r.reason && r.reason.code) || '');
+        showError(errorAuth, authErrorMessage(pickAuthError(codes)));
         setSignInLoading(false);
+        return;
       }
+      showConfirm();
     });
 
     // Allow Enter key on password field to trigger sign-in
@@ -878,11 +1016,12 @@
       if (e.key === 'Enter') btnSignIn.click();
     });
 
-    // ── STEP 2 — Enable confirm button once password field is non-empty ──
+    // ── STEP 2 — Enable confirm once the password is entered (and, with
+    //            more than one account, at least one is ticked) ──
 
     inputConfirmPassword.addEventListener('input', () => {
       clearError(errorConfirm);
-      btnConfirmDelete.disabled = inputConfirmPassword.value.length === 0;
+      updateConfirmEnabled();
     });
 
     // Allow Enter key on confirm-password field to trigger deletion
@@ -890,55 +1029,55 @@
       if (e.key === 'Enter' && !btnConfirmDelete.disabled) btnConfirmDelete.click();
     });
 
-    // ── STEP 3 — Re-authenticate then call deleteUserAccount CF ───
+    // ── STEP 3 — Re-authenticate every chosen account, then schedule deletion ──
 
     btnConfirmDelete.addEventListener('click', async () => {
       const confirmPw = inputConfirmPassword.value;
-      if (!confirmPw) return;
+      const selected  = checkedEnvs();
+      if (!confirmPw || selected.length === 0) return;
 
       clearError(errorConfirm);
       setConfirmLoading(true);
 
-      const deleteUserAccount = httpsCallable(functions, 'deleteUserAccount');
-
+      // Re-authenticate ALL chosen accounts first, so a wrong password deletes nothing.
       try {
-        // Re-authenticate to verify the password before destructive action
-        const user       = auth.currentUser;
-        const reAuthCred = EmailAuthProvider.credential(user.email, confirmPw);
-        await reauthenticateWithCredential(user, reAuthCred);
-
-        // Password confirmed — proceed with deletion
-        await deleteUserAccount();
-        await signOut(auth);
-        showSuccess();
+        for (const e of selected) {
+          const user = e.auth.currentUser;
+          await reauthenticateWithCredential(user, EmailAuthProvider.credential(user.email, confirmPw));
+        }
       } catch (err) {
-        // Map re-auth failure to a clear message; fall back for anything else
-        let message;
-        if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-          message = 'Incorrect password.';
-        } else if (err.code && err.code.startsWith('auth/')) {
-          message = 'Incorrect password.';
-        } else {
-          message = cfErrorMessage(err.code, err.message);
-        }
-
-        // Only sign out on non-auth errors (wrong-password keeps user signed in
-        // so they can retry without going back through sign-in)
-        const isReAuthError = err.code && err.code.startsWith('auth/');
-        if (!isReAuthError) {
-          try { await signOut(auth); } catch (_) { /* best-effort */ }
-        }
-
-        showError(errorConfirm, message);
+        // Stay signed in so the player can retry without signing in again.
+        showError(errorConfirm, err.code === 'auth/too-many-requests'
+          ? authErrorMessage(err.code) : 'Incorrect password.');
         setConfirmLoading(false);
-        btnCancel.disabled = false;
+        return;
       }
+
+      const outcomes = await Promise.allSettled(
+        selected.map((e) => httpsCallable(e.functions, 'deleteUserAccount')()));
+      const done = [], failed = [];
+      outcomes.forEach((o, i) => {
+        if (o.status === 'fulfilled') done.push({ env: selected[i], data: o.value.data });
+        else failed.push({ env: selected[i], err: o.reason });
+      });
+
+      await signOutAll();
+
+      if (done.length === 0) {
+        // Nothing was scheduled: back to the sign-in form with the reason.
+        const f = failed[0].err || {};
+        showIdle();
+        inputPassword.value = '';
+        showError(errorAuth, cfErrorMessage(f.code, f.message));
+        return;
+      }
+      showSuccess(done, failed);
     });
 
     // ── Cancel — sign out and return to idle ──────────────────────
 
     btnCancel.addEventListener('click', async () => {
-      try { await signOut(auth); } catch (_) { /* best-effort */ }
+      await signOutAll();
       inputEmail.value    = '';
       inputPassword.value = '';
       showIdle();
