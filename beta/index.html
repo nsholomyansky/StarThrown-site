@@ -304,6 +304,28 @@
     .custom-radio input[type="radio"]:checked + .custom-radio__dot { border-color: var(--gold); }
     .custom-radio input[type="radio"]:checked + .custom-radio__dot::after { opacity: 1; }
 
+    /* Square variant for the required age checkbox (BL-469) */
+    .custom-radio input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .custom-check__box,
+    .custom-check__box::after { border-radius: 3px; }
+
+    .custom-radio input[type="checkbox"]:checked + .custom-radio__dot { border-color: var(--gold); }
+    .custom-radio input[type="checkbox"]:checked + .custom-radio__dot::after { opacity: 1; }
+    .custom-radio input[type="checkbox"]:focus-visible + .custom-radio__dot { border-color: var(--gold); }
+
+    .age-error {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #ff4949;
+      margin-top: 0.45rem;
+    }
+
 
     /* Submit button */
     .sib-form-block__button {
@@ -532,6 +554,16 @@
                   </div>
                 </div>
 
+                <!-- Age (BL-469): required to submit. No name, so nothing is sent to Brevo -->
+                <div class="custom-field-group">
+                  <label class="custom-radio">
+                    <input type="checkbox" id="AGE_18" required />
+                    <span class="custom-radio__dot custom-check__box"></span>
+                    I am 18 years or older
+                  </label>
+                  <p class="age-error" id="AGE_18_error" role="alert" hidden>Please confirm you are 18 or older.</p>
+                </div>
+
                 <div class="g-recaptcha" data-sitekey="6Lcc2twsAAAAAC3sl0NAh5w-azkjzNMRzPU5wo6F" data-callback="invisibleCaptchaCallback" data-size="invisible"></div>
 
                 <!-- Submit -->
@@ -601,6 +633,24 @@
     window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank.";
     window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
     var AUTOHIDE = Boolean(0);
+  </script>
+  <script>
+    // BL-469: Brevo's script sets novalidate on the form and validates only its own
+    // fields, so `required` alone does not stop a submit. This capture listener runs
+    // before Brevo's submit handler and blocks it until the age box is ticked.
+    (function () {
+      var age = document.getElementById('AGE_18');
+      var err = document.getElementById('AGE_18_error');
+      age.addEventListener('change', function () { if (age.checked) err.hidden = true; });
+      document.addEventListener('submit', function (e) {
+        if (e.target && e.target.id === 'sib-form' && !age.checked) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          err.hidden = false;
+          age.focus();
+        }
+      }, true);
+    })();
   </script>
   <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
   <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
