@@ -436,6 +436,20 @@
 
     .grecaptcha-badge { visibility: hidden !important; }
 
+    .form-notice {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin: 0.25rem 0 1rem;
+    }
+    .form-notice strong { color: var(--text); font-weight: 500; }
+    .form-notice a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .form-notice a:hover { color: var(--text); }
+
     .recaptcha-notice {
       font-size: 0.7rem;
       color: var(--text-muted);
@@ -478,8 +492,8 @@
         Star Thrown is built by one person. Before it goes live, I need a small group
         of real players to put it through its paces — find the bugs, stress-test the
         systems, and make sure the experience actually lands. Beta testers get early
-        access before the game opens to the public. Apply below — I'll reach out to
-        selected testers directly.
+        access before the game opens to the public. Apply below and I'll email you the
+        install link when the beta opens.
       </p>
 
       <div class="form-card">
@@ -573,6 +587,11 @@
                 </div>
 
                 <div class="g-recaptcha" data-sitekey="6Lcc2twsAAAAAC3sl0NAh5w-azkjzNMRzPU5wo6F" data-callback="invisibleCaptchaCallback" data-size="invisible"></div>
+
+                <!-- BL-523: data notice. Outside every .sib-form-block, whose <p> elements are hidden -->
+                <p class="form-notice">
+                  <strong>Your data.</strong> Boundless Alchemy LLC uses the email address and answers you give here to run the Star Thrown beta: to send you install links, beta updates and an end-of-beta email. You consent by sending this form. Applying does not sign you up for launch emails. Brevo (France) stores your application. Apple (TestFlight) and Google (Google Groups, Google Play and our beta game server) run the beta, and beta announcements and bug reports go through Discord. Apple shares the beta app's crash and usage data with us, and you cannot turn this off. The beta game server and some of these services are in the United States. We delete beta tester data within 30 days after the beta ends or Star Thrown launches, whichever comes first. Backups and our providers' own copies last longer. You can withdraw at any time: unsubscribing from our beta emails deletes your application at Brevo within 14 days. To leave the beta, delete your beta account, use your rights or complain to a data protection authority, see our <a href="https://starthrown.com/privacy#beta-testers" target="_blank" rel="noopener">Privacy Policy</a>.
+                </p>
 
                 <!-- Submit -->
                 <div style="padding: 4px 0;">
