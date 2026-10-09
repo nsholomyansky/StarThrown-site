@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Quick answers for people testing the Star Thrown beta on iPhone or Android." />
+  <meta name="robots" content="noindex" />
+  <title>Beta FAQ — Star Thrown</title>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- BL-533: content is docs/CustomerService/support/beta-faq.md at f9220346b (owner-approved 2026-10-09).
+       Copy changes go to CustomerService, not here. -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05080f;
+      --accent:     #4f8fff;
+      --gold:       #f0c060;
+      --text:       #d8e4f5;
+      --text-muted: #6b84a8;
+      --white:      #ffffff;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1rem 3rem;
+    }
+
+    .page::before {
+      content: '';
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      max-width: 100vw;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(120, 80, 20, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      width: 100%;
+    }
+
+    .game-title {
+      display: block;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.4rem, 5vw, 2.2rem);
+      letter-spacing: 0.06em;
+      background: linear-gradient(160deg, #ffffff 0%, #f5d98a 45%, #f0c060 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(240, 192, 96, 0.35));
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.05rem, 3.2vw, 1.4rem);
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+      text-wrap: balance;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1rem auto 1.25rem;
+      opacity: 0.5;
+    }
+
+    .intro {
+      text-align: center;
+      font-weight: 300;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1.75rem 0 0.5rem;
+      list-style: none;
+    }
+
+    .toc a {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid rgba(240, 192, 96, 0.25);
+      border-radius: 999px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .toc a:hover { border-color: var(--gold); color: var(--white); }
+
+    section { margin-top: 2.5rem; }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(240, 192, 96, 0.2);
+      scroll-margin-top: 1rem;
+    }
+
+    .qa {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    h3 {
+      font-size: 1.02rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      scroll-margin-top: 1rem;
+    }
+
+    .qa p, .qa li {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .qa p + p, .qa p + ul, .qa p + ol, .qa ul + p, .qa ol + p { margin-top: 0.6rem; }
+
+    .qa ul, .qa ol { padding-left: 1.4rem; }
+    .qa li + li { margin-top: 0.3rem; }
+
+    .qa strong { font-weight: 500; color: var(--white); }
+
+    .qa a, .intro a {
+      color: var(--accent);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .qa a:hover, .intro a:hover { text-decoration: underline; }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      margin-top: 2.5rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--text); }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      width: 100%;
+    }
+
+    .studio-credit {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .studio-link {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .studio-link:hover { color: rgba(255,255,255,0.6); }
+  </style>
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <main class="container">
+
+      <a href="/" class="game-title">Star Thrown</a>
+
+      <h1>Star Thrown™ beta: questions and answers</h1>
+      <div class="divider"></div>
+
+      <p class="intro">Quick answers for people testing the Star Thrown beta on iPhone or Android.</p>
+      <p class="intro">Can't find your question? Email <a href="mailto:support@starthrown.com"><strong>support@starthrown.com</strong></a>.</p>
+
+      <nav aria-label="FAQ sections">
+        <ul class="toc">
+          <li><a href="#getting-in">Getting in</a></li>
+          <li><a href="#the-beta">The beta itself</a></li>
+          <li><a href="#new-builds">New builds</a></li>
+          <li><a href="#purchases">Purchases</a></li>
+          <li><a href="#feedback">Feedback and support</a></li>
+          <li><a href="#leaving">Leaving the beta</a></li>
+        </ul>
+      </nav>
+
+      <section aria-labelledby="getting-in">
+        <h2 id="getting-in">Getting in</h2>
+
+        <div class="qa">
+          <h3 id="who-can-join">Who can join the beta?</h3>
+          <p>Anyone 18 or older with an iPhone or an Android phone. Joining is free.</p>
+          <ul>
+            <li><strong>iPhone:</strong> iOS 16 or later, and your own Apple Account.</li>
+            <li><strong>Android:</strong> a phone with the Google Play Store app and a Google account.</li>
+          </ul>
+        </div>
+
+        <div class="qa">
+          <h3 id="why-18">Why do I have to be 18 or older?</h3>
+          <p>The Star Thrown beta is for adults only. You confirm you are 18 or older when you sign up on our site and again when you create your account in the game.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="join-iphone">How do I join on iPhone?</h3>
+          <ol>
+            <li>Sign up at <a href="/beta"><strong>starthrown.com/beta</strong></a> and pick iPhone.</li>
+            <li>Install <strong>TestFlight</strong>, Apple's free app for test versions of apps. You only do this once.</li>
+            <li>Tap our TestFlight link.</li>
+            <li>Tap <strong>Accept</strong>, then tap <strong>Install</strong>.</li>
+            <li>Open Star Thrown and create your account or sign in.</li>
+          </ol>
+          <p>Your device needs iOS 16 or later. That is TestFlight's minimum.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="school-work-apple-account">Can I use my school or work Apple Account?</h3>
+          <p>Often not. Some school and work Apple Accounts (Managed Apple Accounts) can't be used to test. If yours won't work, use your personal Apple Account.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="join-android">How do I join on Android?</h3>
+          <p>Use the <strong>same Google account</strong> for every step: the one signed in to your Play Store app.</p>
+          <ol>
+            <li>Sign up at <a href="/beta"><strong>starthrown.com/beta</strong></a> and pick Android.</li>
+            <li>Open our Google Group link and tap <strong>Join group</strong>.</li>
+            <li>Open our opt-in link and tap the button to become a tester.</li>
+            <li>Go to the game's Play Store page and tap <strong>Install</strong>.</li>
+            <li>Open Star Thrown and create your account or sign in.</li>
+          </ol>
+          <p>You don't need a Gmail address. A Google account made with any email address works.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="two-google-accounts">I have two Google accounts on my phone. Which one do I use?</h3>
+          <p>Use the account that is signed in to your <strong>Play Store app</strong>. Join the group, opt in and install with that one account. If you joined or opted in with a different account, the beta won't show up for you. Join and opt in again with your Play Store account.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="internal-test">I'm already in the Android internal test. What do I do?</h3>
+          <p>Leave the internal test first, then join the beta. Google doesn't let someone in an internal test join this beta, even after they join the group.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="link-not-working">My invite or link doesn't work. What should I check?</h3>
+          <p><strong>Quick fix:</strong> make sure you are signed in with the right account, then tap the link again.</p>
+          <p><strong>On iPhone:</strong></p>
+          <ol>
+            <li>Check your device runs iOS 16 or later.</li>
+            <li>Install TestFlight first, then tap our link again.</li>
+            <li>If TestFlight says you can't accept, tap <strong>Learn More</strong>. It tells you why.</li>
+          </ol>
+          <p><strong>On Android:</strong></p>
+          <ol>
+            <li>Check you joined our Google Group <strong>before</strong> opting in.</li>
+            <li>Check you used the same Google account as your Play Store app for both.</li>
+            <li>Wait a few minutes after opting in, then open the Play Store page again.</li>
+            <li>Google offers the beta by the <strong>country your Google account is registered in</strong>, not where you are right now. If the beta isn't offered in your account's country, the game won't install.</li>
+          </ol>
+          <p><strong>Still stuck?</strong> Email <a href="mailto:support@starthrown.com"><strong>support@starthrown.com</strong></a>. Tell us your phone model and what you see on screen.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="store-search">Can I find the beta by searching the store?</h3>
+          <p>No. Use the links from <a href="/beta"><strong>starthrown.com/beta</strong></a>. Beta versions are shared by invitation link, not through store search.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="the-beta">
+        <h2 id="the-beta">The beta itself</h2>
+
+        <div class="qa">
+          <h3 id="how-long">How long does the beta last?</h3>
+          <p>The beta is one 18-day round.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="data">Does the beta collect data?</h3>
+          <p>Yes. The game sends crash reports and usage analytics. There is no in-game switch to turn them off. TestFlight and Google Play also share some test data with us, such as crashes and feedback you send.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="public-review">Can I leave a public review of the beta?</h3>
+          <p>No. Testers can't post public reviews of a test version. Send us feedback instead (see <a href="#feedback"><strong>Feedback and support</strong></a> below).</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="new-builds">
+        <h2 id="new-builds">New builds</h2>
+
+        <div class="qa">
+          <h3 id="new-build-iphone">How do I get a new build on iPhone?</h3>
+          <p>TestFlight tells you when a new build is ready. Open <strong>TestFlight</strong> and tap <strong>Update</strong> next to Star Thrown. You can also turn on automatic updates in TestFlight.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="stopped-opening">Why did the game stop opening on my iPhone?</h3>
+          <p>Each TestFlight build stops working 90 days after we upload it. Open <strong>TestFlight</strong> and install the newest build.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="new-build-android">How do I get a new build on Android?</h3>
+          <p>New builds arrive through the Play Store, like any app update. Google reviews each build first, so it can take a few hours, sometimes longer, before it reaches you. If you don't see it, open the game's Play Store page and check for <strong>Update</strong>.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="purchases">
+        <h2 id="purchases">Purchases</h2>
+
+        <div class="qa">
+          <h3 id="do-i-pay">Do I pay for purchases in the beta?</h3>
+          <p>No. Test purchases are not charged in the beta.</p>
+          <ul>
+            <li><strong>iPhone:</strong> TestFlight always uses Apple's test mode, so you are not charged.</li>
+            <li><strong>Android:</strong> beta testers are set up as test buyers. The purchase screen shows a test-purchase notice before you confirm.</li>
+          </ul>
+        </div>
+
+        <div class="qa">
+          <h3 id="no-receipt">Why didn't I get a receipt email for my purchase?</h3>
+          <p>Apple doesn't send receipt or refund emails for test purchases. That is normal in the beta.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="purchase-history-free">Why does my Purchase History say "Free"?</h3>
+          <p>That marks a test purchase. You were not charged. To see it, go to <strong>Account Settings</strong>, tap <strong>Purchases</strong>, and look at <strong>Purchase History</strong> in your <strong>Wallet</strong>.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="carry-over">Will my progress or purchases carry over to launch?</h3>
+          <p>No. The beta is a test, so your progress and anything you get in it, purchases included, stay in the beta. Everyone starts fresh at launch.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="feedback">
+        <h2 id="feedback">Feedback and support</h2>
+
+        <div class="qa">
+          <h3 id="feedback-iphone">How do I send feedback on iPhone?</h3>
+          <ul>
+            <li>Take a screenshot in the game, then tap <strong>Share Beta Feedback</strong>.</li>
+            <li>Or open <strong>TestFlight</strong>, tap Star Thrown, and tap <strong>Send Beta Feedback</strong>.</li>
+            <li>If the game crashes, TestFlight may ask you to send a crash report. Please do.</li>
+          </ul>
+        </div>
+
+        <div class="qa">
+          <h3 id="feedback-android">How do I send feedback on Android?</h3>
+          <p>In the Play Store app: tap your <strong>profile picture</strong> → <strong>Manage apps &amp; devices</strong> → <strong>Beta</strong> → <strong>Star Thrown</strong> → send <strong>private feedback to the developer</strong>. Google asks for a star rating plus your comments. Only we see it.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="report-bug">How do I report a bug inside the game?</h3>
+          <ol>
+            <li>Open <strong>Help</strong> from the game menu.</li>
+            <li>Under <strong>Contact Support</strong>, tap <strong>Submit a Ticket</strong>.</li>
+            <li>For <strong>Issue Type</strong>, pick <strong>Bug Report</strong>.</li>
+            <li>Describe what happened (up to 500 characters), then tap <strong>Submit Ticket</strong>.</li>
+            <li>Save the <strong>Ticket #</strong> you see. Have a screenshot? Email it to <a href="mailto:support@starthrown.com"><strong>support@starthrown.com</strong></a> with your ticket number in the subject line.</li>
+          </ol>
+          <p>You must be signed in to send a ticket.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="email-us">Can I email you instead?</h3>
+          <p>Yes: <a href="mailto:support@starthrown.com"><strong>support@starthrown.com</strong></a>. Tell us which device you use (iPhone or Android) and what happened.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="leaving">
+        <h2 id="leaving">Leaving the beta</h2>
+
+        <div class="qa">
+          <h3 id="leave-iphone">How do I leave the beta on iPhone?</h3>
+          <p>Open <strong>TestFlight</strong>, tap Star Thrown, and tap <strong>Stop Testing</strong>. You can also delete the app.</p>
+        </div>
+
+        <div class="qa">
+          <h3 id="leave-android">How do I leave the beta on Android?</h3>
+          <p>In the Play Store app: tap your <strong>profile picture</strong> → <strong>Manage apps &amp; devices</strong> → <strong>Beta</strong> → <strong>Star Thrown</strong> → <strong>Leave</strong>.</p>
+          <p>If you can, please stay in the beta for at least 14 days. It really helps us.</p>
+        </div>
+      </section>
+
+      <a href="/beta" class="back-link">← Back to the beta sign-up</a>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
+    <p class="studio-credit"><a href="/privacy" class="studio-link">Privacy Policy</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 200;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      function seed() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.2 + 0.2, alpha: Math.random() * 0.6 + 0.15, twinkle: Math.random() * Math.PI * 2, twinkleSpeed: 0.008 + Math.random() * 0.012 });
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.twinkle += s.twinkleSpeed;
+          const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${a})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      resize(); seed(); requestAnimationFrame(draw);
+      let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+</body>
+</html>
