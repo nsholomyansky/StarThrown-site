@@ -191,6 +191,16 @@
       padding-top: 1.1rem;
     }
 
+    /* ── Discord card (BL-540) ──────────────────────────────────── */
+    .discord-desc {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .contact-card .contact-email:last-child { margin-bottom: 0; }
+
     /* ── Links section ──────────────────────────────────────────── */
     .support-links {
       width: 100%;
@@ -329,6 +339,13 @@
         <p class="contact-label">Email us</p>
         <a href="mailto:support@starthrown.com" class="contact-email">support@starthrown.com</a>
         <p class="response-note">We typically respond within a few business days.</p>
+      </div>
+
+      <!-- BL-540: Discord card. PUBLIC invite only; the tester invite never goes on the site -->
+      <div class="contact-card">
+        <h2 class="contact-label">Join our Discord</h2>
+        <p class="discord-desc">Chat with other players, ask questions, report bugs and share feedback.</p>
+        <a href="https://discord.gg/vVs73yb7wU" class="contact-email" target="_blank" rel="noopener">Join the Star Thrown Discord</a>
       </div>
 
       <!-- Links section -->
