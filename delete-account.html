@@ -807,7 +807,15 @@
     // needs a web app registered for this site AND deleteUserAccount deployed.
     const ENVIRONMENTS = [
       { key: 'live',    label: 'Star Thrown',           config: null },  // aiwarsprod: add at launch
-      { key: 'beta',    label: 'Star Thrown — beta',    config: null },  // staging: add once it has the deletion functions
+      { key: 'beta',    label: 'Star Thrown — beta',    config: {        // starthrown-staging, web app "Star Thrown Website"
+        apiKey:            "AIzaSyA2KMtcgCbzkKirHByYLhR8qNPbdQ1s8ZQ",  // site-only key: starthrown.com referrers, Identity Toolkit + Token Service
+        authDomain:        "starthrown-staging.firebaseapp.com",
+        databaseURL:       "https://starthrown-staging-default-rtdb.firebaseio.com",
+        projectId:         "starthrown-staging",
+        storageBucket:     "starthrown-staging.firebasestorage.app",
+        messagingSenderId: "388400098157",
+        appId:             "1:388400098157:web:45b2e76718674a19490864"
+      } },
       { key: 'testing', label: 'Star Thrown — testing', config: {        // ai-wars-dev, web app "Star Thrown Website"
         apiKey:            "AIzaSyCHO8cbfNlPfC_zsEP5aYuMIWPUn2RuJJc",
         authDomain:        "ai-wars-dev.firebaseapp.com",
