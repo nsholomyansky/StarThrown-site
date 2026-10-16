@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Humanity was cast out into the stars by AI. Now it's time to take back what's yours. Sign up to be notified when Star Thrown launches on iOS and Android." />
+  <meta name="description" content="Star Thrown is a competitive mobile strategy game played in rounds. Scan a rival, calculate the outcome, strike, and build an alliance. The beta is free to join on iPhone and Android." />
   <title>Star Thrown — Cast to the Stars. Rise. Conquer. Reign.</title>
 
   <!-- Open Graph / link preview -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://starthrown.com" />
   <meta property="og:title" content="Star Thrown" />
-  <meta property="og:description" content="Cast to the Stars. Rise. Conquer. Reign. A competitive mobile strategy game — sign up to be notified when it launches on iOS and Android." />
+  <meta property="og:description" content="Cast to the Stars. Rise. Conquer. Reign. A competitive mobile strategy game. The beta is free to join on iPhone and Android." />
   <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:site_name" content="Star Thrown" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Star Thrown" />
-  <meta name="twitter:description" content="Cast to the Stars. Rise. Conquer. Reign. A competitive mobile strategy game — sign up to be notified when it launches." />
+  <meta name="twitter:description" content="Cast to the Stars. Rise. Conquer. Reign. A competitive mobile strategy game. The beta is free to join on iPhone and Android." />
   <meta name="twitter:image" content="https://starthrown.com/StarThrownOGImage.png" />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -107,20 +107,20 @@
 
     /* ── Studio name (top) ──────────────────────────────────────── */
     .studio-top {
-      font-size: 0.75rem;
+      font-size: 0.66rem;
       font-weight: 500;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.32rem;
     }
 
     /* ── Logo / game name ───────────────────────────────────────── */
     .game-logo {
-      width: clamp(240px, 55vw, 520px);
+      width: clamp(202px, 41.4vw, 368px);
       height: auto;
       display: block;
-      margin: 0 auto 0.6rem;
+      margin: 0 auto 0.4rem;
       filter: none;
     }
 
@@ -128,11 +128,11 @@
     .tagline {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: clamp(0.65rem, 1.4vw, 0.85rem);
+      font-size: clamp(0.572rem, 1.056vw, 0.66rem);
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.48rem;
       filter: drop-shadow(0 0 8px rgba(240, 192, 96, 0.5));
     }
 
@@ -147,31 +147,21 @@
 
     /* ── Genre label ────────────────────────────────────────────── */
     .genre-label {
-      font-size: 0.68rem;
+      font-size: 0.544rem;
       font-weight: 500;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 0.75rem;
-      margin-top: 0.4rem;
+      margin-bottom: 0.6rem;
+      margin-top: 0.32rem;
     }
 
     /* ── Divider ────────────────────────────────────────────────── */
     .divider {
-      width: 80px;
+      width: 64px;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 0 auto 0.75rem;
-    }
-
-    /* ── Description ────────────────────────────────────────────── */
-    .description {
-      font-size: 0.95rem;
-      font-weight: 300;
-      color: var(--text);
-      line-height: 1.7;
-      max-width: 860px;
-      margin-bottom: 0.6rem;
+      margin: 0 auto 0.6rem;
     }
 
     /* ── CTA section ────────────────────────────────────────────── */
@@ -180,29 +170,40 @@
       font-weight: 500;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 0.75rem;
+      color: var(--accent);
       margin-bottom: 0.6rem;
+      filter: drop-shadow(0 0 6px rgba(79, 143, 255, 0.4));
+    }
+
+    .launch-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
     }
 
     .cta-sub {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 300;
       color: var(--text);
-      margin-bottom: 0.75rem;
-      max-width: 420px;
+      line-height: 1.6;
+      margin: 0 auto 1rem;
     }
 
     /* ── Brevo form container ───────────────────────────────────── */
     .signup-wrapper {
       width: 100%;
       max-width: 520px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(79,143,255,0.06) 100%);
-      border: 1px solid rgba(79, 143, 255, 0.18);
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(79,143,255,0.06) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.22);
       border-radius: 12px;
       padding: 1.25rem 1.5rem;
       margin-bottom: 2rem;
-      box-shadow: 0 0 40px rgba(79, 143, 255, 0.08), inset 0 1px 0 rgba(255,255,255,0.05);
+      box-shadow: 0 0 40px rgba(79, 143, 255, 0.06), inset 0 1px 0 rgba(255,255,255,0.05);
     }
 
     /* ── Brevo placeholder ──────────────────────────────────────── */
@@ -268,65 +269,9 @@
       box-shadow: 0 0 16px rgba(79, 143, 255, 0.4);
     }
 
-    /* ── Store badges ───────────────────────────────────────────── */
-    .store-section {
-      margin-bottom: 1.25rem;
-    }
-
-    .store-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
-    .store-badges {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .store-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 0.6rem 1.25rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      background: rgba(255,255,255,0.03);
-      color: rgba(255,255,255,0.35);
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-decoration: none;
-      letter-spacing: 0.03em;
-      cursor: default;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .store-badge svg {
-      opacity: 0.4;
-      flex-shrink: 0;
-    }
-
-    .store-badge:hover {
-      border-color: rgba(255,255,255,0.18);
-      color: rgba(255,255,255,0.5);
-    }
-
-    .badge-sub {
-      display: block;
-      font-size: 0.65rem;
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      opacity: 0.7;
-      margin-top: 1px;
-    }
-
     /* ── Age notice ─────────────────────────────────────────────── */
     .age-notice {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       letter-spacing: 0.05em;
       margin-bottom: 1rem;
@@ -360,7 +305,7 @@
     .beta-heading {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: clamp(0.75rem, 1.6vw, 0.95rem);
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gold);
@@ -368,7 +313,7 @@
     }
 
     .beta-desc {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 300;
       color: var(--text);
       line-height: 1.6;
@@ -381,9 +326,9 @@
       color: #05080f;
       border: none;
       border-radius: 6px;
-      padding: 0.7rem 1.6rem;
+      padding: 0.42rem 1.28rem;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.02em;
       text-decoration: none;
@@ -402,7 +347,7 @@
       position: relative;
       z-index: 1;
       text-align: center;
-      padding: 1.5rem;
+      padding: 0.9rem 1.5rem;
       border-top: 1px solid rgba(255,255,255,0.05);
       width: 100%;
     }
@@ -418,15 +363,25 @@
     }
 
     .footer-press {
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
       color: var(--text-muted);
-      margin-top: 0.4rem;
+      opacity: 0.75;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem 1.25rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      margin: 0.45rem 0 0.35rem;
     }
 
     .studio-credit {
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--text-muted);
@@ -456,7 +411,7 @@
     }
     .brevo-row {
       display: flex;
-      gap: 0.4rem;
+      gap: 0.5rem;
       width: 100%;
       align-items: stretch;
     }
@@ -476,8 +431,10 @@
       -webkit-text-fill-color: #ffffff !important;
       caret-color: #ffffff !important;
       font-family: 'Space Grotesk', sans-serif !important;
-      font-size: 0.9rem !important;
-      padding: 0.7rem 1rem !important;
+      font-size: 1rem !important;
+      padding: 0.45rem 0.9rem !important;
+      box-sizing: border-box !important;
+      min-height: 40px !important;
       width: 100% !important;
       height: 100% !important;
     }
@@ -498,31 +455,51 @@
       caret-color: #ffffff !important;
     }
     .sib-form-block__button {
-      background: #4f8fff !important;
-      border: 1px solid rgba(255,255,255,0.15) !important;
+      position: relative !important;
+      overflow: hidden !important;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 45%),
+        linear-gradient(180deg, #3a4558 0%, #222a38 50%, #161c27 51%, #2a3446 100%) !important;
+      border: 1px solid rgba(120, 170, 255, 0.55) !important;
       border-radius: 6px !important;
-      color: #ffffff !important;
-      font-family: 'Space Grotesk', sans-serif !important;
-      font-size: 0.875rem !important;
-      font-weight: 600 !important;
-      letter-spacing: 0.04em !important;
-      padding: 0 1.4rem !important;
+      color: #a9cfff !important;
+      font-family: 'Orbitron', sans-serif !important;
+      font-size: 0.68rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.14em !important;
+      padding: 0 1.28rem !important;
       width: 100% !important;
       height: 100% !important;
-      text-transform: none !important;
+      text-transform: uppercase !important;
       cursor: pointer !important;
       white-space: nowrap !important;
-      box-shadow: 0 0 20px rgba(79,143,255,0.2), inset 0 1px 0 rgba(255,255,255,0.18) !important;
-      transition: box-shadow 0.2s, background 0.2s !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 0 12px rgba(79,143,255,0.3) !important;
+      transition: box-shadow 0.25s, filter 0.25s, border-color 0.25s !important;
+    }
+    /* light sweep across the button on hover */
+    .sib-form-block__button::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: -60%;
+      width: 40%;
+      background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+      transform: skewX(-20deg);
+      transition: left 0.6s ease;
+      pointer-events: none;
     }
     .sib-form-block__button:hover {
-      background: #6ba0ff !important;
-      box-shadow: 0 0 28px rgba(79,143,255,0.45), inset 0 1px 0 rgba(255,255,255,0.18) !important;
+      filter: brightness(1.15);
+      border-color: rgba(170, 205, 255, 0.85) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 22px rgba(79,143,255,0.5) !important;
+    }
+    .sib-form-block__button:hover::after { left: 120%; }
+    @media (prefers-reduced-motion: reduce) {
+      .sib-form-block__button::after { display: none; }
     }
     .grecaptcha-badge { visibility: hidden !important; }
 
     .recaptcha-notice {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       margin-top: 0.5rem;
       line-height: 1.5;
@@ -539,6 +516,9 @@
       margin-bottom: 0.75rem !important;
       font-family: 'Space Grotesk', sans-serif !important;
     }
+    .entry__error:empty { display: none !important; }
+    #sib-container .entry__field { margin: 0 !important; }
+    #sib-container .brevo-row .sib-form-block { padding: 0 !important; }
     .entry__error {
       font-family: 'Space Grotesk', sans-serif !important;
       font-size: 0.8rem !important;
@@ -562,7 +542,8 @@
       border-bottom: 1px solid rgba(240,192,96,0.35);
       box-shadow: 0 1px 24px rgba(240,192,96,0.12);
       text-align: center;
-      padding: 0.7rem 1.5rem;
+      padding: 0.47rem 1.5rem;
+      line-height: 1;
     }
 
     .beta-bar a {
@@ -618,11 +599,292 @@
       transform: translateX(4px);
     }
 
+    /* ── Hero beta button (primary CTA) ─────────────────────────── */
+    .hero-cta {
+      margin: 0.2rem 0 0.8rem;
+    }
+    .hero-cta .beta-btn {
+      font-size: 0.8rem;
+      padding: 0.42rem 1.28rem;
+    }
+    .hero-cta-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ── Story (lore) ───────────────────────────────────────────── */
+    .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .eyebrow-center { margin: 0.5rem 0 0.75rem; }
+
+    .story {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      align-items: center;
+      gap: 1.75rem;
+      width: 100%;
+      margin: 1.25rem 0 2.25rem;
+      padding: 1.5rem 1.75rem;
+      text-align: left;
+      border-radius: 16px;
+      background:
+        radial-gradient(ellipse at 15% 50%, rgba(79,143,255,0.16) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(240,192,96,0.04) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.18);
+      box-shadow: 0 0 60px rgba(79, 143, 255, 0.08);
+    }
+    .story-art img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 50%;
+      box-shadow: 0 0 50px rgba(79, 143, 255, 0.45), 0 0 120px rgba(79, 143, 255, 0.18);
+      animation: float 9s ease-in-out infinite;
+    }
+    .story-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(0.935rem, 1.87vw, 1.275rem);
+      line-height: 1.25;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--gold);
+      filter: drop-shadow(0 0 10px rgba(240, 192, 96, 0.35));
+      margin-bottom: 0.75rem;
+    }
+    .story-lead {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .story-steps {
+      list-style: none;
+      counter-reset: step;
+      display: grid;
+      gap: 0.6rem;
+    }
+    .story-steps li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 1.8rem;
+      font-size: 0.8rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    .story-steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 50%;
+      border: 1px solid rgba(240,192,96,0.6);
+      color: var(--gold);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .story-steps strong {
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    /* ── Feature cards ──────────────────────────────────────────── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      width: 100%;
+      margin: 0 0 2.25rem;
+      text-align: left;
+    }
+    .feature {
+      background: linear-gradient(160deg, rgba(255,255,255,0.035) 0%, rgba(79,143,255,0.05) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.16);
+      border-radius: 14px;
+      padding: 0 0 1.2rem;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .feature:hover {
+      transform: translateY(-3px);
+      border-color: rgba(79, 143, 255, 0.4);
+      box-shadow: 0 10px 40px rgba(79, 143, 255, 0.14);
+    }
+    .feature h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0.9rem 1.1rem 0.45rem;
+    }
+    .feature p {
+      font-size: 0.8rem;
+      font-weight: 300;
+      line-height: 1.6;
+      margin: 0 1.1rem;
+    }
+
+    /* Card art: game sprites over a small nebula, composed per card */
+    .feature-art {
+      position: relative;
+      height: 170px;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(79, 143, 255, 0.12);
+      background:
+        radial-gradient(circle at 75% 45%, rgba(240,192,96,0.14) 0%, transparent 45%),
+        radial-gradient(circle at 25% 60%, rgba(79,143,255,0.18) 0%, transparent 50%),
+        radial-gradient(1px 1px at 12% 20%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 62% 15%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 88% 70%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 30% 35%, rgba(255,255,255,0.6), transparent),
+        #070c18;
+    }
+    .feature-art { zoom: 0.82; }
+    .feature-art img { position: absolute; height: auto; }
+
+    /* Scan: a beam from the fleet locks a reticle on the target Stardom; a scan line sweeps it */
+    .art-scan .beam { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .art-scan .a-target { width: 110px; right: 10%; top: 30px; filter: drop-shadow(0 0 16px rgba(240,192,96,0.35)); }
+    .art-scan .a-fleet  { width: 105px; left: 8%; bottom: 14px; transform: scaleX(-1); filter: drop-shadow(0 0 12px rgba(79,143,255,0.6)); }
+    .art-scan .reticle {
+      position: absolute; right: calc(10% - 12px); top: 20px; width: 134px; height: 134px;
+      --c: rgba(127,208,255,0.9);
+      background:
+        linear-gradient(var(--c), var(--c)) top left / 18px 2px no-repeat,
+        linear-gradient(var(--c), var(--c)) top left / 2px 18px no-repeat,
+        linear-gradient(var(--c), var(--c)) top right / 18px 2px no-repeat,
+        linear-gradient(var(--c), var(--c)) top right / 2px 18px no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom left / 18px 2px no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom left / 2px 18px no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom right / 18px 2px no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom right / 2px 18px no-repeat;
+      filter: drop-shadow(0 0 4px rgba(127,208,255,0.8));
+    }
+    .art-scan .scanline {
+      position: absolute; right: calc(10% - 6px); top: 26px; width: 122px; height: 2px;
+      background: linear-gradient(90deg, transparent, #bfe8ff, transparent);
+      box-shadow: 0 0 10px 2px rgba(127,208,255,0.55);
+      animation: scanline 2.6s ease-in-out infinite alternate;
+    }
+    @keyframes scanline { to { transform: translateY(118px); } }
+    /* Bigger targets: your Stardom (cyan, as on the map) sends a fleet at a bigger rival (red) */
+    .art-size .vector   { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .art-size .vector .march { animation: march 1.2s linear infinite; }
+    @keyframes march { to { stroke-dashoffset: -24; } }
+    .art-size .a-home   { width: 88px; left: 6%; top: 34px; filter: drop-shadow(0 0 14px rgba(0,255,255,0.45)); }
+    .art-size .a-fleet  { width: 80px; left: 28%; bottom: 30px; transform: scaleX(-1) rotate(-14deg); filter: drop-shadow(0 0 10px rgba(0,255,255,0.5)); }
+    .art-size .a-target { width: 140px; right: 6%; top: 2px; filter: drop-shadow(0 0 22px rgba(255,59,59,0.45)); }
+    .map-label {
+      position: absolute;
+      display: flex; flex-direction: column; align-items: center;
+      font-size: 10px; line-height: 1.15; letter-spacing: 0.02em; white-space: nowrap;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+      transform: translateX(-50%);
+    }
+    .map-label b { font-weight: 600; font-size: 11px; }
+    .map-label.you   { color: #00ffff; }
+    .map-label.enemy { color: #ff4d4d; }
+    .art-size .l-home   { left: calc(6% + 44px); top: 126px; }
+    .art-size .l-fleet  { left: calc(28% + 40px); top: 50px; }
+    .art-size .l-target { right: calc(6% + 70px); transform: translateX(50%); top: 140px; }
+
+    /* Defended Stardom: fleets ring it, facing outward (sprite faces left natively) */
+    .art-alliance .a-target { width: 118px; left: 50%; top: 26px; transform: translateX(-50%); filter: drop-shadow(0 0 20px rgba(79,143,255,0.55)); }
+    .art-alliance .shield {
+      position: absolute; width: 190px; height: 150px; left: 50%; top: 12px; transform: translateX(-50%);
+      border-radius: 50%;
+      border: 1px solid rgba(120,190,255,0.45);
+      background: radial-gradient(ellipse at center, rgba(79,143,255,0.12) 0%, rgba(79,143,255,0.04) 55%, transparent 70%);
+      box-shadow: 0 0 22px rgba(79,143,255,0.35), inset 0 0 18px rgba(79,143,255,0.25);
+    }
+    .art-alliance .a-fleet { width: 64px; filter: drop-shadow(0 0 9px rgba(79,143,255,0.65)); }
+    .art-alliance .f1 { left: 17%; top: 8px;     transform: rotate(18deg); }
+    .art-alliance .f2 { left: 8%;  top: 62px;    transform: rotate(0deg); }
+    .art-alliance .f3 { left: 19%; bottom: 6px;  transform: rotate(-18deg); }
+    .art-alliance .f4 { right: 17%; top: 8px;    transform: scaleX(-1) rotate(18deg); }
+    .art-alliance .f5 { right: 8%;  top: 62px;   transform: scaleX(-1); }
+    .art-alliance .f6 { right: 19%; bottom: 6px; transform: scaleX(-1) rotate(-18deg); }
+
+    .art-round .a-ghost  { width: 120px; left: 12%; top: 26px; opacity: 0.18; filter: grayscale(1); }
+    .art-round .a-target { width: 130px; left: 50%; top: 18px; transform: translateX(-10%); filter: drop-shadow(0 0 20px rgba(79,143,255,0.55)); }
+    .art-round .orbit {
+      position: absolute; width: 240px; height: 70px; left: 50%; top: 60px;
+      transform: translateX(-30%) rotate(-12deg);
+      border: 1px solid rgba(240,192,96,0.45); border-radius: 50%;
+      box-shadow: 0 0 14px rgba(240,192,96,0.25);
+    }
+
+    @keyframes float { 0%,100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+    @keyframes sweep { to { transform: translate(-50%, 50%) rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .story-art img, .art-scan .scanline, .art-size .vector .march { animation: none; }
+      .feature { transition: none; }
+    }
+
+    /* ── Discord line / purchases notice ────────────────────────── */
+    .discord-line {
+      font-size: 0.8rem;
+      color: var(--text);
+      margin: -1rem 0 2rem;
+    }
+    .discord-line a {
+      color: var(--accent);
+      text-underline-offset: 2px;
+    }
+
     /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .features { grid-template-columns: 1fr; }
+      .story { grid-template-columns: 1fr; padding: 1.25rem 1rem; gap: 1rem; text-align: center; }
+      .story-art { max-width: 140px; margin: 0 auto; }
+      .story-steps { text-align: left; }
+    }
+
     @media (max-width: 480px) {
       .page {
-        padding: 2rem 1rem 3rem;
+        padding: 1.25rem 1rem 2.5rem;
       }
+
+      .beta-bar { padding: 0; }
+      .beta-bar a { display: flex; justify-content: center; padding: 0.25rem 1rem; }
+      .hero-cta .beta-btn { padding: 0.75rem 1.28rem; }
+
+      .brevo-row { flex-direction: column; gap: 0.5rem; }
+      #sib-container input.input,
+      .sib-form-block__button {
+        box-sizing: border-box !important;
+        height: auto !important;
+        min-height: 48px !important;
+      }
+
+      .footer-links { gap: 0 1rem; }
+      .footer-links a { padding: 0.4rem 0; }
+    }
+
+    @media (max-width: 400px) {
+      .art-size .a-home  { width: 70px; left: 3%; top: 44px; }
+      .art-size .l-home  { left: calc(3% + 35px); }
+      .art-size .a-fleet { width: 66px; left: 33%; }
+      .art-size .l-fleet { left: calc(33% + 33px); }
+      .beta-bar a { letter-spacing: 0.12em; }
 
       .signup-wrapper {
         padding: 1.5rem 1.25rem;
@@ -672,33 +934,143 @@
 
         <div class="divider"></div>
 
+        <div class="hero-cta">
+          <a href="/beta" class="beta-btn">Join the Beta</a>
+          <p class="hero-cta-sub">Free to join on iPhone and Android. 18+.</p>
+        </div>
+
       </div>
 
-      <p class="description">
-        Humanity was cast out into the stars by AI and left to survive in stardoms scattered across
-        the void. Now the fight begins to take back Earth. Strengthen your stardom, forge alliances
-        with real players, and push against the machines and rival alliances.
-      </p>
-      <p class="description">
-        Become the strongest Stardom by growing your fleet, technology, and resources, and earning
-        score through battle. Be part of the most fearsome alliance — attack together, defend each
-        other, capture territory, improve alliance technology, and be the highest scoring alliance.
-      </p>
-      <p class="description">
-        Star Thrown is a round-based game, giving players a set amount of time to conquer the galaxy.
-        At the end of the round, the most dominant Stardom and the best alliance are the winners. Then
-        do it all again — every new round brings a fresh start, a chance to try a new strategy, and
-        changes that may include new ship types, rebalanced stats, and new features.
-      </p>
-      <p class="description">
-        And unlike most strategy games, we strive to make the playing field fair. Your stardom has
-        real value no matter what anyone else spends.
-      </p>
+      <section class="story" aria-labelledby="story-heading">
+        <div class="story-art" aria-hidden="true">
+          <img src="img/earth.webp" alt="" width="560" height="558" />
+        </div>
+        <div class="story-text">
+          <h2 id="story-heading" class="story-heading">The fight to take back Earth</h2>
+          <p class="story-lead">
+            Humanity was cast out into the stars by AI and left to survive in Stardoms scattered across
+            the void. Now the fight begins to take back Earth.
+          </p>
+          <ol class="story-steps">
+            <li><strong>Build your Stardom.</strong> Grow your fleet, improve your technology, and capture asteroids for resources.</li>
+            <li><strong>Join an alliance.</strong> Team up with real players. Send fleets to defend each other, coordinate in
+              alliance chat, and research alliance technology that helps all alliance members.</li>
+            <li><strong>Take back what&rsquo;s yours.</strong> Win outposts from the machines and rival alliances, and
+              fight together for Earth at the center of the galaxy.</li>
+            <li><strong>Win the round.</strong> When the round ends, the highest-scoring Stardom and the strongest alliance
+              top the final standings.</li>
+          </ol>
+        </div>
+      </section>
 
-      <p class="cta-label">Be first in line</p>
-      <p class="cta-sub">Sign up to be notified when Star Thrown launches on iOS and Android and round registration opens.</p>
+      <p class="eyebrow eyebrow-center">How it plays</p>
+
+      <section class="features" aria-label="How Star Thrown plays">
+        <div class="feature">
+          <div class="feature-art art-scan" aria-hidden="true">
+            <svg class="beam" viewBox="0 0 300 170" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="beamFill" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#7fd0ff" stop-opacity="0.55"/>
+                  <stop offset="1" stop-color="#7fd0ff" stop-opacity="0.06"/>
+                </linearGradient>
+              </defs>
+              <polygon points="70,113 222,34 222,142" fill="url(#beamFill)"/>
+            </svg>
+            <img class="a-fleet" src="img/fleet.webp" alt="" loading="lazy" />
+            <img class="a-target" src="img/stardom.webp" alt="" loading="lazy" />
+            <span class="reticle"></span>
+            <span class="scanline"></span>
+          </div>
+          <h2>Scan. Calculate. Strike.</h2>
+          <p>
+            Scan a rival, then run the Battle Calculator to see the projected result and your score
+            change before you launch. You can scan again to see if defense has been sent, and recall
+            your fleet before it lands. After the battle, read the battle report.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-art art-size" aria-hidden="true">
+            <svg class="vector" viewBox="0 0 540 170" preserveAspectRatio="none">
+              <defs>
+                <filter id="redGlow" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+                <linearGradient id="atk" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#ff3b3b" stop-opacity="0.15"/>
+                  <stop offset="1" stop-color="#ff3b3b" stop-opacity="1"/>
+                </linearGradient>
+              </defs>
+              <path d="M224 106 Q 296 70 364 82" fill="none" stroke="#ff2a2a" stroke-width="7" opacity="0.45" filter="url(#redGlow)"/>
+              <path d="M224 106 Q 296 70 364 82" fill="none" stroke="url(#atk)" stroke-width="2.5"/>
+              <path class="march" d="M224 106 Q 296 70 364 82" fill="none" stroke="#ffd0d0" stroke-width="1.2" stroke-dasharray="3 9"/>
+              <polygon points="372,83 358,74 361,83 357,91" fill="#ff4a4a"/>
+            </svg>
+            <img class="a-home" src="img/stardom.webp" alt="" loading="lazy" />
+            <span class="map-label you l-home"><b>Dauntless</b>Vanguard</span>
+            <img class="a-fleet" src="img/fleet.webp" alt="" loading="lazy" />
+            <span class="map-label you l-fleet"><b>Dauntless &middot; F1</b>Vanguard</span>
+            <img class="a-target" src="img/stardom.webp" alt="" loading="lazy" />
+            <span class="map-label enemy l-target"><b>Stardust</b>Crimson Pact</span>
+          </div>
+          <h2>Bigger targets score more</h2>
+          <p>
+            Beat a bigger player and you score more. Beat a much smaller one and you score far less.
+            In Star Thrown, taking on someone your own size or punching up pays more than bullying.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-art art-alliance" aria-hidden="true">
+            <span class="shield"></span>
+            <img class="a-target" src="img/stardom.webp" alt="" loading="lazy" />
+            <img class="a-fleet f1" src="img/fleet.webp" alt="" loading="lazy" />
+            <img class="a-fleet f2" src="img/fleet.webp" alt="" loading="lazy" />
+            <img class="a-fleet f3" src="img/fleet.webp" alt="" loading="lazy" />
+            <img class="a-fleet f4" src="img/fleet.webp" alt="" loading="lazy" />
+            <img class="a-fleet f5" src="img/fleet.webp" alt="" loading="lazy" />
+            <img class="a-fleet f6" src="img/fleet.webp" alt="" loading="lazy" />
+          </div>
+          <h2>Attack one of us, face all of us</h2>
+          <p>
+            When a rival attacks someone in your alliance, your alliance chat gets an alert and your
+            alliance&rsquo;s Fleet Movements screen shows the incoming hostiles, where you can coordinate and
+            calculate the defense.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-art art-round" aria-hidden="true">
+            <img class="a-ghost" src="img/stardom.webp" alt="" loading="lazy" />
+            <span class="orbit"></span>
+            <img class="a-target" src="img/stardom.webp" alt="" loading="lazy" />
+          </div>
+          <h2>A new Stardom every round</h2>
+          <p>
+            Star Thrown&trade; is played in rounds. When one ends, a new round begins: a new Stardom, a new
+            strategy, and changes that may include new ship types, rebalanced stats and new features.
+          </p>
+        </div>
+      </section>
+
+      <div class="beta-section">
+        <p class="beta-label">Beta Testers Wanted</p>
+        <div class="beta-wrapper">
+          <p class="beta-heading">Be First Into the Galaxy</p>
+          <p class="beta-desc">
+            Join free on iPhone or Android, play against real players before the official launch, and help
+            find what breaks. Star Thrown is built by just one person, so your feedback directly
+            shapes the game everyone plays at the official launch. The beta is open to any player 18 or older.
+          </p>
+          <a href="/beta" class="beta-btn">
+            Join the Beta
+          </a>
+        </div>
+      </div>
+
+      <p class="discord-line">Questions? Ask in our <a href="https://discord.gg/vVs73yb7wU" target="_blank" rel="noopener">Discord</a>.</p>
+
+      <p class="cta-label">Official Launch</p>
 
       <div class="signup-wrapper">
+        <p class="launch-heading">Waiting for the official launch instead?</p>
+        <p class="cta-sub">Sign up to be notified when Star Thrown officially launches on iPhone and Android and round registration opens.</p>
         <div class="sib-form">
           <div id="sib-form-container" class="sib-form-container">
             <div id="error-message" class="sib-form-message-panel" style="font-size:14px;text-align:left;color:#ff4949;background-color:rgba(255,73,73,0.1);border-color:#ff4949;border-radius:6px;max-width:100%;">
@@ -711,7 +1083,7 @@
             <div id="success-message" class="sib-form-message-panel" style="font-size:14px;text-align:left;color:#13ce66;background-color:rgba(19,206,102,0.1);border-color:#13ce66;border-radius:6px;max-width:100%;">
               <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
                 <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
-                <span class="sib-form-message-panel__inner-text">Almost there! Check your inbox and click the confirmation link to secure your spot.</span>
+                <span class="sib-form-message-panel__inner-text">Almost there! Check your inbox and click the link to confirm your sign-up.</span>
               </div>
             </div>
             <div></div>
@@ -745,62 +1117,22 @@
         <p class="recaptcha-notice">Protected by reCAPTCHA — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> &amp; <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a></p>
       </div>
 
-      <div class="beta-section">
-        <p class="beta-label">Beta Testers Wanted</p>
-        <div class="beta-wrapper">
-          <p class="beta-heading">Be First Into the Galaxy</p>
-          <p class="beta-desc">
-            Join free on iPhone or Android, play against real players before launch, and help
-            find what breaks. Star Thrown is built by just one person, so your feedback directly
-            shapes the game everyone plays at launch. The beta is open to any player 18 or older.
-          </p>
-          <a href="/beta" class="beta-btn">
-            Join the Beta
-          </a>
-        </div>
-      </div>
-
-      <div class="store-section">
-        <p class="store-label">Coming soon on</p>
-        <div class="store-badges">
-          <!-- App Store placeholder — update href when live -->
-          <a href="#" class="store-badge" aria-label="Download on the App Store (coming soon)">
-            <!-- Apple wordmark SVG -->
-            <svg width="18" height="22" viewBox="0 0 18 22" fill="currentColor" aria-hidden="true">
-              <path d="M14.93 11.62c-.03-3.05 2.49-4.52 2.6-4.59-1.42-2.07-3.62-2.35-4.4-2.38-1.86-.19-3.65 1.1-4.6 1.1-.95 0-2.41-1.08-3.97-1.05C2.57 4.73.9 5.8.02 7.46c-1.8 3.13-.46 7.75 1.28 10.29.86 1.24 1.88 2.63 3.22 2.58 1.3-.05 1.79-.83 3.36-.83 1.57 0 2.01.83 3.38.8 1.4-.02 2.27-1.25 3.12-2.5.99-1.43 1.39-2.82 1.41-2.89-.03-.01-2.7-1.03-2.73-4.09zM12.2 3.04C12.9 2.18 13.38 1 13.22 0c-1.04.04-2.3.69-3.05 1.55-.67.76-1.26 1.97-1.1 3.12 1.16.09 2.34-.59 3.13-1.63z"/>
-            </svg>
-            <span>
-              App Store
-              <span class="badge-sub">Coming Soon</span>
-            </span>
-          </a>
-
-          <!-- Google Play placeholder — update href when live -->
-          <a href="#" class="store-badge" aria-label="Get it on Google Play (coming soon)">
-            <!-- Play triangle SVG -->
-            <svg width="18" height="20" viewBox="0 0 18 20" fill="currentColor" aria-hidden="true">
-              <path d="M1.07.62C.44.97 0 1.66 0 2.5v15c0 .84.44 1.53 1.07 1.88l.08.05 8.4-8.4v-.2L1.15.57l-.08.05zM16.17 9.5l-2.4-2.4-8.32 8.32 2.4 2.4 8.32-8.32zM16.17 9.5l-8.32-8.32-2.4 2.4 8.32 8.32 2.4-2.4z"/>
-            </svg>
-            <span>
-              Google Play
-              <span class="badge-sub">Coming Soon</span>
-            </span>
-          </a>
-        </div>
-      </div>
-
-      <p class="age-notice">Star Thrown is intended for players 18 years of age and older.</p>
+      <p class="age-notice">Star Thrown is intended for players 18 years of age and older. In-game purchases (includes random items).</p>
 
     </main>
   </div>
 
   <footer>
     <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
-    <p class="footer-press">Press inquiries: <a href="mailto:press@boundlessalchemy.io" class="studio-link">press@boundlessalchemy.io</a></p>
-    <p class="footer-press"><a href="/privacy" class="studio-link">Privacy Policy</a></p>
-    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
-    <p class="footer-press"><a href="/delete-account" class="studio-link">Delete Account</a></p>
-    <p class="footer-press"><a href="/legal/changelog" class="studio-link">Legal Changelog</a></p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/privacy" class="studio-link">Privacy Policy</a>
+      <a href="/terms" class="studio-link">Terms of Service</a>
+      <a href="/delete-account" class="studio-link">Delete Account</a>
+      <a href="/legal/changelog" class="studio-link">Legal Changelog</a>
+      <a href="https://discord.gg/vVs73yb7wU" target="_blank" rel="noopener" class="studio-link">Discord</a>
+      <a href="mailto:press@boundlessalchemy.io" class="studio-link">Press: press@boundlessalchemy.io</a>
+    </nav>
+    <p class="footer-press">iPhone is a trademark of Apple Inc., registered in the U.S. and other countries.</p>
   </footer>
 
   <script>
