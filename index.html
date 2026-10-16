@@ -850,6 +850,69 @@
       text-underline-offset: 2px;
     }
 
+    /* ── Site menu (hamburger) ──────────────────────────────────── */
+    .site-menu {
+      position: absolute;
+      top: 1.1rem;
+      right: 1.25rem;
+      z-index: 5;
+    }
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 40px;
+      height: 40px;
+      padding: 0 10px;
+      background: rgba(8, 13, 26, 0.7);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 1px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .menu-toggle:focus-visible,
+    .menu-panel a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .menu-panel {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 180px;
+      padding: 0.4rem;
+      background: linear-gradient(135deg, rgba(14,20,36,0.97) 0%, rgba(20,24,34,0.97) 100%);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 24px rgba(240,192,96,0.08);
+      text-align: left;
+    }
+    .menu-panel[hidden] { display: none; }
+    .menu-panel a {
+      display: block;
+      padding: 0.65rem 0.9rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .menu-panel a:hover { background: rgba(240,192,96,0.1); }
+    @media (prefers-reduced-motion: reduce) {
+      .menu-toggle span { transition: none; }
+    }
+
     /* ── Responsive ─────────────────────────────────────────────── */
     @media (max-width: 640px) {
       .features { grid-template-columns: 1fr; }
@@ -920,6 +983,17 @@
   </div>
 
   <div class="page">
+    <nav class="site-menu" aria-label="Site">
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="menu-panel" id="menu-panel" hidden>
+        <a href="/beta">Beta</a>
+        <a href="/guides/">Guides</a>
+        <a href="/support">Support</a>
+      </div>
+    </nav>
+
     <main>
 
       <div class="hero-group">
@@ -1188,6 +1262,25 @@
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => { resize(); seed(); }, 150);
+      });
+    }());
+  </script>
+
+  <script>
+    // ── Site menu ──────────────────────────────────────────────────
+    (function () {
+      const btn = document.querySelector('.menu-toggle');
+      const panel = document.getElementById('menu-panel');
+      function setOpen(open) {
+        btn.setAttribute('aria-expanded', String(open));
+        panel.hidden = !open;
+      }
+      btn.addEventListener('click', () => setOpen(panel.hidden));
+      document.addEventListener('click', (e) => {
+        if (!panel.hidden && !e.target.closest('.site-menu')) setOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
       });
     }());
   </script>
