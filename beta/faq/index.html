@@ -149,16 +149,9 @@
     }
 
     section {
-      margin-top: 1.5rem;
-      padding: 1.25rem 1.5rem 0.5rem;
-      border-radius: 16px;
-      background:
-        radial-gradient(ellipse at 15% 0%, rgba(79,143,255,0.12) 0%, transparent 60%),
-        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(240,192,96,0.04) 100%);
-      border: 1px solid rgba(79, 143, 255, 0.18);
+      margin-top: 2.25rem;
       scroll-margin-top: 1rem;
     }
-    @media (max-width: 480px) { section { padding: 1.1rem 1.1rem 0.25rem; } }
 
     h2 {
       font-family: 'Orbitron', sans-serif;
@@ -173,10 +166,15 @@
     }
 
     .qa {
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      margin-top: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      background:
+        radial-gradient(ellipse at 10% 0%, rgba(79,143,255,0.10) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(240,192,96,0.03) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.18);
     }
-    .qa:last-child { border-bottom: none; }
+    @media (max-width: 480px) { .qa { padding: 0.9rem 1rem; } }
 
     h3 {
       font-size: 0.9rem;
