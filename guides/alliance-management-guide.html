@@ -369,7 +369,7 @@
 
         <!-- ── What Is an Alliance? ── -->
         <h2>What Is an Alliance?</h2>
-        <p>An alliance is a group of players who work together to capture outposts, share technology benefits, and compete on the leaderboard. Alliances can negotiate with other alliances, run internal votes, and coordinate attacks and defenses. Solo players can survive, but holding outposts against other alliances takes teamwork.</p>
+        <p>An alliance is a group of players who work together to capture outposts, share technology benefits, and compete on the leaderboard. Alliances can negotiate with other alliances, run internal votes, and coordinate attacks and defenses. Solo players can survive, but only alliance members can attack outposts, AI-held ones included, so team up.</p>
         </section>
 
         <section class="guide-section">
@@ -400,7 +400,7 @@
               <tr><th>Action</th><th>Leader</th><th>General</th><th>Lieutenant</th><th>Member</th></tr>
             </thead>
             <tbody>
-              <tr><td>Change alliance name / tag</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
+              <tr><td>Change alliance name / tag</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
               <tr><td>Change alliance settings (min score, join mode)</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
               <tr><td>Set tax rate</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
               <tr><td>Promote members to General</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
@@ -422,13 +422,13 @@
         <h2>Managing Members</h2>
 
         <h3>Inviting Players and Reviewing Applications</h3>
-        <p>You set how players join your alliance in <strong>Alliance Management</strong> under <strong>Alliance Settings</strong>:</p>
+        <p>You set how players join your alliance on the <strong>Alliance Settings</strong> screen (tap <strong>Manage</strong> in the alliance menu):</p>
         <ul>
           <li><strong>Auto Accept on</strong> — players who meet your minimum score and value requirements join immediately without review.</li>
           <li><strong>Auto Accept off</strong> — players submit a join request and a General or Leader must approve it.</li>
         </ul>
-        <p>To review pending applications, go to <strong>Alliance Applications</strong> from Alliance Home. Each applicant shows their username, score, and value. Tap a name to open their card, then tap <strong>Accept</strong> or <strong>Reject</strong>.</p>
-        <p>When you accept a player, you assign their starting rank from a dropdown. When you reject a player, they receive a notification and can apply again.</p>
+        <p>To review pending applications, tap <strong>Manage</strong> in the alliance menu, then tap <strong>Apps</strong>. Each applicant shows their username, score, and value. Tap a name to open their card, then tap <strong>Accept</strong> or <strong>Decline</strong>.</p>
+        <p>When you accept a player, you assign their starting rank from a dropdown. When you decline a player, they get a news message saying so and can apply to your alliance again after 48 hours.</p>
 
         <h3>Setting Membership Requirements</h3>
         <p>In <strong>Alliance Settings</strong> (General or Leader required):</p>
@@ -443,7 +443,7 @@
         <ol>
           <li>Open <strong>Alliance Management</strong> and go to the <strong>Members</strong> panel.</li>
           <li>Tap a member's name to open their card.</li>
-          <li>Select a new rank from the dropdown and tap <strong>Update Rank</strong>.</li>
+          <li>Select a new rank from the dropdown and tap <strong>Update</strong>.</li>
         </ol>
         <p>What you can assign depends on your own rank:</p>
         <ul>
@@ -457,7 +457,7 @@
           <li>Open the <strong>Members</strong> panel and tap the member's name.</li>
           <li>Tap <strong>Kick</strong>.</li>
         </ol>
-        <p>The kick is immediate. There is no confirmation step, so be sure before you tap. The kicked player is removed from the alliance instantly, their alliance tag disappears from the leaderboard, and both they and the alliance receive a news notification. The kicked player can apply to rejoin later.</p>
+        <p>The kick is immediate. There is no confirmation step, so be sure before you tap. The kicked player is removed from the alliance instantly, their alliance tag disappears from the leaderboard, and both they and the alliance receive a news notification. The kicked player can apply to rejoin your alliance after 7 days, and can join a different alliance right away.</p>
         <p><strong>Leaders</strong> can kick anyone except themselves. <strong>Generals</strong> can kick members strictly below their own rank.</p>
 
         <h3>Transferring Leadership</h3>
@@ -465,42 +465,42 @@
         <ol>
           <li>Open the <strong>Members</strong> panel and tap the player you want to make Leader.</li>
           <li>Select <strong>Leader</strong> from the rank dropdown.</li>
-          <li>Tap <strong>Update Rank</strong>.</li>
+          <li>Tap <strong>Update</strong>, then tap <strong>Confirm</strong>.</li>
         </ol>
-        <p>This is immediate. You are automatically demoted to Member the moment you confirm. There is no undo and no confirmation dialog — verify your choice before tapping.</p>
+        <p>The game asks you to confirm the handover first. Once you confirm, it happens immediately: the player you chose becomes Leader and you become a General. You can't take leadership back yourself; only the new Leader can hand it back.</p>
         </section>
 
         <section class="guide-section">
         <!-- ── Alliance Tax ── -->
         <h2>Alliance Tax</h2>
-        <p>The alliance tax is a percentage of each member's passive resource income that goes directly into the alliance treasury. Every tick the game runs, a portion of what each member's Stardom produces is automatically collected and added to the shared pool.</p>
+        <p>The alliance tax is a percentage of each member's passive resource income that goes directly into the alliance treasury. Every minute, a share of what each member's Stardom produces is set aside for the alliance and paid into the treasury in batches as members play, so the balance rises in steps.</p>
 
         <h3>Who Sets the Tax Rate</h3>
-        <p><strong>Leaders and Generals</strong> can set the tax rate. It is found in <strong>Alliance Settings</strong> inside <strong>Alliance Management</strong>. The rate can be set anywhere from <strong>0% to 20%</strong> — values outside that range are not accepted.</p>
+        <p><strong>Leaders and Generals</strong> can set the tax rate. Tap <strong>Manage</strong> in the alliance menu and use the <strong>Alliance Tax</strong> section. The rate can be set anywhere from <strong>0% to 20%</strong> — values outside that range are not accepted.</p>
 
         <h3>What the Treasury Is Used For</h3>
-        <p>Resources in the treasury fund <strong>alliance technology research</strong> — upgrades that benefit every member of the alliance. See the <a href="#starting-technologies" style="color:var(--accent);text-decoration:none;">Starting Technologies</a> section below for how to put those resources to work.</p>
+        <p>Resources in the treasury fund <strong>alliance technology research</strong> — upgrades for your whole alliance. See the <a href="#starting-technologies" style="color:var(--accent);text-decoration:none;">Starting Technologies</a> section below for how to put those resources to work.</p>
 
         <h3>What Leaders and Officers Should Know</h3>
         <ul>
           <li><strong>Tax applies to passive resource generation only.</strong> Resources members earn from combat are not taxed. Only the resources their Stardom produces over time.</li>
           <li><strong>A tax rate of 0% means nothing is collected.</strong> If the treasury is empty or growing slowly, check that the tax rate is set above 0%.</li>
-          <li><strong>The treasury balance shown in Alliance Management is a snapshot.</strong> It does not update in real time. Leave the screen and return to see the latest balance.</li>
-          <li><strong>The cap is 20%.</strong> Setting a higher rate is blocked by the game. This is by design.</li>
+          <li><strong>The treasury balance on the Manage screen is read when you open it.</strong> Open the screen again to see the newest figure.</li>
+          <li><strong>The cap is 20%.</strong> Rates from 0% to 20% are accepted.</li>
         </ul>
         </section>
 
         <section class="guide-section">
         <!-- ── Applications ── -->
         <h2>Applications</h2>
-        <p>When Auto Accept is off, players submit a join request from Alliance Home. You review those requests in <strong>Alliance Applications</strong>:</p>
+        <p>When Auto Accept is off, players submit a join request from Alliance Home. You review those requests under <strong>Manage</strong> → <strong>Apps</strong>:</p>
         <ul>
           <li>The list shows all pending applicants, oldest first.</li>
-          <li>Tap a name to see their username, score, and value.</li>
-          <li>Tap <strong>Accept</strong> to admit them (you pick their starting rank) or <strong>Reject</strong> to decline.</li>
-          <li>Rejected players receive a notification. They can apply again.</li>
+          <li>Each row shows the applicant's name, score and value. Tap the name to open their application.</li>
+          <li>Leaders and Generals tap <strong>Accept</strong> to admit them (choosing a starting rank below their own) or <strong>Decline</strong> to turn them down.</li>
+          <li>Declined players get a news message. They can apply to your alliance again after 48 hours, and to other alliances right away.</li>
         </ul>
-        <p>If the applicant list looks blank when you open the screen, wait a moment — the list loads from the server on entry and may take a few seconds on a slow connection. Leave and return if it stays blank.</p>
+        <p>The list loads when you open the screen. If nobody has applied, it says so, and if it can't load, the screen lets you try again.</p>
         </section>
 
         <section class="guide-section">
@@ -510,11 +510,11 @@
 
         <h3>Creating a Poll (Leaders and Generals Only)</h3>
         <ol>
-          <li>Open <strong>Alliance Polls</strong> from Alliance Home.</li>
+          <li>Open <strong>Alliance Polls</strong>: from Alliance Home, tap <strong>Manage</strong>, then <strong>Polls</strong>.</li>
           <li>Type your question in the <strong>Poll Question</strong> field.</li>
           <li>Fill in at least two response options. Tap <strong>Add</strong> to include up to six options total.</li>
           <li>Choose a duration: <strong>1 Hour</strong>, <strong>24 Hours</strong>, <strong>48 Hours</strong>, or <strong>72 Hours</strong>.</li>
-          <li>If you want members to be able to select more than one answer, turn on <strong>Allow multiple selections</strong>.</li>
+          <li>If you want members to be able to select more than one answer, turn on the <strong>Allow Multi-select?</strong> toggle.</li>
           <li>Tap <strong>Create</strong>.</li>
         </ol>
         <p>The poll goes live immediately. Only one poll can be active at a time.</p>
@@ -541,21 +541,21 @@
             <tbody>
               <tr><td><strong>Alliance</strong></td><td>Friendly pact. Neither side attacks the other.</td></tr>
               <tr><td><strong>NAP</strong> (Non-Aggression Pact)</td><td>Neutral agreement. Neither side attacks the other.</td></tr>
-              <tr><td><strong>Hostile</strong></td><td>No agreement. Both sides can attack freely.</td></tr>
+              <tr><td><strong>War</strong></td><td>Declared by one side, no agreement needed. Both sides can attack each other until either side ends it.</td></tr>
             </tbody>
           </table>
         </div>
 
-        <p>By default, other alliances are treated as neutral — no formal relation.</p>
-        <p>Relations are managed from the <strong>Alliance Relations</strong> screen, accessible from Alliance Home. Only Leaders and Generals can set or change relations.</p>
-        <p>Setting a relation as <strong>Hostile</strong> is unilateral — you do not need the other alliance's agreement. Setting a formal <strong>Alliance</strong> or <strong>NAP</strong> requires both sides to agree.</p>
-        <p>Relations have a duration and expire automatically. When a relation expires, the two alliances return to neutral status.</p>
+        <p>By default you have no relation with other alliances, so either side can attack the other. Only an Alliance or NAP removes the Attack option between you.</p>
+        <p>Relations are managed from the <strong>Alliance Relations</strong> screen: from Alliance Home, tap <strong>Manage</strong>, then <strong>Relations</strong>. Only Leaders and Generals can set or change relations.</p>
+        <p>Declaring <strong>War</strong> is one-sided: tap <strong>Declare</strong> and you do not need the other alliance's agreement. An <strong>Alliance</strong> or <strong>NAP</strong> must be requested and then accepted by the other alliance.</p>
+        <p>Alliance and NAP agreements last for the time agreed and then end automatically, after which the two alliances have no relation. A War has no end date. It lasts until a Leader or General of either alliance cancels it, or both alliances agree to an Alliance or NAP.</p>
         </section>
 
         <section class="guide-section">
         <!-- ── Starting Technologies ── -->
         <h2 id="starting-technologies">Starting Technologies</h2>
-        <p>Alliance technologies are upgrades that benefit every member of your alliance. There are four categories — improved mining, stronger shields, and shield regeneration. Once a technology finishes researching, the benefit applies to the whole alliance automatically.</p>
+        <p>Alliance technologies come in four categories: Outpost Mining, Asteroid Mining, Outpost Shields and Shield Regeneration. Asteroid Mining boosts every member's asteroid income, Outpost Mining raises the resources your alliance's outposts share out to members, and Outpost Shields gives your outposts stronger shields. These three take effect as soon as research finishes. Shield Regeneration instead gives your alliance daily shield repairs, which a General or Leader uses on an outpost from the Outposts screen. All benefits last for the rest of the round.</p>
 
         <h3>Who Can Start Research</h3>
         <p>Only <strong>Generals and Leaders</strong> can start a technology. Members, Lieutenants, and Probationary members can view the technology list but cannot start anything.</p>
@@ -568,7 +568,7 @@
           <li><strong>Only one technology can be researched at a time.</strong> No other research can be started until the current one finishes.</li>
           <li><strong>Technologies have prerequisites.</strong> Some cannot be started until an earlier technology in the same category is completed.</li>
           <li><strong>Research stops if the round ends.</strong> Starting research early in a round gives the alliance more time to benefit from it.</li>
-          <li>To view research progress, open <strong>Alliance Technology</strong> from the Alliance menu. The status bar at the top shows what is being researched and how much time remains.</li>
+          <li>To view research progress, tap <strong>Tech</strong> in the Alliance menu. The status line shows what is being researched and how much time remains.</li>
         </ul>
         </section>
 
@@ -577,7 +577,7 @@
         <h2>What Leaders Cannot Do</h2>
         <p>A few things the game prevents entirely, regardless of rank:</p>
         <ul>
-          <li><strong>Kick themselves.</strong> A Leader cannot kick their own account out of the alliance. Transfer leadership first, then the new leader can remove you if needed.</li>
+          <li><strong>Kick themselves.</strong> No player can kick their own account. To leave, a Leader can first hand leadership to a member of their choice, or simply leave the alliance, and leadership passes to one of the highest-ranked remaining members.</li>
           <li><strong>Have more than one active poll at a time.</strong> Your alliance can only run one poll simultaneously. You must wait for the current poll to end (or end it early) before creating a new one.</li>
           <li><strong>Change the alliance name or tag more than once every 48 hours.</strong> The 48-hour cooldown applies to each field independently. If the name or tag was recently changed, you will see a message showing how many hours remain.</li>
           <li><strong>Set a tax rate above 20%.</strong> The maximum is 20%. Values outside the 0–20 range are rejected.</li>
@@ -588,10 +588,10 @@
         <section class="guide-section">
         <!-- ── Things Worth Knowing ── -->
         <h2>A Few Things Worth Knowing</h2>
-        <p><strong>Alliance score stays with the alliance when members leave.</strong> Score a player earns while in the alliance is permanently added to your total. If a member leaves, that score does not leave with them. This is by design.</p>
-        <p><strong>The treasury balance shown in Alliance Management is a snapshot.</strong> It does not update in real time. Leave the screen and return to see the latest balance.</p>
+        <p><strong>Alliance score stays with the alliance when members leave.</strong> When a member leaves, the score they earned while in your alliance stays in the alliance total. Score they earned before joining never counts.</p>
+        <p><strong>The treasury balance on the Manage screen is read when you open it.</strong> Open the screen again to see the newest figure.</p>
         <p><strong>Tax applies to passive resource generation, not combat salvage.</strong> Resources your Stardom produces over time are taxed. Resources you gain from battles are not.</p>
-        <p><strong>New member stats may take a moment to sync.</strong> After a player joins, the alliance member count and stats on the leaderboard update within a few seconds. If they look stale, wait briefly and check again.</p>
+        <p><strong>What a new member adds.</strong> When a player joins, your member count goes up by one and their value and asteroids are added to your alliance's totals. Their score from before joining is not added; only score they earn as a member counts. Round Ranks shows the new totals at its next refresh.</p>
         </section>
       </article>
 
