@@ -76,71 +76,76 @@
       max-width: 760px;
       width: 100%;
       flex: 1;
-      padding-top: 3.5rem;
       padding-bottom: 3rem;
     }
 
-    .nav-home {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      display: block;
+    .nav {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 900px;
       margin-bottom: 2rem;
-      transition: color 0.2s;
     }
-    .nav-home:hover { color: var(--accent); }
+    .nav { display: flex; justify-content: space-between; align-items: center; }
+    .nav-home { display: block; line-height: 0; border-radius: 6px; }
+    .nav-logo {
+      height: 40px;
+      width: auto;
+      opacity: 0.85;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    .nav-home:hover .nav-logo,
+    .nav-home:focus-visible .nav-logo {
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(240, 192, 96, 0.45));
+    }
+    .nav-home:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-    .back-link {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-bottom: 2rem;
-      transition: color 0.2s;
-    }
-    .back-link:hover { color: var(--accent); }
-    .back-link::before { content: '← '; }
 
     .guide-title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: clamp(1.4rem, 4vw, 1.9rem);
-      letter-spacing: 0.06em;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-      line-height: 1.25;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
     }
 
     .guide-lede {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 300;
-      color: var(--text-muted);
-      font-style: italic;
-      margin-bottom: 1.5rem;
+      color: var(--text);
+      margin-bottom: 1.25rem;
     }
 
     .divider {
       width: 60px;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 0 0 2.5rem;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 0 1.75rem;
+      opacity: 0.5;
     }
+    .guide-section {
+      margin-bottom: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 16px;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(79,143,255,0.12) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(240,192,96,0.04) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.18);
+    }
+    .guide-section > :first-child { margin-top: 0; }
+    @media (max-width: 480px) { .guide-section { padding: 1.1rem 1.1rem; } }
 
     .guide-body h2 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--gold);
       margin: 2.5rem 0 0.9rem;
       padding-bottom: 0.45rem;
       border-bottom: 1px solid rgba(79, 143, 255, 0.15);
@@ -149,18 +154,16 @@
     .guide-body h3 {
       font-size: 0.9rem;
       font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin: 1.75rem 0 0.6rem;
+      color: var(--white);
+      margin: 1.75rem 0 0.5rem;
     }
 
-    .guide-body p { font-size: 0.95rem; color: var(--text); margin-bottom: 1rem; }
+    .guide-body p { font-size: 0.8rem; color: var(--text); margin-bottom: 1rem; }
 
     .guide-body ul,
     .guide-body ol { padding-left: 1.4rem; margin-bottom: 1rem; }
 
-    .guide-body li { font-size: 0.95rem; color: var(--text); margin-bottom: 0.45rem; }
+    .guide-body li { font-size: 0.8rem; color: var(--text); margin-bottom: 0.45rem; }
 
     .guide-body strong { color: var(--white); font-weight: 500; }
 
@@ -204,19 +207,7 @@
       margin: 2.5rem 0;
     }
 
-    .back-link-bottom {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-top: 2.5rem;
-      transition: color 0.2s;
-    }
-    .back-link-bottom:hover { color: var(--accent); }
-    .back-link-bottom::before { content: '← '; }
+    .back-row { margin-top: 2.5rem; text-align: center; }
 
     footer {
       position: relative;
@@ -226,15 +217,125 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       width: 100%;
     }
-    .studio-credit { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+    .studio-credit { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
     .studio-link { color: rgba(255, 255, 255, 0.3); text-decoration: none; transition: color 0.2s; }
     .studio-link:hover { color: rgba(255, 255, 255, 0.6); }
-    .footer-press { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
+    .footer-press { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
 
     @media (max-width: 480px) {
       .page { padding: 1.5rem 1.25rem 2.5rem; }
       main { padding-top: 2rem; }
     }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem 1.25rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      margin: 0.45rem 0 0.35rem;
+    }
+    @media (max-width: 480px) {
+      .footer-links { gap: 0 1rem; }
+      .footer-links a { padding: 0.4rem 0; }
+    }
+    /* ── Site menu (hamburger) ──────────────────────────────────── */
+    .site-menu {
+      position: relative;
+      z-index: 5;
+    }
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 40px;
+      height: 40px;
+      padding: 0 10px;
+      background: rgba(8, 13, 26, 0.7);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 1px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .menu-toggle:focus-visible,
+    .menu-panel a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .menu-panel {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 180px;
+      padding: 0.4rem;
+      background: linear-gradient(135deg, rgba(14,20,36,0.97) 0%, rgba(20,24,34,0.97) 100%);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 24px rgba(240,192,96,0.08);
+      text-align: left;
+    }
+    .menu-panel[hidden] { display: none; }
+    .menu-panel a {
+      display: block;
+      padding: 0.65rem 0.9rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .menu-panel a:hover { background: rgba(240,192,96,0.1); }
+    @media (prefers-reduced-motion: reduce) {
+      .menu-toggle span { transition: none; }
+    }
+
+    .info-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    @media (min-width: 760px) {
+      .info-row { grid-template-columns: 1fr 1fr; align-items: start; }
+      .page-desc { max-width: 600px; }
+    }
+    .form-card { max-width: 560px; }
+    .faq-btn {
+      display: inline-block;
+      margin: -0.5rem 0 1.5rem;
+      padding: 0.6rem 1.4rem;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 45%),
+        linear-gradient(180deg, #3a4558 0%, #222a38 50%, #161c27 51%, #2a3446 100%);
+      border: 1px solid rgba(120, 170, 255, 0.55);
+      border-radius: 6px;
+      color: #a9cfff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 0 12px rgba(79,143,255,0.3);
+      transition: filter 0.25s, box-shadow 0.25s;
+    }
+    .faq-btn:hover {
+      filter: brightness(1.15);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 22px rgba(79,143,255,0.5);
+    }
+    .faq-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -242,23 +343,36 @@
   <canvas id="starfield" aria-hidden="true"></canvas>
 
   <div class="page">
+    <nav class="nav" aria-label="Site">
+      <a href="/" class="nav-home" aria-label="Star Thrown home"><img src="/StarThrownLogo.png" alt="Star Thrown" class="nav-logo" /></a>
+      <div class="site-menu">
+        <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="menu-panel" id="menu-panel" hidden>
+          <a href="/beta">Beta</a>
+          <a href="/guides/">Guides</a>
+          <a href="/support">Support</a>
+        </div>
+      </div>
+    </nav>
+
     <main>
 
-      <a href="/" class="nav-home">Star Thrown</a>
-      <a href="/guides" class="back-link">Back to Guides</a>
 
       <h1 class="guide-title">Alliance Management Guide</h1>
       <p class="guide-lede">Everything an alliance leader (or officer) needs to run their alliance — from setting up membership rules to running a vote.</p>
       <div class="divider"></div>
 
       <article class="guide-body">
+        <section class="guide-section">
 
         <!-- ── What Is an Alliance? ── -->
         <h2>What Is an Alliance?</h2>
         <p>An alliance is a group of players who work together to capture outposts, share technology benefits, and compete on the leaderboard. Alliances can negotiate with other alliances, run internal votes, and coordinate attacks and defenses. Solo players can survive, but holding outposts against other alliances takes teamwork.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── Alliance Ranks ── -->
         <h2>Alliance Ranks</h2>
         <p>Every member has a rank. Your rank determines what you can do.</p>
@@ -301,9 +415,9 @@
             </tbody>
           </table>
         </div>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── Managing Members ── -->
         <h2>Managing Members</h2>
 
@@ -354,9 +468,9 @@
           <li>Tap <strong>Update Rank</strong>.</li>
         </ol>
         <p>This is immediate. You are automatically demoted to Member the moment you confirm. There is no undo and no confirmation dialog — verify your choice before tapping.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── Alliance Tax ── -->
         <h2>Alliance Tax</h2>
         <p>The alliance tax is a percentage of each member's passive resource income that goes directly into the alliance treasury. Every tick the game runs, a portion of what each member's Stardom produces is automatically collected and added to the shared pool.</p>
@@ -374,9 +488,9 @@
           <li><strong>The treasury balance shown in Alliance Management is a snapshot.</strong> It does not update in real time. Leave the screen and return to see the latest balance.</li>
           <li><strong>The cap is 20%.</strong> Setting a higher rate is blocked by the game. This is by design.</li>
         </ul>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── Applications ── -->
         <h2>Applications</h2>
         <p>When Auto Accept is off, players submit a join request from Alliance Home. You review those requests in <strong>Alliance Applications</strong>:</p>
@@ -387,9 +501,9 @@
           <li>Rejected players receive a notification. They can apply again.</li>
         </ul>
         <p>If the applicant list looks blank when you open the screen, wait a moment — the list loads from the server on entry and may take a few seconds on a slow connection. Leave and return if it stays blank.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── Alliance Polls ── -->
         <h2>Alliance Polls</h2>
         <p>Polls let you put a decision to a vote before acting on it.</p>
@@ -412,9 +526,9 @@
         <h3>Ending a Poll</h3>
         <p>The poll closes automatically when the timer runs out. Leaders and Generals can also end it early by tapping <strong>End</strong> in <strong>Alliance Polls</strong>. When a poll ends, the final results move to the <strong>Completed Polls</strong> section and stay there for 14 days.</p>
         <p>Poll questions are written in whatever language the creator uses. They are not automatically translated.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── Alliance Relations ── -->
         <h2>Alliance Relations</h2>
         <p>Relations let you set the diplomatic status between your alliance and another. There are three relation types:</p>
@@ -436,9 +550,9 @@
         <p>Relations are managed from the <strong>Alliance Relations</strong> screen, accessible from Alliance Home. Only Leaders and Generals can set or change relations.</p>
         <p>Setting a relation as <strong>Hostile</strong> is unilateral — you do not need the other alliance's agreement. Setting a formal <strong>Alliance</strong> or <strong>NAP</strong> requires both sides to agree.</p>
         <p>Relations have a duration and expire automatically. When a relation expires, the two alliances return to neutral status.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── Starting Technologies ── -->
         <h2 id="starting-technologies">Starting Technologies</h2>
         <p>Alliance technologies are upgrades that benefit every member of your alliance. There are four categories — improved mining, stronger shields, and shield regeneration. Once a technology finishes researching, the benefit applies to the whole alliance automatically.</p>
@@ -456,9 +570,9 @@
           <li><strong>Research stops if the round ends.</strong> Starting research early in a round gives the alliance more time to benefit from it.</li>
           <li>To view research progress, open <strong>Alliance Technology</strong> from the Alliance menu. The status bar at the top shows what is being researched and how much time remains.</li>
         </ul>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── What Leaders Cannot Do ── -->
         <h2>What Leaders Cannot Do</h2>
         <p>A few things the game prevents entirely, regardless of rank:</p>
@@ -469,27 +583,32 @@
           <li><strong>Set a tax rate above 20%.</strong> The maximum is 20%. Values outside the 0–20 range are rejected.</li>
           <li><strong>Assign a rank equal to or above their own (for Generals).</strong> Generals can only promote members to ranks below their own. Only a Leader can promote someone to General or higher.</li>
         </ul>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── Things Worth Knowing ── -->
         <h2>A Few Things Worth Knowing</h2>
         <p><strong>Alliance score stays with the alliance when members leave.</strong> Score a player earns while in the alliance is permanently added to your total. If a member leaves, that score does not leave with them. This is by design.</p>
         <p><strong>The treasury balance shown in Alliance Management is a snapshot.</strong> It does not update in real time. Leave the screen and return to see the latest balance.</p>
         <p><strong>Tax applies to passive resource generation, not combat salvage.</strong> Resources your Stardom produces over time are taxed. Resources you gain from battles are not.</p>
         <p><strong>New member stats may take a moment to sync.</strong> After a player joins, the alliance member count and stats on the leaderboard update within a few seconds. If they look stale, wait briefly and check again.</p>
-
+        </section>
       </article>
 
-      <a href="/guides" class="back-link-bottom">Back to Guides</a>
+      <p class="back-row"><a href="/guides/" class="faq-btn">← Back to Guides</a></p>
 
     </main>
   </div>
 
   <footer>
     <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
-    <p class="footer-press"><a href="/privacy" class="studio-link">Privacy Policy</a></p>
-    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/privacy" class="studio-link">Privacy Policy</a>
+      <a href="/terms" class="studio-link">Terms of Service</a>
+      <a href="/beta" class="studio-link">Beta</a>
+      <a href="https://discord.gg/vVs73yb7wU" target="_blank" rel="noopener" class="studio-link">Discord</a>
+      <a href="mailto:press@boundlessalchemy.io" class="studio-link">Press: press@boundlessalchemy.io</a>
+    </nav>
   </footer>
 
   <script>
@@ -521,6 +640,25 @@
       resize(); seed(); requestAnimationFrame(draw);
       let resizeTimer;
       window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+  <script>
+    // ── Site menu ──────────────────────────────────────────────────
+    (function () {
+      const btn = document.querySelector('.menu-toggle');
+      const panel = document.getElementById('menu-panel');
+      function setOpen(open) {
+        btn.setAttribute('aria-expanded', String(open));
+        panel.hidden = !open;
+      }
+      btn.addEventListener('click', () => setOpen(panel.hidden));
+      document.addEventListener('click', (e) => {
+        if (!panel.hidden && !e.target.closest('.site-menu')) setOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
+      });
     }());
   </script>
 

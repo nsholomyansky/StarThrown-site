@@ -76,72 +76,77 @@
       max-width: 760px;
       width: 100%;
       flex: 1;
-      padding-top: 3.5rem;
       padding-bottom: 3rem;
     }
 
-    .nav-home {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      display: block;
+    .nav {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 900px;
       margin-bottom: 2rem;
-      transition: color 0.2s;
     }
-    .nav-home:hover { color: var(--accent); }
+    .nav { display: flex; justify-content: space-between; align-items: center; }
+    .nav-home { display: block; line-height: 0; border-radius: 6px; }
+    .nav-logo {
+      height: 40px;
+      width: auto;
+      opacity: 0.85;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    .nav-home:hover .nav-logo,
+    .nav-home:focus-visible .nav-logo {
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(240, 192, 96, 0.45));
+    }
+    .nav-home:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-    .back-link {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-bottom: 2rem;
-      transition: color 0.2s;
-    }
-    .back-link:hover { color: var(--accent); }
-    .back-link::before { content: '← '; }
 
     .guide-title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: clamp(1.5rem, 4.5vw, 2rem);
-      letter-spacing: 0.06em;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-      line-height: 1.25;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
     }
 
     .guide-lede {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 300;
-      color: var(--text-muted);
-      font-style: italic;
-      margin-bottom: 1.5rem;
+      color: var(--text);
+      margin-bottom: 1.25rem;
     }
 
     .divider {
       width: 60px;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 0 0 2.5rem;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 0 1.75rem;
+      opacity: 0.5;
     }
+    .guide-section {
+      margin-bottom: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 16px;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(79,143,255,0.12) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(240,192,96,0.04) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.18);
+    }
+    .guide-section > :first-child { margin-top: 0; }
+    @media (max-width: 480px) { .guide-section { padding: 1.1rem 1.1rem; } }
 
     /* ── Section numbering ────────────────────────────────────── */
     .guide-body h2 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--gold);
       margin: 2.5rem 0 0.9rem;
       padding-bottom: 0.45rem;
       border-bottom: 1px solid rgba(79, 143, 255, 0.15);
@@ -150,18 +155,16 @@
     .guide-body h3 {
       font-size: 0.9rem;
       font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin: 1.75rem 0 0.6rem;
+      color: var(--white);
+      margin: 1.75rem 0 0.5rem;
     }
 
-    .guide-body p { font-size: 0.95rem; color: var(--text); margin-bottom: 1rem; }
+    .guide-body p { font-size: 0.8rem; color: var(--text); margin-bottom: 1rem; }
 
     .guide-body ul,
     .guide-body ol { padding-left: 1.4rem; margin-bottom: 1rem; }
 
-    .guide-body li { font-size: 0.95rem; color: var(--text); margin-bottom: 0.45rem; }
+    .guide-body li { font-size: 0.8rem; color: var(--text); margin-bottom: 0.45rem; }
 
     .guide-body strong { color: var(--white); font-weight: 500; }
 
@@ -231,19 +234,7 @@
       margin: 2.5rem 0;
     }
 
-    .back-link-bottom {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-top: 2.5rem;
-      transition: color 0.2s;
-    }
-    .back-link-bottom:hover { color: var(--accent); }
-    .back-link-bottom::before { content: '← '; }
+    .back-row { margin-top: 2.5rem; text-align: center; }
 
     footer {
       position: relative;
@@ -253,15 +244,125 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       width: 100%;
     }
-    .studio-credit { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+    .studio-credit { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
     .studio-link { color: rgba(255, 255, 255, 0.3); text-decoration: none; transition: color 0.2s; }
     .studio-link:hover { color: rgba(255, 255, 255, 0.6); }
-    .footer-press { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
+    .footer-press { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
 
     @media (max-width: 480px) {
       .page { padding: 1.5rem 1.25rem 2.5rem; }
       main { padding-top: 2rem; }
     }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem 1.25rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      margin: 0.45rem 0 0.35rem;
+    }
+    @media (max-width: 480px) {
+      .footer-links { gap: 0 1rem; }
+      .footer-links a { padding: 0.4rem 0; }
+    }
+    /* ── Site menu (hamburger) ──────────────────────────────────── */
+    .site-menu {
+      position: relative;
+      z-index: 5;
+    }
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 40px;
+      height: 40px;
+      padding: 0 10px;
+      background: rgba(8, 13, 26, 0.7);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 1px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .menu-toggle:focus-visible,
+    .menu-panel a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .menu-panel {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 180px;
+      padding: 0.4rem;
+      background: linear-gradient(135deg, rgba(14,20,36,0.97) 0%, rgba(20,24,34,0.97) 100%);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 24px rgba(240,192,96,0.08);
+      text-align: left;
+    }
+    .menu-panel[hidden] { display: none; }
+    .menu-panel a {
+      display: block;
+      padding: 0.65rem 0.9rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .menu-panel a:hover { background: rgba(240,192,96,0.1); }
+    @media (prefers-reduced-motion: reduce) {
+      .menu-toggle span { transition: none; }
+    }
+
+    .info-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    @media (min-width: 760px) {
+      .info-row { grid-template-columns: 1fr 1fr; align-items: start; }
+      .page-desc { max-width: 600px; }
+    }
+    .form-card { max-width: 560px; }
+    .faq-btn {
+      display: inline-block;
+      margin: -0.5rem 0 1.5rem;
+      padding: 0.6rem 1.4rem;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 45%),
+        linear-gradient(180deg, #3a4558 0%, #222a38 50%, #161c27 51%, #2a3446 100%);
+      border: 1px solid rgba(120, 170, 255, 0.55);
+      border-radius: 6px;
+      color: #a9cfff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 0 12px rgba(79,143,255,0.3);
+      transition: filter 0.25s, box-shadow 0.25s;
+    }
+    .faq-btn:hover {
+      filter: brightness(1.15);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 22px rgba(79,143,255,0.5);
+    }
+    .faq-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -269,16 +370,29 @@
   <canvas id="starfield" aria-hidden="true"></canvas>
 
   <div class="page">
+    <nav class="nav" aria-label="Site">
+      <a href="/" class="nav-home" aria-label="Star Thrown home"><img src="/StarThrownLogo.png" alt="Star Thrown" class="nav-logo" /></a>
+      <div class="site-menu">
+        <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="menu-panel" id="menu-panel" hidden>
+          <a href="/beta">Beta</a>
+          <a href="/guides/">Guides</a>
+          <a href="/support">Support</a>
+        </div>
+      </div>
+    </nav>
+
     <main>
 
-      <a href="/" class="nav-home">Star Thrown</a>
-      <a href="/guides" class="back-link">Back to Guides</a>
 
       <h1 class="guide-title">Battle Calculator</h1>
       <p class="guide-lede">Use the Battle Calculator to plan a fight before it happens. Build out both sides, apply scan data for accurate numbers, and see how the battle might unfold — before committing your fleets.</p>
       <div class="divider"></div>
 
       <article class="guide-body">
+        <section class="guide-section">
 
         <!-- ── Quick Reference ── -->
         <div class="quick-ref">
@@ -311,9 +425,9 @@
           <li><strong>Results are a projection, not a guarantee.</strong> The calculator uses the same math as the real battle, but accuracy depends on how current and complete your data is. Stale scans, missing fleets, or estimated numbers will make the projection less precise.</li>
           <li><strong>The calculator does not affect the battle.</strong> It only helps you plan. The fight resolves independently using live data.</li>
         </ul>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── 2. How to Open ── -->
         <h2>2. How Do I Open the Battle Calculator?</h2>
 
@@ -343,9 +457,9 @@
           <li><strong>Alliance Intel section</strong> — tap <strong>Battle Calculator</strong> on a combat listed there.</li>
           <li><strong>Combat Session Detail panel</strong> — tap a combat row to open the detail panel, then tap <strong>Open Battle Calculator</strong>.</li>
         </ul>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── 3. Adding Fleets ── -->
         <h2>3. Adding Fleets to Your Calc</h2>
         <p>Tap <strong>Add</strong> to open the Quick Add popup. It has four tabs.</p>
@@ -380,9 +494,9 @@
           <li>Tap any stat field to enter your estimates.</li>
         </ol>
         <p>Dummy rows are fully editable. Use them when you don't have scan data and want to model a best guess. Designating a defender dummy as <strong>Base</strong> also engages the asteroid-capture projection so the <strong>Roids</strong> column reflects what attackers would carry off.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── 4. Applying Scan Data ── -->
         <h2>4. Applying Scan Data to an Enemy Row</h2>
         <p>Scan data gives the calc real numbers for enemy fleets. Without it, enemy rows have blank or zero stats and the projection is not meaningful.</p>
@@ -398,9 +512,9 @@
 
         <h3>Enhanced Scans Are Locked</h3>
         <p>If the applied scan is a high-detail enhanced target-defense scan, the row locks and cannot be edited. That data is treated as accurate. All other scan types leave the row editable so you can adjust numbers if you think the enemy's fleet has changed.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── 5. Reading the Outcome Table ── -->
         <h2>5. Reading the Projected Outcome Table</h2>
         <p>After tapping <strong>Update</strong>, each participant gets a row in the Projected Outcome table:</p>
@@ -432,9 +546,9 @@
           <li>Neither side reaches zero — same tie-break on value lost</li>
         </ul>
         <p><strong>Asteroids (base attacks only):</strong> Attackers capture asteroids as long as they have ships remaining when the fight ends — even if the defenders won.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── 6. Update, Refresh, Save ── -->
         <h2>6. Update, Refresh, and Save</h2>
 
@@ -454,49 +568,54 @@
         <p>Writes the current calc to your account. If you are in an alliance, the saved calc is shared — alliance members can view and edit it.</p>
         <p><strong>Save before you close.</strong> Closing the panel without saving discards all edits immediately, with no warning prompt. If you close by accident, reopening from <strong>Command Battles → Battle Calcs</strong> restores the last saved state.</p>
         <p><strong>Alliance calcs have no conflict protection.</strong> If two members edit the same calc at the same time, the last save overwrites the earlier one. Coordinate before making major edits to a shared calc.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── 7. After the Battle ── -->
         <h2>7. After the Battle Resolves</h2>
         <p>Once a linked battle concludes, the calc becomes a <strong>read-only record</strong>. All fields lock and the Save, Refresh, and Add buttons disable. You can still view the projection you built.</p>
         <p>To compare your projection against what actually happened, check the battle report for that combat.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── 8. Standalone Calcs ── -->
         <h2>8. Standalone Calcs and the 72-Hour Limit</h2>
         <p>A calc not linked to an active combat is called a <strong>standalone calc</strong>. Use these for early planning — modeling an attack before you have formally committed to one.</p>
         <p>Standalone calcs are automatically removed 72 hours after the last save. There is no warning before deletion. If a standalone calc matters to you, save it regularly or build it closer to when you plan to use it.</p>
         <p>Calcs linked to an active combat are removed when that combat resolves, not after 72 hours.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── 9. Why Was My Projection Different? ── -->
         <h2>9. Why Was My Projection Different From the Actual Battle?</h2>
         <p>The Battle Calculator is a planning tool, not a perfect predictor. Common reasons a projection diverges from the actual result:</p>
         <p><strong>Stale or incomplete scan data.</strong> If the enemy changed their fleet after your last scan, your projection used outdated numbers. A fresher scan improves accuracy, but there is always a window for changes between scan and battle.</p>
         <p><strong>Missing participants.</strong> If the enemy brought fleets you didn't know about, or if allies joined the defense after you built the calc, those fleets weren't in your simulation.</p>
         <p><strong>Dummy placeholder data.</strong> Any fleet modeled with a Dummy row used the numbers you typed. If your estimate was off, the projection is off by the same margin.</p>
+        </section>
 
-        <hr />
-
+        <section class="guide-section">
         <!-- ── Still Have Questions ── -->
         <h2>Still Have Questions?</h2>
         <p>If the calc isn't opening from any entry point, or a projection seems completely off, contact support with your Player ID and a description of which entry point you used.</p>
         <p><a href="/support" style="color:var(--accent);text-decoration:none;font-weight:500;">Contact Support →</a></p>
-
+        </section>
       </article>
 
-      <a href="/guides" class="back-link-bottom">Back to Guides</a>
+      <p class="back-row"><a href="/guides/" class="faq-btn">← Back to Guides</a></p>
 
     </main>
   </div>
 
   <footer>
     <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
-    <p class="footer-press"><a href="/privacy" class="studio-link">Privacy Policy</a></p>
-    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/privacy" class="studio-link">Privacy Policy</a>
+      <a href="/terms" class="studio-link">Terms of Service</a>
+      <a href="/beta" class="studio-link">Beta</a>
+      <a href="https://discord.gg/vVs73yb7wU" target="_blank" rel="noopener" class="studio-link">Discord</a>
+      <a href="mailto:press@boundlessalchemy.io" class="studio-link">Press: press@boundlessalchemy.io</a>
+    </nav>
   </footer>
 
   <script>
@@ -528,6 +647,25 @@
       resize(); seed(); requestAnimationFrame(draw);
       let resizeTimer;
       window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+  <script>
+    // ── Site menu ──────────────────────────────────────────────────
+    (function () {
+      const btn = document.querySelector('.menu-toggle');
+      const panel = document.getElementById('menu-panel');
+      function setOpen(open) {
+        btn.setAttribute('aria-expanded', String(open));
+        panel.hidden = !open;
+      }
+      btn.addEventListener('click', () => setOpen(panel.hidden));
+      document.addEventListener('click', (e) => {
+        if (!panel.hidden && !e.target.closest('.site-menu')) setOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
+      });
     }());
   </script>
 
