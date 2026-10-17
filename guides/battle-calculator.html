@@ -388,7 +388,7 @@
 
 
       <h1 class="guide-title">Battle Calculator</h1>
-      <p class="guide-lede">Use the Battle Calculator to plan a fight before it happens. Build out both sides, apply scan data for accurate numbers, and see how the battle might unfold — before committing your fleets.</p>
+      <p class="guide-lede">Use the Battle Calculator to plan a fight before it happens. Build out both sides, apply scan data for better numbers, and see the projected result before you commit your fleets.</p>
       <div class="divider"></div>
 
       <article class="guide-body">
@@ -400,17 +400,17 @@
           <table>
             <thead><tr><th>What you want to do</th><th>How to get there</th></tr></thead>
             <tbody>
-              <tr><td>Open a calc for an incoming fight</td><td>Command Home → incoming combat row → <strong>Battle Calculator</strong></td></tr>
-              <tr><td>Open a calc you already saved</td><td>Command Battles → Battle Calcs → tap the calc row</td></tr>
-              <tr><td>Start a calc from scan results</td><td>Scan Results popup → <strong>Battle Calculator</strong></td></tr>
-              <tr><td>Open a calc from Alliance Fleets</td><td>Alliance Fleets → Combat Session Detail panel → <strong>Battle Calculator</strong></td></tr>
-              <tr><td>Add your own fleets</td><td>Inside the calc → <strong>Add</strong> → <strong>My Fleets</strong> tab → tap <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong></td></tr>
-              <tr><td>Add an alliance member's fleet</td><td>Inside the calc → <strong>Add</strong> → <strong>Alliance</strong> tab → search by username → pick fleet</td></tr>
-              <tr><td>Add any player's fleet</td><td>Inside the calc → <strong>Add</strong> → <strong>Any Player</strong> tab → search → pick fleet → set role</td></tr>
+              <tr><td>Open a calc for an incoming fight</td><td>Command Home → incoming combat → <strong>Battle Calc</strong></td></tr>
+              <tr><td>Open a calc you already saved</td><td>Command Battles → Battle Calcs list → <strong>View</strong> on the calc</td></tr>
+              <tr><td>Start a calc from scan results</td><td>Scan Results popup → <strong>Start Battle Calc</strong> (not shown for outpost scans)</td></tr>
+              <tr><td>Open a calc from Fleet Movements</td><td>Alliance → <strong>Fleets</strong> → tap an attack → <strong>Battle Calc</strong></td></tr>
+              <tr><td>Add your own fleet</td><td>Inside the calc → <strong>Add</strong> → <strong>My Fleets</strong> tab → pick <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong> → <strong>Add Attacker</strong> or <strong>Add Defender</strong></td></tr>
+              <tr><td>Add an alliance member's fleet</td><td>Inside the calc → <strong>Add</strong> → <strong>Alliance</strong> tab → search → pick fleet → <strong>Add Attacker</strong> or <strong>Add Defender</strong></td></tr>
+              <tr><td>Add any player's fleet</td><td>Inside the calc → <strong>Add</strong> → <strong>Player</strong> tab → search → pick fleet → <strong>Add Attacker</strong> or <strong>Add Defender</strong></td></tr>
               <tr><td>Add a blank placeholder fleet</td><td>Inside the calc → <strong>Add</strong> → <strong>Dummy</strong> tab → pick fleet → <strong>Add Attacker</strong> or <strong>Add Defender</strong></td></tr>
-              <tr><td>Apply a scan to an enemy row</td><td>Tap <strong>View Available Scan</strong> on that participant's card → pick a scan</td></tr>
+              <tr><td>Apply a scan to an enemy row</td><td>Tap the scan box on that participant's card (it reads <strong>No scan</strong> or shows the scan in use) → pick a scan</td></tr>
               <tr><td>Re-run the math after changes</td><td><strong>Update</strong> button</td></tr>
-              <tr><td>Pull in latest combat and scan data</td><td><strong>Refresh</strong> button</td></tr>
+              <tr><td>Pull in the latest combat data</td><td><strong>Refresh</strong> button (calcs linked to a combat)</td></tr>
               <tr><td>Save the calc</td><td><strong>Save</strong> button — unsaved edits are lost if you close</td></tr>
               <tr><td>Exit</td><td><strong>Close</strong> button</td></tr>
             </tbody>
@@ -419,7 +419,7 @@
 
         <!-- ── 1. What Is It? ── -->
         <h2>1. What Is the Battle Calculator?</h2>
-        <p>The Battle Calculator is a planning tool. Before a battle resolves, you can load the fleets you think will be involved and see a projected outcome: how many ships each side might lose, how much value each side gains or loses, the likely score impact, and — for base attacks — how many asteroids might change hands.</p>
+        <p>The Battle Calculator is a planning tool. Before a battle resolves, you can load the fleets you think will be involved and see a projected outcome: how many ships each side might lose, the value of those ships, the likely score impact, and — for base attacks — how many asteroids might change hands.</p>
         <p>Two things to keep in mind:</p>
         <ul>
           <li><strong>Results are a projection, not a guarantee.</strong> The calculator uses the same math as the real battle, but accuracy depends on how current and complete your data is. Stale scans, missing fleets, or estimated numbers will make the projection less precise.</li>
@@ -434,84 +434,85 @@
         <h3>From an Incoming Combat (Most Common)</h3>
         <ol>
           <li>Go to <strong>Command Home</strong>.</li>
-          <li>Find an incoming combat row.</li>
-          <li>Tap <strong>Battle Calculator</strong> on that row. The calc opens linked to that combat.</li>
+          <li>Find the incoming combat.</li>
+          <li>Tap <strong>Battle Calc</strong> on that combat. The calc opens linked to that combat.</li>
         </ol>
 
         <h3>From a Saved Calc</h3>
         <ol>
           <li>Go to <strong>Command Battles</strong>.</li>
-          <li>Tap <strong>Battle Calcs</strong>.</li>
-          <li>Tap any saved calc row to open it.</li>
+          <li>Find the <strong>Battle Calcs</strong> list.</li>
+          <li>Tap <strong>View</strong> on a saved calc to open it.</li>
         </ol>
 
         <h3>From Scan Results</h3>
         <ol>
           <li>Run a scan on a target.</li>
-          <li>When the Scan Results popup appears, tap <strong>Battle Calculator</strong>. The calc opens with that target's scan data already loaded.</li>
+          <li>When the Scan Results popup appears, tap <strong>Start Battle Calc</strong> (not shown for outpost scans). The calc opens with that target's scan loaded. If you and your alliance aren't already in a fight with them, you'll pick which side they're on first. Ship counts come from scans that report ships. An asteroid or incoming scan doesn't include ship counts, so starting from one sets their ship counts to 0 until you apply a scan that does.</li>
         </ol>
+        <p>Scans you open from your alliance's <strong>Intel</strong> screen use the same Scan Results popup.</p>
 
-        <h3>From Alliance Fleets</h3>
-        <p>There are two places within Alliance Fleets where you can open a calc:</p>
-        <ul>
-          <li><strong>Alliance Intel section</strong> — tap <strong>Battle Calculator</strong> on a combat listed there.</li>
-          <li><strong>Combat Session Detail panel</strong> — tap a combat row to open the detail panel, then tap <strong>Open Battle Calculator</strong>.</li>
-        </ul>
+        <h3>From Fleet Movements</h3>
+        <ol>
+          <li>Open your alliance menu and tap <strong>Fleets</strong>.</li>
+          <li>On <strong>Member Attacks</strong> or <strong>Outpost Attacks</strong>, tap a combat to open its details.</li>
+          <li>Tap <strong>Battle Calc</strong>. The calc opens linked to that combat.</li>
+        </ol>
         </section>
 
         <section class="guide-section">
         <!-- ── 3. Adding Fleets ── -->
         <h2>3. Adding Fleets to Your Calc</h2>
-        <p>Tap <strong>Add</strong> to open the Quick Add popup. It has four tabs.</p>
+        <p>Tap <strong>Add</strong> to open the <strong>Add Participant</strong> popup. It has four tabs. On every tab you pick a fleet, then tap <strong>Add Attacker</strong> or <strong>Add Defender</strong> to choose which side it fights on.</p>
 
         <h3>My Fleets</h3>
-        <p>Tap <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong> to add one of your own fleets. Fleets you don't have are grayed out.</p>
-        <p>Your role (attacker or defender) is set automatically based on the combat context. Your fleet rows are <strong>locked</strong>: the numbers come directly from your account and cannot be edited. This keeps your side of the projection accurate.</p>
+        <p>Pick <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong>, then tap <strong>Add Attacker</strong> or <strong>Add Defender</strong>. Fleets you don't have can't be picked.</p>
+        <p>Your fleet's numbers are filled in from your account, but you can still edit them to try out a what-if.</p>
 
         <h3>Alliance</h3>
         <ol>
           <li>Tap the <strong>Alliance</strong> tab.</li>
-          <li>Type an alliance member's username and tap <strong>Search</strong>.</li>
-          <li>Pick a fleet (<strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong>) and set the role (<strong>Add as Attacker</strong> or <strong>Add as Defender</strong>).</li>
+          <li>Type an alliance member's Stardom name and tap <strong>Search</strong>.</li>
+          <li>Pick a fleet (<strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong>), then tap <strong>Add Attacker</strong> or <strong>Add Defender</strong>.</li>
         </ol>
-        <p>Alliance member rows are <strong>locked</strong> — their live fleet data is used directly. This tab is only available when you are in an alliance.</p>
+        <p>Alliance member rows start with zero ships and no captain, and each ship type shows the game's standard stats. The scan list opens once, right after you add the row: pick a scan there, because alliance rows have no scan box to open it again later. If you close it without picking one, type the numbers in yourself. This tab is only available when you are in an alliance.</p>
 
-        <h3>Any Player</h3>
+        <h3>Player</h3>
         <ol>
-          <li>Tap the <strong>Any Player</strong> tab.</li>
-          <li>Type any player's username and tap <strong>Search</strong>.</li>
-          <li>Choose whether their fleet fights as an <strong>Attacker</strong> or <strong>Defender</strong>.</li>
-          <li>Pick which fleet to add: <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong>.</li>
+          <li>Tap the <strong>Player</strong> tab.</li>
+          <li>Type any player's Stardom name and tap <strong>Search</strong>.</li>
+          <li>Pick which fleet to add: <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong> (<strong>Base</strong> is selected by default).</li>
+          <li>Tap <strong>Add Attacker</strong> or <strong>Add Defender</strong>. The row is added right away, and the scan list opens so you can apply a scan to fill it in.</li>
         </ol>
-        <p><strong>Why the fleet choice matters:</strong> Picking <strong>Base</strong> tells the calc this is a base attack — asteroid capture is factored into the projection. Picking <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong> models a fleet engagement with no asteroid impact. Choose whichever matches what you expect will actually be in the fight.</p>
-        <p>Any Player rows start as blank, editable placeholders — stats are zero until you apply a scan. Once you apply a high-detail enhanced scan, the row locks to protect that accuracy. Rows from basic scans remain editable so you can adjust them if needed.</p>
+        <p><strong>Why the fleet choice matters:</strong> it tells the calc which of their fleets this row is, so the right scans are offered. Asteroid capture depends on what the calc was opened against (a base or a fleet), or on a Dummy defender set to <strong>Base</strong>, not on this choice.</p>
+        <p>Player rows start with zero ships and no captain, and each ship type shows the game's standard stats, not that player's real numbers, until you apply a scan. Every row stays editable, even after an enhanced scan, so you can always adjust the numbers.</p>
 
         <h3>Dummy (What-If Planning)</h3>
         <ol>
           <li>Tap the <strong>Dummy</strong> tab.</li>
           <li>Pick <strong>Base</strong>, <strong>F1</strong>, <strong>F2</strong>, or <strong>F3</strong> to choose what the dummy represents.</li>
-          <li>Tap <strong>Add Attacker</strong> or <strong>Add Defender</strong>. A blank row named <strong>Dummy 1</strong> appears (then <strong>Dummy 2</strong>, and so on) with all ship counts at zero.</li>
+          <li>Tap <strong>Add Attacker</strong> or <strong>Add Defender</strong>. A blank row named <strong>Dummy 1</strong> appears (then <strong>Dummy 2</strong>, and so on) with all ship counts at zero. Each dummy needs its own name, and numbering starts at 1 each time you open the calc. In a saved calc that already has dummies, an add that would repeat a name shows <strong>Fleet already added.</strong>; add again and the next number is used.</li>
           <li>Tap any stat field to enter your estimates.</li>
         </ol>
-        <p>Dummy rows are fully editable. Use them when you don't have scan data and want to model a best guess. Designating a defender dummy as <strong>Base</strong> also engages the asteroid-capture projection so the <strong>Roids</strong> column reflects what attackers would carry off.</p>
+        <p>Dummy rows are fully editable. Use them when you don't have scan data and want to model a best guess. Adding a defender dummy as <strong>Base</strong> switches the calc to a base attack if it isn't one already, which fills in the <strong>Roids</strong> column. A dummy has no asteroids of its own, so any projected capture comes from your target player's real asteroids.</p>
         </section>
 
         <section class="guide-section">
         <!-- ── 4. Applying Scan Data ── -->
         <h2>4. Applying Scan Data to an Enemy Row</h2>
         <p>Scan data gives the calc real numbers for enemy fleets. Without it, enemy rows have blank or zero stats and the projection is not meaningful.</p>
-        <p>Tap <strong>View Available Scan</strong> on any enemy participant card to open the scan list. Each entry shows the scan type, when it was taken, and who took it (you or a teammate).</p>
+        <p>Tap the scan box on any enemy participant card to open the scan list. The box reads <strong>No scan</strong>, or shows the name and age of the scan in use. Each entry in the list shows the scan type, when it was taken, and who took it (you or a teammate).</p>
         <ul>
           <li>Tap <strong>Add</strong> on any row to apply that scan to the participant.</li>
           <li>If a scan is already applied, it shows an <strong>Applied</strong> badge.</li>
           <li>If a teammate uploads a fresher scan while the list is open, it appears automatically — you don't need to close and reopen.</li>
         </ul>
 
-        <h3>Scans From Before the Combat</h3>
-        <p>By default the list shows only scans taken since the combat started. Tap <strong>History</strong> to see older scans too. These are dimmed but still usable — just treat the numbers as estimates if significant time has passed.</p>
+        <h3>Which Scans Are Listed</h3>
+        <p>Opened from the combat, the list shows scans taken since the combat began. A standalone calc, or one opened from a chat card, shows the last 36 hours instead (the line at the top of the list says which). Tap <strong>Scan History</strong> to include older scans. Only the newest scan of each type is listed, so an older one appears only if that type hasn't been rescanned since. Older scans are dimmed but still usable — just treat the numbers as estimates if significant time has passed.</p>
 
-        <h3>Enhanced Scans Are Locked</h3>
-        <p>If the applied scan is a high-detail enhanced target-defense scan, the row locks and cannot be edited. That data is treated as accurate. All other scan types leave the row editable so you can adjust numbers if you think the enemy's fleet has changed.</p>
+        <h3>Scan Rows Stay Editable</h3>
+        <p>Applying a scan never locks the row. A Ship Estimate gives only rough ship counts (within about 10%). For a player's fleet, only Technology Details and Enhanced Target Defense scans fill in upgraded ship stats; every other scan, Full Stardom Details included, uses standard ship stats. So every row stays editable: adjust the numbers if you know better, or if the fleet has changed since the scan.</p>
         </section>
 
         <section class="guide-section">
@@ -526,7 +527,7 @@
             </thead>
             <tbody>
               <tr><td><strong>Ships</strong></td><td>Ships projected to be destroyed. Negative = ships lost (shown in red).</td></tr>
-              <tr><td><strong>Value</strong></td><td>Resource value gained or lost. Red = loss, green = gain.</td></tr>
+              <tr><td><strong>Value</strong></td><td>Projected value of this participant's ships that would be destroyed, shown in red as a negative (0 if none). It never shows a gain.</td></tr>
               <tr><td><strong>Score</strong></td><td>Projected score change for this participant. Populated for all fight types.</td></tr>
               <tr><td><strong>Roids</strong></td><td>Asteroids captured or lost. Base attacks only — shows — for fleet-vs-fleet and outpost combat.</td></tr>
             </tbody>
@@ -534,10 +535,10 @@
         </div>
 
         <h3>How the Simulation Decides Who Wins</h3>
-        <p>Ships fight in speed order — faster ships act first. Within the same speed tier, both sides fire simultaneously. Getting the first move doesn't prevent the other side from firing back.</p>
+        <p>Ships fight in speed order — faster ships act first. Within the same speed tier, both sides fire simultaneously. Speed matters: ships destroyed or disabled by faster ships never get to fire. Only the survivors shoot back when their speed comes up.</p>
         <p><strong>Damage layers:</strong> Shields absorb hits first. Dodge reduces ships that get hit. Hull determines how many ships are destroyed by the remainder.</p>
         <p><strong>EMP</strong> damage bypasses shields and dodge entirely. Ships hit by EMP become incapacitated.</p>
-        <p><strong>Retreat:</strong> A participant pulls out when they've lost a configured percentage of their starting fleet value (typically 30%, set per round). Their remaining ships survive but stop fighting from that point. The calculator reads the round's actual retreat threshold so the projection matches the live battle.</p>
+        <p><strong>Retreat:</strong> A participant pulls out when they've lost a set percentage of their starting fleet value (the round sets it; 30% by default). Their remaining ships survive but stop fighting from that point. The calculator reads the round's actual retreat threshold, so its projection follows the server's rule for player fleets. AI outpost garrisons follow their own rule: they keep fighting until only about a quarter of their ships remain, so the calculator may show them pulling out sooner than they really will.</p>
         <p><strong>Who wins:</strong></p>
         <ul>
           <li>All attackers gone, defenders remain — defenders win</li>
@@ -545,7 +546,7 @@
           <li>Both sides reach zero — the side that lost less total value wins (ties go to the attacker)</li>
           <li>Neither side reaches zero — same tie-break on value lost</li>
         </ul>
-        <p><strong>Asteroids (base attacks only):</strong> Attackers capture asteroids as long as they have ships remaining when the fight ends — even if the defenders won.</p>
+        <p><strong>Asteroids (base attacks only):</strong> Attackers can capture asteroids if they still have ships fighting when it ends, even if the defenders won. The more ship value they have left, the more they take, up to a cap the round sets on how many of the target's asteroids one battle can take; the capture is shared among the attackers by the ship value each has left. A fleet that retreated captures nothing.</p>
         </section>
 
         <section class="guide-section">
@@ -556,16 +557,16 @@
         <p>Re-runs the simulation using the data currently in the calc. Use this after adding participants, changing numbers, or applying a scan. Update does not pull new data — it only recalculates with what is already loaded.</p>
 
         <h3>Refresh</h3>
-        <p>Pulls the latest combat session data and re-checks all scans. Use this when:</p>
+        <p>Pulls the latest combat session data. Once any row has a scan, it also swaps in a more detailed type of scan, but never a newer scan of the same type: add that one from the scan list. Refresh does nothing on a standalone calc. Use it when:</p>
         <ul>
-          <li>A teammate has uploaded a new scan since you opened the calc.</li>
-          <li>You think the enemy fleet has changed (ships arrived, ships recalled).</li>
+          <li>A teammate has taken a more detailed type of scan than the one on a row.</li>
+          <li>You think the enemy fleet has changed (ships arrived, ships recalled). If you are attacking, Refresh only sees defender changes that a defense scan has caught: defending fleets in the newest defense scan are added, and ones missing from it are removed. Ship counts on rows already in the calc change only with a more detailed type of scan.</li>
           <li>Another member has joined or left the fight.</li>
         </ul>
         <p>Refresh merges changes: it adds newly detected participants, upgrades existing rows with more accurate data, and removes fleets that have been recalled. Dummy participants are never affected by a Refresh.</p>
 
         <h3>Save</h3>
-        <p>Writes the current calc to your account. If you are in an alliance, the saved calc is shared — alliance members can view and edit it.</p>
+        <p>Writes the current calc to your account. If you are in an alliance and the calc is linked to a combat, it is also shared: alliance members who open the calc for that combat can view and edit it. Standalone calcs are not shared.</p>
         <p><strong>Save before you close.</strong> Closing the panel without saving discards all edits immediately, with no warning prompt. If you close by accident, reopening from <strong>Command Battles → Battle Calcs</strong> restores the last saved state.</p>
         <p><strong>Alliance calcs have no conflict protection.</strong> If two members edit the same calc at the same time, the last save overwrites the earlier one. Coordinate before making major edits to a shared calc.</p>
         </section>
@@ -573,16 +574,16 @@
         <section class="guide-section">
         <!-- ── 7. After the Battle ── -->
         <h2>7. After the Battle Resolves</h2>
-        <p>Once a linked battle concludes, the calc becomes a <strong>read-only record</strong>. All fields lock and the Save, Refresh, and Add buttons disable. You can still view the projection you built.</p>
+        <p>Once a linked battle concludes, the <strong>Refresh</strong> button disappears because the combat is over and there is nothing left to pull from. You can still view, edit and save the projection you built.</p>
         <p>To compare your projection against what actually happened, check the battle report for that combat.</p>
         </section>
 
         <section class="guide-section">
         <!-- ── 8. Standalone Calcs ── -->
         <h2>8. Standalone Calcs and the 72-Hour Limit</h2>
-        <p>A calc not linked to an active combat is called a <strong>standalone calc</strong>. Use these for early planning — modeling an attack before you have formally committed to one.</p>
+        <p>A calc not linked to any combat is called a <strong>standalone calc</strong>. Use these for early planning — modeling an attack before you have formally committed to one.</p>
         <p>Standalone calcs are automatically removed 72 hours after the last save. There is no warning before deletion. If a standalone calc matters to you, save it regularly or build it closer to when you plan to use it.</p>
-        <p>Calcs linked to an active combat are removed when that combat resolves, not after 72 hours.</p>
+        <p>Calcs linked to a combat are not removed while that combat is active. After it ends they are removed automatically, usually about a day later.</p>
         </section>
 
         <section class="guide-section">
@@ -592,12 +593,13 @@
         <p><strong>Stale or incomplete scan data.</strong> If the enemy changed their fleet after your last scan, your projection used outdated numbers. A fresher scan improves accuracy, but there is always a window for changes between scan and battle.</p>
         <p><strong>Missing participants.</strong> If the enemy brought fleets you didn't know about, or if allies joined the defense after you built the calc, those fleets weren't in your simulation.</p>
         <p><strong>Dummy placeholder data.</strong> Any fleet modeled with a Dummy row used the numbers you typed. If your estimate was off, the projection is off by the same margin.</p>
+        <p><strong>AI outposts.</strong> AI garrisons retreat by their own rule (see Retreat, above), so projections against them are rougher.</p>
         </section>
 
         <section class="guide-section">
         <!-- ── Still Have Questions ── -->
         <h2>Still Have Questions?</h2>
-        <p>If the calc isn't opening from any entry point, or a projection seems completely off, contact support with your Player ID and a description of which entry point you used.</p>
+        <p>If the calc won't open from any entry point, or a projection seems completely off, submit a support ticket from in-game Help (it adds your account details for you) and say which entry point you used.</p>
         <p><a href="/support" style="color:var(--accent);text-decoration:none;font-weight:500;">Contact Support →</a></p>
         </section>
       </article>
