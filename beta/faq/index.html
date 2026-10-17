@@ -50,7 +50,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2.5rem 1rem 3rem;
+      padding: 1.5rem 1.5rem 3rem;
     }
 
     .page::before {
@@ -59,10 +59,10 @@
       top: -20vh;
       left: 50%;
       transform: translateX(-50%);
-      width: 700px;
+      width: 900px;
       max-width: 100vw;
-      height: 500px;
-      background: radial-gradient(ellipse at center, rgba(120, 80, 20, 0.2) 0%, transparent 70%);
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(40, 80, 180, 0.22) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
@@ -94,9 +94,10 @@
       text-align: center;
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: clamp(1.05rem, 3.2vw, 1.4rem);
-      color: var(--white);
-      letter-spacing: 0.04em;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       line-height: 1.4;
       text-wrap: balance;
     }
@@ -112,14 +113,14 @@
     .intro {
       text-align: center;
       font-weight: 300;
+      font-size: 0.9rem;
       color: var(--text);
       margin-bottom: 0.25rem;
     }
 
     .toc {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 0.5rem;
       margin: 1.75rem 0 0.5rem;
       list-style: none;
@@ -138,14 +139,32 @@
     }
 
     .toc a:hover { border-color: var(--gold); color: var(--white); }
+    .toc a { display: block; text-align: center; white-space: nowrap; }
+    @media (min-width: 900px) {
+      .toc { grid-template-columns: repeat(6, auto); justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .toc { grid-template-columns: repeat(2, 1fr); }
+      .toc a { font-size: 0.75rem; padding: 0.35rem 0.5rem; }
+    }
 
-    section { margin-top: 2.5rem; }
+    section {
+      margin-top: 1.5rem;
+      padding: 1.25rem 1.5rem 0.5rem;
+      border-radius: 16px;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(79,143,255,0.12) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(240,192,96,0.04) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.18);
+      scroll-margin-top: 1rem;
+    }
+    @media (max-width: 480px) { section { padding: 1.1rem 1.1rem 0.25rem; } }
 
     h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--gold);
       padding-bottom: 0.6rem;
@@ -154,12 +173,13 @@
     }
 
     .qa {
-      padding: 1.25rem 0;
+      padding: 1rem 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
+    .qa:last-child { border-bottom: none; }
 
     h3 {
-      font-size: 1.02rem;
+      font-size: 0.9rem;
       font-weight: 500;
       color: var(--white);
       margin-bottom: 0.5rem;
@@ -167,7 +187,7 @@
     }
 
     .qa p, .qa li {
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       font-weight: 300;
       line-height: 1.7;
     }
@@ -187,19 +207,7 @@
 
     .qa a:hover, .intro a:hover { text-decoration: underline; }
 
-    .back-link {
-      display: block;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      margin-top: 2.5rem;
-      transition: color 0.2s;
-    }
-
-    .back-link:hover { color: var(--text); }
+    .back-row { text-align: center; margin-top: 2rem; }
 
     footer {
       position: relative;
@@ -212,7 +220,7 @@
 
     .studio-credit {
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.6rem;
+      font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--text-muted);
@@ -225,6 +233,143 @@
     }
 
     .studio-link:hover { color: rgba(255,255,255,0.6); }
+    .footer-press {
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+    .nav {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 2rem;
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; }
+    .nav-home { display: block; line-height: 0; border-radius: 6px; }
+    .nav-logo {
+      height: 40px;
+      width: auto;
+      opacity: 0.85;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    .nav-home:hover .nav-logo,
+    .nav-home:focus-visible .nav-logo {
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(240, 192, 96, 0.45));
+    }
+    .nav-home:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem 1.25rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      margin: 0.45rem 0 0.35rem;
+    }
+    @media (max-width: 480px) {
+      .footer-links { gap: 0 1rem; }
+      .footer-links a { padding: 0.4rem 0; }
+    }
+    /* ── Site menu (hamburger) ──────────────────────────────────── */
+    .site-menu {
+      position: relative;
+      z-index: 5;
+    }
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 40px;
+      height: 40px;
+      padding: 0 10px;
+      background: rgba(8, 13, 26, 0.7);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 1px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .menu-toggle:focus-visible,
+    .menu-panel a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .menu-panel {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 180px;
+      padding: 0.4rem;
+      background: linear-gradient(135deg, rgba(14,20,36,0.97) 0%, rgba(20,24,34,0.97) 100%);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 24px rgba(240,192,96,0.08);
+      text-align: left;
+    }
+    .menu-panel[hidden] { display: none; }
+    .menu-panel a {
+      display: block;
+      padding: 0.65rem 0.9rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .menu-panel a:hover { background: rgba(240,192,96,0.1); }
+    @media (prefers-reduced-motion: reduce) {
+      .menu-toggle span { transition: none; }
+    }
+
+    .info-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    @media (min-width: 760px) {
+      .info-row { grid-template-columns: 1fr 1fr; align-items: start; }
+      .page-desc { max-width: 600px; }
+    }
+    .form-card { max-width: 560px; }
+    .faq-btn {
+      display: inline-block;
+      margin: -0.5rem 0 1.5rem;
+      padding: 0.6rem 1.4rem;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 45%),
+        linear-gradient(180deg, #3a4558 0%, #222a38 50%, #161c27 51%, #2a3446 100%);
+      border: 1px solid rgba(120, 170, 255, 0.55);
+      border-radius: 6px;
+      color: #a9cfff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 0 12px rgba(79,143,255,0.3);
+      transition: filter 0.25s, box-shadow 0.25s;
+    }
+    .faq-btn:hover {
+      filter: brightness(1.15);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 22px rgba(79,143,255,0.5);
+    }
+    .faq-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -232,9 +377,21 @@
   <canvas id="starfield" aria-hidden="true"></canvas>
 
   <div class="page">
-    <main class="container">
+    <nav class="nav" aria-label="Site">
+      <a href="/" class="nav-home" aria-label="Star Thrown home"><img src="/StarThrownLogo.png" alt="Star Thrown" class="nav-logo" /></a>
+      <div class="site-menu">
+        <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="menu-panel" id="menu-panel" hidden>
+          <a href="/beta">Beta</a>
+          <a href="/guides/">Guides</a>
+          <a href="/support">Support</a>
+        </div>
+      </div>
+    </nav>
 
-      <a href="/" class="game-title">Star Thrown</a>
+    <main class="container">
 
       <h1>Star Thrown™ beta: questions and answers</h1>
       <div class="divider"></div>
@@ -267,7 +424,7 @@
 
         <div class="qa">
           <h3 id="why-18">Why do I have to be 18 or older?</h3>
-          <p>The Star Thrown beta is for adults only. You confirm you are 18 or older when you sign up on our site and again when you create your account in the game.</p>
+          <p>Star Thrown has live chat with other players, including direct messages. To help keep children safe, the game is for adults only. You confirm you are 18 or older when you sign up on our site and again when you create your account in the game.</p>
         </div>
 
         <div class="qa">
@@ -457,14 +614,21 @@
         </div>
       </section>
 
-      <a href="/beta" class="back-link">← Back to the beta sign-up</a>
+      <p class="back-row"><a href="/beta" class="faq-btn">← Back to the beta sign-up</a></p>
 
     </main>
   </div>
 
   <footer>
     <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
-    <p class="studio-credit"><a href="/privacy" class="studio-link">Privacy Policy</a></p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/privacy" class="studio-link">Privacy Policy</a>
+      <a href="/terms" class="studio-link">Terms of Service</a>
+      <a href="/beta" class="studio-link">Beta</a>
+      <a href="https://discord.gg/vVs73yb7wU" target="_blank" rel="noopener" class="studio-link">Discord</a>
+      <a href="mailto:press@boundlessalchemy.io" class="studio-link">Press: press@boundlessalchemy.io</a>
+    </nav>
+    <p class="footer-press">iPhone and TestFlight are trademarks of Apple Inc., registered in the U.S. and other countries and regions.</p>
   </footer>
 
   <script>
@@ -492,6 +656,25 @@
       }
       resize(); seed(); requestAnimationFrame(draw);
       let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { resize(); seed(); }, 150); });
+    }());
+  </script>
+
+  <script>
+    // ── Site menu ──────────────────────────────────────────────────
+    (function () {
+      const btn = document.querySelector('.menu-toggle');
+      const panel = document.getElementById('menu-panel');
+      function setOpen(open) {
+        btn.setAttribute('aria-expanded', String(open));
+        panel.hidden = !open;
+      }
+      btn.addEventListener('click', () => setOpen(panel.hidden));
+      document.addEventListener('click', (e) => {
+        if (!panel.hidden && !e.target.closest('.site-menu')) setOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
+      });
     }());
   </script>
 
