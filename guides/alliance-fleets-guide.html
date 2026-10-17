@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Alliance Fleets Guide — your alliance war room for combat coordination, triage, and dispatching defenders in Star Thrown." />
-  <title>Alliance Fleets Guide — Guides — Star Thrown</title>
+  <meta name="description" content="Fleet Movements Guide — your alliance war room for combat coordination, triage, and dispatching defenders in Star Thrown." />
+  <title>Fleet Movements Guide — Guides — Star Thrown</title>
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://starthrown.com/guides/alliance-fleets-guide" />
-  <meta property="og:title" content="Alliance Fleets Guide — Star Thrown" />
-  <meta property="og:description" content="Alliance Fleets is your alliance's tactical hub for combat coordination — see every active attack, organize your response, and send your fleet to help." />
+  <meta property="og:title" content="Fleet Movements Guide — Star Thrown" />
+  <meta property="og:description" content="Fleet Movements is your alliance's tactical hub for combat coordination — see every active attack, organize your response, and send your fleet to help." />
   <meta property="og:image" content="https://starthrown.com/StarThrownOGImage.png" />
   <meta property="og:site_name" content="Star Thrown" />
 
@@ -363,8 +363,8 @@
     <main>
 
 
-      <h1 class="guide-title">Alliance Fleets: Your Alliance War Room</h1>
-      <p class="guide-lede">Alliance Fleets is your alliance's tactical hub for combat coordination. This is where you see every active attack on alliance members and outposts, organize your alliance's response, and send your own fleet to help.</p>
+      <h1 class="guide-title">Fleet Movements: Your Alliance War Room</h1>
+      <p class="guide-lede">Fleet Movements is your alliance's tactical hub for combat coordination. This is where you see every active attack on alliance members and outposts, organize your alliance's response, and send your own fleet to help.</p>
       <p class="guide-access"><strong>To get there:</strong> Go to <strong>Alliance Home</strong> and tap <strong>Fleets</strong>.</p>
       <div class="divider"></div>
 
@@ -373,10 +373,10 @@
 
         <!-- ── What You Can See ── -->
         <h2>What You Can See</h2>
-        <p>Alliance Fleets has three tabs. Each one answers a different question.</p>
-        <p><strong>Member Attacks</strong> — the default tab when you arrive. Shows every active attack on an alliance member's Stardom or fleet. The most urgent threat is at the top. The red badge on the tab shows how many active attacks exist right now. When the badge turns blue, there are no active attacks.</p>
+        <p>Fleet Movements has three tabs. Each one answers a different question.</p>
+        <p><strong>Member Attacks</strong> — the default tab when you arrive. Shows every active attack on an alliance member's Stardom or fleet. The most urgent threat is at the top. The badge on the tab shows how many attacks are active right now. When it reads 0, there are no active attacks.</p>
         <p><strong>Outpost Attacks</strong> — the same idea, but for your alliance's outposts. If an enemy alliance has launched an attack against one of your outposts, it appears here. Tapping a row opens the detail panel for that combat — the same panel as in Member Attacks — where you can scan attackers, open the Battle Calculator, change the triage status (Member rank and above), or dispatch a fleet to defend the outpost.</p>
-        <p><strong>Our Defenders</strong> — shows which alliance fleets are protecting your outposts right now. Fleets that have already arrived are listed as <strong>Stationed</strong>. Fleets still on their way are listed as <strong>En Route</strong>, with an ETA. This tab is read-only — you can see the picture, but you cannot recall or redirect defenders from here yet.</p>
+        <p><strong>Our Defenders</strong> — shows which alliance fleets are protecting your outposts right now. Fleets that have already arrived are listed as <strong>Stationed</strong>. Fleets still on their way are listed as <strong>En Route</strong>, with an ETA. This tab is for viewing only. To bring one of your own defenders home, recall that fleet from Command Fleet or the map, the same way you recall any fleet.</p>
         <p>Every tab stays current automatically. You do not need to refresh.</p>
         </section>
 
@@ -386,7 +386,7 @@
         <p>Triage is how your alliance coordinates its response to incoming threats. Tapping any row in <strong>Member Attacks</strong> or <strong>Outpost Attacks</strong> opens the detail panel for that combat, which shows the full picture: who is being attacked, which fleets are attacking, how much time is left, and what defenders (if any) are already on the way.</p>
 
         <h3>The Triage Status</h3>
-        <p>Every combat has a status that tells your alliance what is happening with it. Members with the rank of <strong>Member</strong> or higher can set and change this status. Probationary members can see the status but cannot change it.</p>
+        <p>Every combat has a triage status that your alliance sets to show how it is being handled. When you send defenders or make a call on a combat, update its status so everyone knows. Members with the rank of <strong>Member</strong> or higher can set and change this status. Probationary members can see the status but cannot change it.</p>
 
         <div class="table-wrap">
           <table>
@@ -443,21 +443,22 @@
         <ul>
           <li>It has at least one ship.</li>
           <li>It is currently at your Stardom with no active orders, or it has a <strong>Stay</strong> order.</li>
+          <li>It can reach the target before the countdown in the detail panel reaches zero.</li>
         </ul>
         <p>Fleets that are already moving, attacking, defending somewhere else, or returning home cannot be dispatched and will not appear in the picker.</p>
 
-        <h3>The Join Window</h3>
-        <p>There is a time limit on when new defenders can still arrive in time. If the window has closed by the time you confirm, you will see <em>Too late — your fleet can no longer arrive in time.</em> The combat is too close — no further dispatches are possible for it. Check other active combats that still have time remaining.</p>
+        <h3>Arriving in Time</h3>
+        <p>Your fleet must be able to reach the target before the countdown in the detail panel reaches zero. Fleets that are too far away are not listed. If the fleet you picked can no longer make it by the time you confirm, you will see <em>Too late — your fleet can no longer arrive in time.</em> A fleet stationed nearer the target, or a teammate who is closer, may still make it. Otherwise, check other active combats that still have time remaining.</p>
         </section>
 
         <section class="guide-section">
         <!-- ── Defending Outposts ── -->
         <h2>Defending Outposts</h2>
-        <p>Outpost defense works differently from defending a member's Stardom. When an enemy attacks your outpost, they fight your stationed defenders — the fleets that are already there. If no defenders are stationed and the outpost has a shield, the attackers hit the shield first instead. Once the shield is gone and no defenders are present, the outpost can fall.</p>
+        <p>Outpost defense works differently from defending a member's Stardom. When an enemy attacks your outpost, they fight the fleets defending it: those stationed there and any sent to help. If no fleets are defending and the outpost has a shield, the attackers fight the shield instead. If their attack breaks the shield, their alliance takes the outpost in that same battle. If the shield holds, the attackers are sent home.</p>
 
         <p>There are two ways to defend an outpost:</p>
         <p><strong>Proactive — station fleets before an attack.</strong> Fleets stationed at an outpost fight automatically when combat starts. You do not need to be online or take any action. This is your primary defense. A shield is a second line of defence, not a first. Fleets stationed at an outpost are your real protection.</p>
-        <p><strong>Reactive — dispatch during an active attack.</strong> If an outpost is already under attack, open the <strong>Outpost Attacks</strong> tab, tap the row for that outpost, and use <strong>Dispatch Fleet</strong> in the detail panel to send a fleet as a reinforcement. Dispatched fleets arrive as reinforcements and join the defense only if the join window is still open. If the join window has closed by the time your fleet would arrive, the dispatch is rejected.</p>
+        <p><strong>Reactive — dispatch during an active attack.</strong> If an outpost is already under attack, open the <strong>Outpost Attacks</strong> tab, tap the row for that outpost, and use <strong>Dispatch Fleet</strong> in the detail panel to send a fleet as a reinforcement. A dispatched fleet joins the defense if it can arrive before the countdown reaches zero. If it cannot, the dispatch is rejected.</p>
         <p>You can see which fleets are currently stationed or on their way in the <strong>Our Defenders</strong> tab. If an outpost has no defenders and no fleet is en route, your alliance may want to act now.</p>
         <p>One important note: <strong>EMP ships do not damage shields.</strong> If your alliance is defending against an attack, EMP attackers cannot knock down the shield directly. Only conventional attack damage affects it.</p>
         </section>
@@ -474,21 +475,21 @@
         <section class="guide-section">
         <!-- ── What You Cannot Do Here ── -->
         <h2>What You Cannot Do Here</h2>
-        <p>A few things players commonly try in Alliance Fleets that belong elsewhere:</p>
+        <p>A few things players commonly try in Fleet Movements that belong elsewhere:</p>
         <ul>
-          <li><strong>Starting a new attack.</strong> Alliance Fleets is for responding to active combats, not launching new ones. Go to the map to attack.</li>
-          <li><strong>Managing outpost settings or technology.</strong> That is in <strong>Alliance Tech</strong> and alliance management scenes, not here.</li>
-          <li><strong>Recalling a defender already sent.</strong> The Our Defenders tab shows stationed and en-route fleets but does not yet support recall. This will be added in a future update.</li>
-          <li><strong>Viewing resolved battles.</strong> Once a combat finishes, its row disappears from Alliance Fleets. To see the outcome, go to <strong>Command Battles</strong>.</li>
+          <li><strong>Starting a new attack.</strong> Fleet Movements is for responding to active combats, not launching new ones. Go to the map to attack.</li>
+          <li><strong>Managing outpost settings or technology.</strong> Outpost settings are under <strong>Outposts</strong> and alliance technology under <strong>Tech</strong>, both on the alliance menu.</li>
+          <li><strong>Recalling a defender.</strong> The Our Defenders tab shows where your alliance's defenders are. To bring your own fleet home, recall it from Command Fleet or the map.</li>
+          <li><strong>Viewing resolved battles.</strong> Once a combat finishes, its row leaves Fleet Movements. If your fleet fought in it or your Stardom was the target, the battle report is in <strong>Command Battles</strong>.</li>
         </ul>
         </section>
 
         <section class="guide-section">
         <!-- ── Things Worth Knowing ── -->
         <h2>A Few Things Worth Knowing</h2>
-        <p><strong>The detail panel closes if the combat resolves.</strong> If a battle finishes while you have the detail panel open, the panel closes automatically and you return to the tab list. This is normal. The combat is over — no action was needed.</p>
-        <p><strong>Status is last-write-wins.</strong> If two members update the same status at almost the same time, the one that reaches the server last is what sticks. There is no warning when this happens. In practice, your alliance's coordination in chat will prevent most conflicts.</p>
-        <p><strong>Rank changes take effect immediately.</strong> If you are promoted from Probationary to Member while using Alliance Fleets, the <strong>Change Status</strong> button appears right away — you do not need to leave and return.</p>
+        <p><strong>The detail panel closes if the combat resolves.</strong> If a battle finishes while you have the detail panel open, the panel closes automatically and you return to the tab list.</p>
+        <p><strong>Status shows the latest choice.</strong> If two members set a status at almost the same moment, the later one is what everyone sees, and it updates live for every member who has this screen open.</p>
+        <p><strong>Rank changes take effect immediately.</strong> If you are promoted from Probationary to Member while using Fleet Movements, the <strong>Change Status</strong> button appears right away — you do not need to leave and return.</p>
         </section>
       </article>
 
