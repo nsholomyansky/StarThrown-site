@@ -47,8 +47,13 @@
       overflow-x: hidden;
     }
 
-    /* ── Starfield canvas ─────────────────────────────────────── */
-    #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    /* ── Starfield ────────────────────────────────────────────── */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
 
     /* ── Layout ───────────────────────────────────────────────── */
     .page {
@@ -61,7 +66,7 @@
       padding: 1.5rem 1.5rem 2.5rem;
     }
 
-    /* ── Ambient gradient ─────────────────────────────────────── */
+    /* ── Ambient glow ─────────────────────────────────────────── */
     .page::before {
       content: '';
       position: fixed;
@@ -81,103 +86,129 @@
       max-width: 760px;
       width: 100%;
       flex: 1;
-      padding-top: 3.5rem;
       padding-bottom: 3rem;
     }
 
-    /* ── Nav breadcrumb ───────────────────────────────────────── */
-    .nav-home {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      display: block;
+    /* ── Nav ──────────────────────────────────────────────────── */
+    .nav {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 900px;
       margin-bottom: 2rem;
-      transition: color 0.2s;
     }
-    .nav-home:hover { color: var(--accent); }
+    .nav { display: flex; justify-content: space-between; align-items: center; }
+    .nav-home { display: block; line-height: 0; border-radius: 6px; }
+    .nav-logo {
+      height: 40px;
+      width: auto;
+      opacity: 0.85;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    .nav-home:hover .nav-logo,
+    .nav-home:focus-visible .nav-logo {
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(240, 192, 96, 0.45));
+    }
+    .nav-home:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-    /* ── Page heading ─────────────────────────────────────────── */
+    /* ── Back link ────────────────────────────────────────────── */
+
+    /* ── Page title ───────────────────────────────────────────── */
     .guide-title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: clamp(1.5rem, 4.5vw, 2rem);
-      letter-spacing: 0.06em;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-      line-height: 1.25;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
     }
 
     .guide-lede {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 300;
-      color: var(--text-muted);
-      font-style: italic;
-      margin-bottom: 1.5rem;
+      color: var(--text);
+      margin-bottom: 1.25rem;
     }
 
     /* ── Divider ──────────────────────────────────────────────── */
     .divider {
       width: 60px;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 0 0 2.5rem;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 0 1.75rem;
+      opacity: 0.5;
     }
-
-    /* ── Scope banner ─────────────────────────────────────────── */
-    .scope-banner {
-      background: rgba(79, 143, 255, 0.08);
-      border: 1px solid rgba(79, 143, 255, 0.28);
-      border-radius: 8px;
-      padding: 0.9rem 1.2rem;
-      margin-bottom: 2rem;
-      font-size: 0.88rem;
-      color: var(--text);
-      line-height: 1.55;
+    .guide-section {
+      margin-bottom: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 16px;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(79,143,255,0.12) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(240,192,96,0.04) 100%);
+      border: 1px solid rgba(79, 143, 255, 0.18);
     }
+    .guide-section > :first-child { margin-top: 0; }
+    @media (max-width: 480px) { .guide-section { padding: 1.1rem 1.1rem; } }
 
-    .scope-banner strong {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    /* ── Guide body ───────────────────────────────────────────── */
+    /* ── Article content ──────────────────────────────────────── */
     .guide-body h2 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--gold);
       margin: 2.5rem 0 0.9rem;
       padding-bottom: 0.45rem;
       border-bottom: 1px solid rgba(79, 143, 255, 0.15);
     }
 
+    .guide-body h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--white);
+      margin: 1.75rem 0 0.5rem;
+    }
+
     .guide-body p {
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       color: var(--text);
       margin-bottom: 1rem;
     }
 
-    .guide-body strong { color: var(--white); font-weight: 500; }
-
-    .guide-body ul {
+    .guide-body ul,
+    .guide-body ol {
       padding-left: 1.4rem;
       margin-bottom: 1rem;
     }
 
     .guide-body li {
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       color: var(--text);
       margin-bottom: 0.45rem;
     }
 
-    /* ── Table ────────────────────────────────────────────────── */
+    .guide-body strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ── Blockquote / callout ─────────────────────────────────── */
+    .guide-body blockquote {
+      border-left: 3px solid var(--accent);
+      background: rgba(79, 143, 255, 0.06);
+      padding: 0.9rem 1.2rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    /* ── Tables ───────────────────────────────────────────────── */
     .table-wrap {
       overflow-x: auto;
       margin: 1.5rem 0;
@@ -185,9 +216,15 @@
       border: 1px solid rgba(79, 143, 255, 0.15);
     }
 
-    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
 
-    thead tr { background: rgba(79, 143, 255, 0.12); }
+    thead tr {
+      background: rgba(79, 143, 255, 0.12);
+    }
 
     thead th {
       padding: 0.7rem 1rem;
@@ -200,78 +237,30 @@
       white-space: nowrap;
     }
 
-    thead th.col-pct,
-    thead th.col-num { text-align: right; }
-
     tbody tr {
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       transition: background 0.15s;
     }
-    tbody tr:hover { background: rgba(79, 143, 255, 0.06); }
 
-    tbody td { padding: 0.65rem 1rem; color: var(--text); vertical-align: middle; }
-    tbody td.col-pct,
-    tbody td.col-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--white); }
-
-    /* ── Subtotal / total rows ────────────────────────────────── */
-    tbody tr.row-subtotal {
-      border-top: 1px solid rgba(79, 143, 255, 0.25);
-      background: rgba(79, 143, 255, 0.05);
+    tbody tr:hover {
+      background: rgba(79, 143, 255, 0.06);
     }
 
-    tbody tr.row-subtotal td {
-      font-weight: 500;
-      color: var(--accent);
-      font-size: 0.85rem;
-      letter-spacing: 0.04em;
-      padding-top: 0.55rem;
-      padding-bottom: 0.55rem;
-    }
-
-    tbody tr.row-total {
-      border-top: 2px solid rgba(79, 143, 255, 0.35);
-      background: rgba(79, 143, 255, 0.09);
-    }
-
-    tbody tr.row-total td {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--white);
-      padding-top: 0.65rem;
-      padding-bottom: 0.65rem;
-    }
-
-    /* ── Note callout ─────────────────────────────────────────── */
-    .note-callout {
-      border-left: 3px solid var(--gold);
-      background: var(--gold-dim);
-      padding: 0.85rem 1.2rem;
-      border-radius: 0 6px 6px 0;
-      margin: 1.5rem 0;
-      font-size: 0.9rem;
+    tbody td {
+      padding: 0.65rem 1rem;
       color: var(--text);
-      line-height: 1.55;
+      vertical-align: top;
     }
 
-    .note-callout strong { color: var(--gold); font-weight: 500; }
-
-    /* ── Back link ────────────────────────────────────────────── */
-    .back-link-bottom {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-top: 2.5rem;
-      transition: color 0.2s;
+    /* ── Horizontal rule ──────────────────────────────────────── */
+    .guide-body hr {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin: 2.5rem 0;
     }
-    .back-link-bottom:hover { color: var(--accent); }
-    .back-link-bottom::before { content: '← '; }
+
+    /* ── Bottom back link ─────────────────────────────────────── */
+    .back-row { margin-top: 2.5rem; text-align: center; }
 
     /* ── Footer ───────────────────────────────────────────────── */
     footer {
@@ -285,33 +274,224 @@
 
     .studio-credit {
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--text-muted);
     }
 
-    .studio-link { color: rgba(255, 255, 255, 0.3); text-decoration: none; transition: color 0.2s; }
+    .studio-link {
+      color: rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
     .studio-link:hover { color: rgba(255, 255, 255, 0.6); }
 
-    .footer-press { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.4rem; }
+    .footer-press {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
 
     /* ── Responsive ───────────────────────────────────────────── */
     @media (max-width: 480px) {
       .page { padding: 1.5rem 1.25rem 2.5rem; }
       main { padding-top: 2rem; }
     }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem 1.25rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      margin: 0.45rem 0 0.35rem;
+    }
+    @media (max-width: 480px) {
+      .footer-links { gap: 0 1rem; }
+      .footer-links a { padding: 0.4rem 0; }
+    }
+    /* ── Site menu (hamburger) ──────────────────────────────────── */
+    .site-menu {
+      position: relative;
+      z-index: 5;
+    }
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 40px;
+      height: 40px;
+      padding: 0 10px;
+      background: rgba(8, 13, 26, 0.7);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 1px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .menu-toggle:focus-visible,
+    .menu-panel a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .menu-panel {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 180px;
+      padding: 0.4rem;
+      background: linear-gradient(135deg, rgba(14,20,36,0.97) 0%, rgba(20,24,34,0.97) 100%);
+      border: 1px solid rgba(240,192,96,0.35);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 24px rgba(240,192,96,0.08);
+      text-align: left;
+    }
+    .menu-panel[hidden] { display: none; }
+    .menu-panel a {
+      display: block;
+      padding: 0.65rem 0.9rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .menu-panel a:hover { background: rgba(240,192,96,0.1); }
+    @media (prefers-reduced-motion: reduce) {
+      .menu-toggle span { transition: none; }
+    }
+
+    .info-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    @media (min-width: 760px) {
+      .info-row { grid-template-columns: 1fr 1fr; align-items: start; }
+      .page-desc { max-width: 600px; }
+    }
+    .form-card { max-width: 560px; }
+    .faq-btn {
+      display: inline-block;
+      margin: -0.5rem 0 1.5rem;
+      padding: 0.6rem 1.4rem;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 45%),
+        linear-gradient(180deg, #3a4558 0%, #222a38 50%, #161c27 51%, #2a3446 100%);
+      border: 1px solid rgba(120, 170, 255, 0.55);
+      border-radius: 6px;
+      color: #a9cfff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 0 12px rgba(79,143,255,0.3);
+      transition: filter 0.25s, box-shadow 0.25s;
+    }
+    .faq-btn:hover {
+      filter: brightness(1.15);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 22px rgba(79,143,255,0.5);
+    }
+    .faq-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* ── Training odds: scope notice, callout, tables ─────────────── */
+    .scope-banner {
+      background: radial-gradient(ellipse at top left, rgba(79,143,255,0.10), transparent 60%), rgba(8,13,26,0.6);
+      border: 1px solid rgba(79, 143, 255, 0.28);
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .scope-banner strong { color: var(--accent); font-weight: 500; }
+    @media (max-width: 480px) { .scope-banner { padding: 0.9rem 1.1rem; } }
+    .note-callout {
+      border-left: 3px solid var(--gold);
+      background: var(--gold-dim);
+      padding: 0.85rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1.25rem 0 0;
+      font-size: 0.8rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .note-callout strong { color: var(--gold); font-weight: 500; }
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.25rem 0 0;
+      border-radius: 10px;
+      border: 1px solid rgba(79, 143, 255, 0.15);
+    }
+    .table-wrap + .table-wrap { margin-top: 0.75rem !important; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    thead tr { background: rgba(79, 143, 255, 0.12); }
+    thead th {
+      padding: 0.7rem 1rem; text-align: left;
+      font-family: 'Orbitron', sans-serif; font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); white-space: nowrap;
+    }
+    thead th.col-pct, thead th.col-num { text-align: right; }
+    tbody tr { border-top: 1px solid rgba(255, 255, 255, 0.05); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(79, 143, 255, 0.06); }
+    tbody td { padding: 0.6rem 1rem; color: var(--text); vertical-align: middle; }
+    tbody td.col-pct, tbody td.col-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--white); }
+    tbody tr.row-subtotal { border-top: 1px solid rgba(79, 143, 255, 0.25); background: rgba(79, 143, 255, 0.05); }
+    tbody tr.row-subtotal td { font-weight: 500; color: var(--accent); letter-spacing: 0.04em; padding-top: 0.55rem; padding-bottom: 0.55rem; }
+    tbody tr.row-total { border-top: 2px solid rgba(79, 143, 255, 0.35); background: rgba(79, 143, 255, 0.09); }
+    tbody tr.row-total td {
+      font-family: 'Orbitron', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); padding-top: 0.65rem; padding-bottom: 0.65rem;
+    }
+    @media (max-width: 480px) {
+      table { font-size: 0.75rem; }
+      thead th { white-space: normal; letter-spacing: 0.08em; }
+      thead th, tbody td { padding-left: 0.5rem; padding-right: 0.5rem; }
+    }
+    @media (max-width: 400px) {
+      thead th, tbody td { padding-left: 0.4rem; padding-right: 0.4rem; }
+    }
   </style>
 </head>
+
 <body>
 
   <canvas id="starfield" aria-hidden="true"></canvas>
 
   <div class="page">
-    <main>
+    <nav class="nav" aria-label="Site">
+      <a href="/" class="nav-home" aria-label="Star Thrown home"><img src="/StarThrownLogo.png" alt="Star Thrown" class="nav-logo" /></a>
+      <div class="site-menu">
+        <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="menu-panel" id="menu-panel" hidden>
+          <a href="/beta">Beta</a>
+          <a href="/guides/">Guides</a>
+          <a href="/support">Support</a>
+        </div>
+      </div>
+    </nav>
 
-      <!-- Top nav reference back to game name -->
-      <a href="/" class="nav-home">Star Thrown</a>
+    <main>
 
       <!-- Page heading -->
       <h1 class="guide-title">Captain Training Odds</h1>
@@ -325,8 +505,8 @@
         when a new round begins.
       </div>
 
-      <div class="guide-body">
-
+      <article class="guide-body">
+        <section class="guide-section">
         <!-- How it works -->
         <h2>How Captain Training Works</h2>
         <p>
@@ -350,6 +530,9 @@
           to duplicate pulls.
         </div>
 
+        </section>
+
+        <section class="guide-section">
         <!-- Experience outcomes table -->
         <h2>Experience Outcomes</h2>
         <p>
@@ -394,6 +577,9 @@
           </table>
         </div>
 
+        </section>
+
+        <section class="guide-section">
         <!-- Captain Unlock outcomes table -->
         <h2>Captain Unlock Outcomes</h2>
         <p>
@@ -555,6 +741,9 @@
           </table>
         </div>
 
+        </section>
+
+        <section class="guide-section">
         <!-- Footer note -->
         <h2>Additional Notes</h2>
         <ul>
@@ -563,18 +752,24 @@
           <li>This page reflects the odds for the current active round only. When a new round begins, odds may change and this page will be updated.</li>
           <li>Questions? Contact us at <a href="mailto:support@starthrown.com" style="color: var(--accent); text-decoration: none;">support@starthrown.com</a>.</li>
         </ul>
+        </section>
 
-        <a href="/" class="back-link-bottom">Back to home</a>
+      </article>
 
-      </div><!-- /.guide-body -->
+      <p class="back-row"><a href="/" class="faq-btn">← Back to home</a></p>
 
     </main>
   </div>
 
   <footer>
     <p class="studio-credit">By <a href="https://boundlessalchemy.io" target="_blank" rel="noopener" class="studio-link">Boundless Alchemy</a></p>
-    <p class="footer-press"><a href="/privacy" class="studio-link">Privacy Policy</a></p>
-    <p class="footer-press"><a href="/terms" class="studio-link">Terms of Service</a></p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/privacy" class="studio-link">Privacy Policy</a>
+      <a href="/terms" class="studio-link">Terms of Service</a>
+      <a href="/beta" class="studio-link">Beta</a>
+      <a href="https://discord.gg/vVs73yb7wU" target="_blank" rel="noopener" class="studio-link">Discord</a>
+      <a href="mailto:press@boundlessalchemy.io" class="studio-link">Press: press@boundlessalchemy.io</a>
+    </nav>
   </footer>
 
   <script>
@@ -582,7 +777,6 @@
     (function () {
       const canvas = document.getElementById('starfield');
       const ctx = canvas.getContext('2d');
-
       let stars = [];
       const STAR_COUNT = 260;
 
@@ -608,7 +802,6 @@
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         stars.forEach(s => {
           s.twinkle += s.twinkleSpeed;
           const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
@@ -617,18 +810,33 @@
           ctx.fillStyle = `rgba(200, 220, 255, ${a})`;
           ctx.fill();
         });
-
         requestAnimationFrame(draw);
       }
 
-      resize();
-      seed();
-      requestAnimationFrame(draw);
-
+      resize(); seed(); requestAnimationFrame(draw);
       let resizeTimer;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => { resize(); seed(); }, 150);
+      });
+    }());
+  </script>
+
+  <script>
+    // ── Site menu ──────────────────────────────────────────────────
+    (function () {
+      const btn = document.querySelector('.menu-toggle');
+      const panel = document.getElementById('menu-panel');
+      function setOpen(open) {
+        btn.setAttribute('aria-expanded', String(open));
+        panel.hidden = !open;
+      }
+      btn.addEventListener('click', () => setOpen(panel.hidden));
+      document.addEventListener('click', (e) => {
+        if (!panel.hidden && !e.target.closest('.site-menu')) setOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
       });
     }());
   </script>
