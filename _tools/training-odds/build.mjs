@@ -6,13 +6,18 @@
 //   node _tools/training-odds/build.mjs --input f.json --root <dir>   read a local copy (needs --root)
 //   node _tools/training-odds/build.mjs --dev --root <dir>            read the dev database (needs --root)
 //   node _tools/training-odds/build.mjs --save-document f.json        also save the document it built from
+//   node _tools/training-odds/build.mjs --now <Unix ms> ...           stand-in clock (tests, previews)
 //
 // A local or dev document can never be written over the site's own pages: a SYNTHETIC fixture or
 // a dev table published at starthrown.com would look like the real disclosure.
 //
 // Writes training-odds.html (default locale) and <locale>/training-odds.html for every other
 // locale that has a strings file in i18n/. Same document + same strings = byte-identical output:
-// no build time, no publishedAt, galaxies in galaxy-id order, rows in key order.
+// no build time, no publishedAt, galaxies in galaxy-id order, rows in key order. (The clock only
+// picks "in effect since" or "take effect on" for a date; see README.)
+//
+// BL-558: an entry's optional `upcoming` adds the odds change notice (pointer + block). Without it
+// the page is BL-557's, byte for byte.
 //
 // Exit codes: 0 pages written; 3 pages written but at least one galaxy is valid:false (its entry
 // says "temporarily unavailable"; the Action fails so the owner hears about it); 1 nothing written.
@@ -22,7 +27,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   SITE_ROOT, loadConfig, parseArgs, loadDocument, normalizeDocument, loadLocales,
-  pagePath, pageFile, statusText, fmt, esc,
+  pagePath, pageFile, statusText, fmt, esc, plural, changedRows,
 } from './lib.mjs';
 
 const CSS = `
@@ -270,6 +275,65 @@ const CSS = `
     }
 `;
 
+// BL-558: only pages that carry an odds-change notice get these rules, so a page without one is
+// byte-identical to BL-557's.
+const NOTICE_CSS = `
+    /* Odds change notice (BL-558): pointer at the top of the galaxy, block after its tables */
+    .upcoming-pointer {
+      display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; justify-content: space-between; margin: 0 0 1rem;
+      padding: 0.85rem 1.2rem; border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; background: var(--gold-dim);
+      color: var(--text); font-size: 0.8rem; line-height: 1.6; text-decoration: none;
+    }
+    .upcoming-pointer strong { color: var(--gold); font-weight: 500; }
+    .upcoming-pointer .go { color: var(--accent); white-space: nowrap; }
+    .upcoming-pointer:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .upcoming {
+      margin-top: 2rem; padding: 1.1rem; border: 1px solid rgba(240,192,96,0.45); border-radius: 18px;
+      background: linear-gradient(180deg, rgba(240,192,96,0.07), transparent 40%), rgba(8,13,26,0.35);
+    }
+    .upcoming-tag {
+      display: inline-block; font-family: 'Orbitron', sans-serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #1a1204; background: var(--gold); border-radius: 4px; padding: 0.1rem 0.55rem; line-height: 1.7;
+    }
+    .upcoming-title {
+      margin-top: 0.5rem; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: clamp(0.9rem, 3vw, 1.1rem);
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); line-height: 1.45;
+    }
+    .upcoming-when { margin-top: 0.35rem; font-size: 0.8rem; color: var(--text); }
+    .change-reason { margin-top: 0.6rem; font-size: 0.8rem; color: var(--text); }
+    .change-reason strong { color: var(--white); font-weight: 500; }
+    .changes { margin: 1rem 0 0.4rem; }
+    .mini-title {
+      font-family: 'Orbitron', sans-serif; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--white); margin-bottom: 0.2rem;
+    }
+    .change-list { list-style: none; }
+    .change-list li {
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.1rem 0.8rem; padding: 0.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.06); font-size: 0.8rem;
+    }
+    .change-list .what { color: var(--white); font-weight: 500; }
+    .change-list .chgs { display: flex; flex-wrap: wrap; gap: 0.1rem 1.2rem; }
+    .change-list .chg { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .change-list .lbl { color: var(--text-muted); margin-right: 0.4rem; }
+    .change-list .from { color: #8ea5c6; }
+    .change-list .arrow { margin: 0 0.5rem; color: var(--gold); }
+    .change-list .to { color: var(--gold); font-weight: 500; }
+    .same { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; }
+    .hl-key { display: flex; align-items: center; gap: 0.55rem; margin: 1rem 0 0.85rem; font-size: 0.75rem; color: var(--text-muted); }
+    .swatch { flex: none; width: 1.4rem; height: 0.8rem; border-radius: 2px; background: var(--gold-dim); box-shadow: inset 3px 0 0 var(--gold); }
+    tbody tr.is-changed { background: var(--gold-dim); }
+    tbody tr.is-changed td:first-child { box-shadow: inset 3px 0 0 var(--gold); }
+    tbody tr.is-changed strong { color: var(--gold); font-weight: 500; }
+    .was { display: block; font-size: 0.66rem; font-weight: 400; color: #8ea5c6; letter-spacing: 0.03em; line-height: 1.3; }
+    tbody tr.row-subtotal td.col-pct .was { color: var(--text-muted); }
+    @media (max-width: 480px) {
+      .upcoming { padding: 0.6rem; }
+      .upcoming .guide-section { padding: 0.9rem 0.7rem; }
+      .upcoming-pointer { padding: 0.8rem 1rem; }
+    }
+`;
+
 const SCRIPTS = `
   <script>
     // Galaxy picker. Every galaxy is in the HTML; this only shows one and hides the rest.
@@ -379,10 +443,161 @@ const SCRIPTS = `
   </script>
 `;
 
-function renderGalaxy(g, t, dateFmt) {
+// <time> for an instant, with its exact UTC value in datetime=.
+function timeTag(k, ms, text) {
+  return `<time data-k="${k}" datetime="${new Date(ms).toISOString()}">${esc(text)}</time>`;
+}
+
+// "{date} at {time} UTC", in the page's language. The page prints UTC; the game prints local time.
+function dateTimeText(t, f, ms) {
+  return fmt(t['change.dateTime'], { date: f.dateFmt.format(ms), time: f.timeFmt.format(ms) });
+}
+
+// The line at the top of a galaxy that has a notice, so it is seen before ~30 rows of tables.
+function renderPointer(g, t, f) {
+  const u = g.upcoming;
+  const k = u.kind === 'scheduled' ? 'upcoming' : 'midround';
+  const at = u.kind === 'scheduled' ? u.opensAtMs : u.detectedAt;
+  const lead = fmt(esc(t[`${k}.pointerLead`]), { date: timeTag('pdate', at, f.dateFmt.format(at)) });
+  const count = fmt(esc(t[`${k}.pointerCount.${plural(f.locale, u.changeCount)}`]), {
+    round: esc(u.roundLabel),
+    count: `<span data-k="pcount">${u.changeCount}</span>`,
+  });
+  return `        <a class="upcoming-pointer" data-k="pointer" href="#${esc(noticeId(g))}"><span><strong>${lead}</strong> ${count}</span> <span class="go">${esc(t[`${k}.pointerGo`])}</span></a>`;
+}
+
+function noticeId(g) {
+  return `${g.id}-${g.upcoming.kind === 'scheduled' ? 'upcoming' : 'changes'}`;
+}
+
+// One line per changed outcome (and per moved Level Cap): before -> after, as text (spec N-1).
+function renderChangeList(u, t, k) {
+  const arrow = `<span class="arrow" aria-hidden="true">→</span><span class="sr-only"> ${esc(t['change.arrowLabel'])} </span>`;
+  const items = changedRows(u).map(r => {
+    const side = r.new || r.previous;
+    const what = r.captain !== undefined
+      ? `<span class="what" data-k="captain">${esc(r.captain)}</span>`
+      : `<span class="what">${fmt(esc(t['exp.rowLabel']), { amount: `<span data-k="amount">${esc(side.amountText)}</span>` })}</span>`;
+    const chgs = [];
+    if (r.status !== 'unchanged') {
+      const from = r.previous ? esc(r.previous.percent) : esc(t['change.new']);
+      const to = r.new ? esc(r.new.percent) : esc(t['change.removed']);
+      chgs.push(`<span class="chg"><span class="from" data-k="from">${from}</span>${arrow}<span class="to" data-k="to">${to}</span></span>`);
+    }
+    if (r.levelCapChanged) {
+      chgs.push(`<span class="chg"><span class="lbl">${esc(t['cap.colLevelCap'])}</span><span class="from" data-k="capfrom">${esc(r.previous.levelCapText)}</span>${arrow}<span class="to" data-k="capto">${esc(r.new.levelCapText)}</span></span>`);
+    }
+    return `<li data-change="${esc(r.key)}">${what}<span class="chgs">${chgs.join('')}</span></li>`;
+  });
+  const capMoved = changedRows(u).some(r => r.levelCapChanged);
+  return [
+    `          <div class="changes">`,
+    `            <h4 class="mini-title">${esc(t[`${k}.listTitle`])}</h4>`,
+    `            <ul class="change-list">`,
+    ...items,
+    `            </ul>`,
+    `            <p class="same">${esc(t[`${k}.${capMoved ? 'sameOther' : 'sameAll'}`])}</p>`,
+    `          </div>`,
+  ];
+}
+
+// A figure in the next table: plain when it does not move, else the new value and "was ...".
+function nextCell(k, value, previous, t, wasK) {
+  if (previous === undefined || previous === value) return { attr: ` data-k="${k}"`, html: esc(value) };
+  return {
+    attr: '',
+    html: `<strong data-k="${k}">${esc(value)}</strong><span class="was">${fmt(esc(t['upcoming.was']), { value: `<span data-k="${wasK}">${esc(previous)}</span>` })}</span>`,
+  };
+}
+
+// kind "scheduled": the full next table from the new side of rows (spec W-4d, frames B1/B2/C2).
+function renderNextTables(g, t, ctx) {
+  const u = g.upcoming;
+  const out = [];
+  const exp = u.experience.filter(r => r.new);
+  const cap = u.captains.filter(r => r.new);
+  const pctCell = r => {
+    if (r.status === 'added') {
+      return `<td class="col-pct"><strong data-k="pct">${esc(r.new.percent)}</strong><span class="was" data-k="isnew">${esc(t['upcoming.newOutcome'])}</span></td>`;
+    }
+    const c = nextCell('pct', r.new.percent, r.status === 'changed' ? r.previous.percent : undefined, t, 'was');
+    return `<td class="col-pct"${c.attr}>${c.html}</td>`;
+  };
+  const rowClass = r => (r.status !== 'unchanged' || r.levelCapChanged ? ' class="is-changed"' : '');
+  if (exp.length) {
+    out.push(`          <section class="guide-section odds-group exp" aria-label="${fmt(esc(t['upcoming.exp.ariaLabel']), ctx)}">`);
+    out.push(`          <h4 class="group-title">${esc(t['exp.title'])}</h4>`);
+    out.push(`          <p class="group-note">${esc(t['exp.note'])}</p>`);
+    out.push(`          <div class="table-wrap"><table>`);
+    out.push(`            <caption class="sr-only">${fmt(esc(t['upcoming.exp.caption']), ctx)}</caption>`);
+    out.push(`            <thead><tr><th scope="col">${esc(t['exp.colOutcome'])}</th><th scope="col" class="col-pct">${esc(t['exp.colOdds'])}</th></tr></thead>`);
+    out.push(`            <tbody>`);
+    for (const r of exp) {
+      const label = fmt(esc(t['exp.rowLabel']), { amount: `<span data-k="amount">${esc(r.new.amountText)}</span>` });
+      out.push(`<tr data-urow="${esc(r.key)}"${rowClass(r)}><td>${label}</td>${pctCell(r)}</tr>`);
+    }
+    const tot = nextCell('pct', u.totals.experience.new, u.totals.experience.previous, t, 'was');
+    out.push(`<tr class="row-subtotal" data-urow="exp-total"><td>${esc(t['exp.subtotal'])}</td><td class="col-pct"${tot.attr}>${tot.html}</td></tr>`);
+    out.push(`            </tbody></table></div>`);
+    out.push(`          </section>`);
+  }
+  if (cap.length) {
+    out.push(`          <section class="guide-section odds-group cap" aria-label="${fmt(esc(t['upcoming.cap.ariaLabel']), ctx)}">`);
+    out.push(`          <h4 class="group-title">${esc(t['cap.title'])}</h4>`);
+    if (g.duplicateXpAmountText !== undefined) out.push(`          <div class="note-callout"><strong>${esc(t['cap.duplicateLead'])}</strong> ${fmt(esc(t['cap.duplicateBody']), { amount: `<span data-k="udupxp">${esc(g.duplicateXpAmountText)}</span>` })}</div>`);
+    out.push(`          <div class="table-wrap"><table>`);
+    out.push(`            <caption class="sr-only">${fmt(esc(t['upcoming.cap.caption']), ctx)}</caption>`);
+    out.push(`            <thead><tr><th scope="col">${esc(t['cap.colCaptain'])}</th><th scope="col" class="col-num">${esc(t['cap.colLevelCap'])}</th><th scope="col" class="col-pct">${esc(t['cap.colOdds'])}</th></tr></thead>`);
+    out.push(`            <tbody>`);
+    for (const r of cap) {
+      const lc = nextCell('cap', r.new.levelCapText, r.levelCapChanged ? r.previous.levelCapText : undefined, t, 'capwas');
+      out.push(`<tr data-urow="${esc(r.key)}"${rowClass(r)}><td data-k="captain">${esc(r.captain)}</td><td class="col-num"${lc.attr}>${lc.html}</td>${pctCell(r)}</tr>`);
+    }
+    const tot = nextCell('pct', u.totals.captains.new, u.totals.captains.previous, t, 'was');
+    out.push(`<tr class="row-subtotal" data-urow="cap-total"><td colspan="2">${esc(t['cap.subtotal'])}</td><td class="col-pct"${tot.attr}>${tot.html}</td></tr>`);
+    out.push(`            </tbody></table></div>`);
+    out.push(`          </section>`);
+  }
+  out.push(`          <div class="table-wrap total"><table><tbody><tr class="row-total" data-urow="total"><td>${esc(t['total.label'])}</td><td class="col-pct" data-k="pct">100.0%</td></tr></tbody></table></div>`);
+  return out;
+}
+
+// The block after the galaxy's tables: "From {date}: Round N odds" (scheduled) or "Odds changed on
+// {date}" (midRound). Static HTML; it ends with a marker so the daily check can find it.
+function renderNotice(g, t, f, headingPlain) {
+  const u = g.upcoming;
+  const sched = u.kind === 'scheduled';
+  const k = sched ? 'upcoming' : 'midround';
+  const at = sched ? u.opensAtMs : u.detectedAt;
+  const round = esc(u.roundLabel);
+  const date = timeTag('udate', at, f.dateFmt.format(at));
+  const when = timeTag('uwhen', at, dateTimeText(t, f, at));
+  const whenKey = !sched ? 'midround.when'
+    : (u.announcedStartMs === u.opensAtMs ? 'upcoming.whenStart' : 'upcoming.whenAt');
+  const out = [];
+  out.push(`        <section class="upcoming" id="${esc(noticeId(g))}" data-kind="${u.kind}" aria-label="${fmt(esc(t[`${k}.ariaLabel`]), { galaxy: headingPlain })}">`);
+  out.push(`          <span class="upcoming-tag">${esc(t[`${k}.tag`])}</span>`);
+  out.push(`          <h3 class="upcoming-title">${fmt(esc(t[`${k}.title`]), { date, round })}</h3>`);
+  out.push(`          <p class="upcoming-when">${fmt(esc(t[whenKey]), { when, round })}</p>`);
+  if (!sched && u.reason !== undefined) {
+    // Free text an admin sets by hand, in English (not localized).
+    out.push(`          <p class="change-reason"><strong>${esc(t['midround.reasonLabel'])}</strong> <span data-k="reason" lang="en">${esc(u.reason)}</span></p>`);
+  }
+  out.push(...renderChangeList(u, t, k));
+  if (sched) {
+    out.push(`          <p class="hl-key"><span class="swatch" aria-hidden="true"></span> ${fmt(esc(t['upcoming.highlightKey']), { date: esc(f.dateFmt.format(at)) })}</p>`);
+    out.push(...renderNextTables(g, t, { galaxy: headingPlain, round }));
+  }
+  out.push(`        </section><!-- /upcoming -->`);
+  return out.join('\n');
+}
+
+function renderGalaxy(g, t, f) {
+  // The table in force: the entry's own, or (BL-558, kind "scheduled") the previous round's.
+  const v = g.inForce;
   const heading = fmt(esc(t['galaxy.heading']), { name: `<span data-k="name">${esc(g.name)}</span>` });
   const headingPlain = esc(fmt(t['galaxy.heading'], { name: g.name }));
-  const roundPlain = esc(g.roundLabel);
+  const roundPlain = esc(v.roundLabel);
   const ctx = { galaxy: headingPlain, round: roundPlain };
   const out = [];
   out.push(`      <section class="galaxy" id="${esc(g.id)}" aria-label="${fmt(esc(t['galaxy.ariaLabel']), ctx)}">`);
@@ -390,12 +605,14 @@ function renderGalaxy(g, t, dateFmt) {
   out.push(`          <h2 class="galaxy-name">${heading}</h2>`);
   out.push(`          <dl class="facts">`);
   out.push(`            <div class="fact"><dt>${esc(t['facts.round'])}</dt><dd>${fmt(esc(t['facts.roundValue']), { round: `<span data-k="round">${roundPlain}</span>` })}</dd></div>`);
-  if (g.status !== undefined) {
-    out.push(`            <div class="fact"><dt>${esc(t['facts.status'])}</dt><dd data-k="status">${esc(statusText(t, g.status))}</dd></div>`);
+  if (v.status !== undefined) {
+    out.push(`            <div class="fact"><dt>${esc(t['facts.status'])}</dt><dd data-k="status">${esc(statusText(t, v.status))}</dd></div>`);
   }
-  if (g.effectiveFromMs !== undefined) {
-    const iso = new Date(g.effectiveFromMs).toISOString();
-    out.push(`            <div class="fact"><dt>${esc(t['facts.effective'])}</dt><dd><time data-k="effective" datetime="${iso}">${esc(dateFmt.format(g.effectiveFromMs))}</time></dd></div>`);
+  if (v.effectiveFromMs !== undefined) {
+    const iso = new Date(v.effectiveFromMs).toISOString();
+    // A date still ahead (BL-558: pulls held until the round opens) takes effect; it is not "since".
+    const label = v.effectiveFromMs > f.nowMs ? t['facts.effectiveFuture'] : t['facts.effective'];
+    out.push(`            <div class="fact"><dt>${esc(label)}</dt><dd><time data-k="effective" datetime="${iso}">${esc(f.dateFmt.format(v.effectiveFromMs))}</time></dd></div>`);
   }
   out.push(`          </dl>`);
   out.push(`        </header>`);
@@ -408,7 +625,9 @@ function renderGalaxy(g, t, dateFmt) {
     return out.join('\n');
   }
 
-  if (g.experience.length) {
+  if (g.upcoming) out.push(renderPointer(g, t, f));
+
+  if (v.experience.length) {
     out.push(`        <section class="guide-section odds-group exp" aria-label="${fmt(esc(t['exp.ariaLabel']), ctx)}">`);
     out.push(`          <h3 class="group-title">${esc(t['exp.title'])}</h3>`);
     out.push(`          <p class="group-note">${esc(t['exp.note'])}</p>`);
@@ -416,40 +635,49 @@ function renderGalaxy(g, t, dateFmt) {
     out.push(`            <caption class="sr-only">${fmt(esc(t['exp.caption']), ctx)}</caption>`);
     out.push(`            <thead><tr><th scope="col">${esc(t['exp.colOutcome'])}</th><th scope="col" class="col-pct">${esc(t['exp.colOdds'])}</th></tr></thead>`);
     out.push(`            <tbody>`);
-    for (const r of g.experience) {
+    for (const r of v.experience) {
       const label = fmt(esc(t['exp.rowLabel']), { amount: `<span data-k="amount">${esc(r.amountText)}</span>` });
       out.push(`<tr data-row="${esc(r.key)}"><td>${label}</td><td class="col-pct" data-k="pct">${esc(r.percent)}</td></tr>`);
     }
-    out.push(`<tr class="row-subtotal" data-row="exp-total"><td>${esc(t['exp.subtotal'])}</td><td class="col-pct" data-k="pct">${esc(g.experienceTotalPercent)}</td></tr>`);
+    out.push(`<tr class="row-subtotal" data-row="exp-total"><td>${esc(t['exp.subtotal'])}</td><td class="col-pct" data-k="pct">${esc(v.experienceTotalPercent)}</td></tr>`);
     out.push(`            </tbody></table></div>`);
     out.push(`        </section>`);
   }
 
-  if (g.captains.length) {
+  if (v.captains.length) {
     out.push(`        <section class="guide-section odds-group cap" aria-label="${fmt(esc(t['cap.ariaLabel']), ctx)}">`);
     out.push(`          <h3 class="group-title">${esc(t['cap.title'])}</h3>`);
-    if (g.duplicateXpAmountText !== undefined) out.push(`          <div class="note-callout"><strong>${esc(t['cap.duplicateLead'])}</strong> ${fmt(esc(t['cap.duplicateBody']), { amount: `<span data-k="dupxp">${esc(g.duplicateXpAmountText)}</span>` })}</div>`);
+    if (v.duplicateXpAmountText !== undefined) out.push(`          <div class="note-callout"><strong>${esc(t['cap.duplicateLead'])}</strong> ${fmt(esc(t['cap.duplicateBody']), { amount: `<span data-k="dupxp">${esc(v.duplicateXpAmountText)}</span>` })}</div>`);
     out.push(`          <div class="table-wrap"><table>`);
     out.push(`            <caption class="sr-only">${fmt(esc(t['cap.caption']), ctx)}</caption>`);
     out.push(`            <thead><tr><th scope="col">${esc(t['cap.colCaptain'])}</th><th scope="col" class="col-num">${esc(t['cap.colLevelCap'])}</th><th scope="col" class="col-pct">${esc(t['cap.colOdds'])}</th></tr></thead>`);
     out.push(`            <tbody>`);
-    for (const r of g.captains) {
+    for (const r of v.captains) {
       out.push(`<tr data-row="${esc(r.key)}"><td data-k="captain">${esc(r.captain)}</td><td class="col-num" data-k="cap">${esc(r.levelCapText)}</td><td class="col-pct" data-k="pct">${esc(r.percent)}</td></tr>`);
     }
-    out.push(`<tr class="row-subtotal" data-row="cap-total"><td colspan="2">${esc(t['cap.subtotal'])}</td><td class="col-pct" data-k="pct">${esc(g.captainsTotalPercent)}</td></tr>`);
+    out.push(`<tr class="row-subtotal" data-row="cap-total"><td colspan="2">${esc(t['cap.subtotal'])}</td><td class="col-pct" data-k="pct">${esc(v.captainsTotalPercent)}</td></tr>`);
     out.push(`            </tbody></table></div>`);
     out.push(`        </section>`);
   }
 
   // A valid table adds up to exactly 1 (the publisher checks it in exact decimal), so the total is 100.0%.
   out.push(`        <div class="table-wrap total"><table><tbody><tr class="row-total" data-row="total"><td>${esc(t['total.label'])}</td><td class="col-pct" data-k="pct">100.0%</td></tr></tbody></table></div>`);
+  if (g.upcoming) {
+    out.push('');
+    out.push(renderNotice(g, t, f, headingPlain));
+  }
   out.push(`      </section>`);
   return out.join('\n');
 }
 
-export function renderPage(cfg, current, built, galaxies) {
+// nowMs only decides "in effect since" against "take effect on" for a date still ahead; nothing
+// prints it, so the page changes only when that date passes.
+export function renderPage(cfg, current, built, galaxies, nowMs = Date.now()) {
   const { locale, t } = current;
   const dateFmt = new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' });
+  const timeFmt = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'UTC' });
+  const f = { locale, dateFmt, timeFmt, nowMs };
+  const hasNotice = galaxies.some(g => g.upcoming);
   const self = cfg.siteUrl + pagePath(cfg, locale);
   const alternates = built.map(b => `  <link rel="alternate" hreflang="${b.locale}" href="${cfg.siteUrl}${pagePath(cfg, b.locale)}" />`);
   alternates.push(`  <link rel="alternate" hreflang="x-default" href="${cfg.siteUrl}${pagePath(cfg, cfg.defaultLocale)}" />`);
@@ -492,7 +720,7 @@ ${alternates.join('\n')}
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
 
-  <style>${CSS}  </style>
+  <style>${CSS}${hasNotice ? NOTICE_CSS : ''}  </style>
 </head>
 
 <body>
@@ -530,7 +758,7 @@ ${langSwitch ? langSwitch + '\n' : ''}      <div class="divider"></div>
       </nav>
 
       <div id="galaxy-views">
-${galaxies.map(g => renderGalaxy(g, t, dateFmt)).join('\n\n')}
+${galaxies.map(g => renderGalaxy(g, t, f)).join('\n\n')}
       </div><!-- /galaxy-views -->
 
       <article class="guide-body">
@@ -584,9 +812,12 @@ async function main() {
   const locales = loadLocales(cfg);
   const { source, doc } = await loadDocument(cfg, args);
   const galaxies = normalizeDocument(doc, cfg);
+  // --now <Unix ms> stands in for the clock (tests and previews only).
+  const nowMs = args.now !== undefined ? Number(args.now) : Date.now();
+  if (!Number.isSafeInteger(nowMs)) throw new Error('--now must be Unix milliseconds');
   // The Action's daily check compares against exactly the document this run built from.
   if (args['save-document']) writeFileSync(resolve(String(args['save-document'])), JSON.stringify(doc), 'utf8');
-  const pages = locales.map(l => ({ file: pageFile(root, cfg, l.locale), html: renderPage(cfg, l, locales, galaxies) }));
+  const pages = locales.map(l => ({ file: pageFile(root, cfg, l.locale), html: renderPage(cfg, l, locales, galaxies, nowMs) }));
 
   let changed = 0;
   for (const p of pages) {
@@ -598,7 +829,7 @@ async function main() {
     console.log(`wrote ${p.file}`);
   }
   console.log(`source: ${source}`);
-  console.log(`galaxies: ${galaxies.map(g => g.id + (g.valid ? '' : ' (UNAVAILABLE)')).join(', ')}`);
+  console.log(`galaxies: ${galaxies.map(g => g.id + (g.valid ? '' : ' (UNAVAILABLE)') + (g.upcoming ? ` (odds change notice: ${g.upcoming.kind})` : '')).join(', ')}`);
   console.log(`locales: ${locales.map(l => l.locale).join(', ')}; pages changed: ${changed}/${pages.length}`);
 
   const invalid = galaxies.filter(g => !g.valid);

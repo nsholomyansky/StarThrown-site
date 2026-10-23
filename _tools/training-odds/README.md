@@ -38,6 +38,27 @@ run fails.
 - Every figure is printed exactly as the document has it (`percent`, `amountText`, `levelCapText`,
   `duplicateXpAmountText`). The generator never does arithmetic on odds. `publishedAt` is never shown.
 - A galaxy the document marks `valid: false` shows "Odds temporarily unavailable", and the run fails.
+- **Odds change notice (BL-558).** When a galaxy's entry carries `upcoming` (see below), the galaxy
+  shows a line at the top ("Odds change on {date}. Round N changes 3 outcomes.") linking to a block
+  after its tables. Everything is static HTML, so it works without JavaScript, and
+  `training-odds.html#galaxy_002-upcoming` opens that galaxy at its block. With no `upcoming` in the
+  document the page is byte-identical to the BL-557 page, styles included.
+
+### The odds change notice (`upcoming`, BL-558)
+
+The game backend writes `upcoming` only while a change is being announced, and only when the
+owner's switch `adminConfig/captainTrainingAdvanceNotice/enabled` is on. Its fields are defined in
+the game repo at `docs/firebase/publicTrainingOdds.md`, section "/upcoming". Two kinds:
+
+| `kind` | What it means | What the page shows |
+|---|---|---|
+| `scheduled` | The next round's odds are locked and differ from the ones in force. The entry's top-level table is the **next** round's and is not in force yet. | The galaxy's tables show the table **in force** (the `previous` side of `rows`, under its own round and date, in the order the publisher sorts a table). Then the block: "From {date}: Round N odds", the exact instant ("{date} at {time} UTC", the moment the server opens pulls), "What changes" (each changed outcome before → after; an added one reads "new", a removed one "removed"; a moved Level Cap `12 → 14`), and the full next table with changed rows highlighted and "was …" under each figure that moves, including the group totals. A removed outcome appears only in "What changes". |
+| `midRound` | An urgent fix to the table in force (spec N-6). The top-level table **is** in force. | The galaxy's tables as usual, then "Odds changed on {date}", the exact instant, the reason when an admin set one (free text, English, shown verbatim), and "What changed". No second table. |
+
+`build.mjs` refuses (writes nothing) an `upcoming` with an unknown `schemaVersion` or `kind`, on a
+galaxy that is `valid: false`, for a different round than the entry, whose `changeCount` does not
+match its rows, or whose new side is not the entry's own table: a page that contradicts itself is
+worse than an hour-old page. The daily check compares the pointer and the block value by value too.
 
 ## Files
 
@@ -48,7 +69,7 @@ run fails.
 | `lib.mjs` | Shared plumbing: reading the config, the document and the strings, and validating the document |
 | `build.mjs` | Renders the pages |
 | `check.mjs` | The daily check. It does not import `build.mjs`: it reads the page text and compares it with the document |
-| `fixtures/synthetic-*.json` | **SYNTHETIC test documents**, hand-built for local runs. `synthetic-dev-2026-10-23.json` was assembled on 2026-10-23 from the live dev source tables (galaxy_001 round 003, galaxy_002 round 001), **not** produced by the publisher. `synthetic-edge-cases.json` adds an invalid galaxy, an unknown status, a missing date, a missing Level Cap, a name that needs escaping, and a reserved `upcoming` child |
+| `fixtures/synthetic-*.json` | **SYNTHETIC test documents**, hand-built for local runs. `synthetic-dev-2026-10-23.json` was assembled on 2026-10-23 from the live dev source tables (galaxy_001 round 003, galaxy_002 round 001), **not** produced by the publisher. `synthetic-edge-cases.json` adds an invalid galaxy, an unknown status, a missing date, a missing Level Cap, and a name that needs escaping. `synthetic-upcoming.json` (BL-558, built 2026-10-23 from the dev fixture with invented changes) holds one `midRound` change with a reason (galaxy_001), the approved mockup's `scheduled` example (galaxy_002: Round 1 to Round 2, three changes), and a `scheduled` change with added, removed and Level Cap rows and an open instant after the announced start (galaxy_003) |
 
 ## Run it locally
 
@@ -63,6 +84,7 @@ node _tools/training-odds/check.mjs --deployed           # compare the live site
 node _tools/training-odds/build.mjs --dev --root /tmp/odds        # the dev database's document
 node _tools/training-odds/build.mjs --input _tools/training-odds/fixtures/synthetic-dev-2026-10-23.json --root /tmp/odds
 node _tools/training-odds/check.mjs --input _tools/training-odds/fixtures/synthetic-dev-2026-10-23.json --root /tmp/odds
+node _tools/training-odds/build.mjs --input _tools/training-odds/fixtures/synthetic-upcoming.json --root /tmp/odds   # BL-558 notices
 
 node --test _tools/training-odds/test/training-odds.test.mjs     # the generator's tests
 ```
@@ -76,7 +98,10 @@ unreachable, empty or malformed document leaves the published pages exactly as t
 a document with no galaxies, and a `schemaVersion` it does not know.
 
 The output is deterministic: the same document and the same strings give byte-identical pages. There
-is no build time in the page.
+is no build time in the page. One thing reads the clock: a galaxy's date label says "Odds in effect
+since" for a date that has passed and "Odds take effect on" for one still ahead (with the BL-558
+switch on, the date is when the round opens). So a page changes once more when that date passes,
+on the next hourly run. `--now <Unix ms>` stands in for the clock in tests and previews.
 
 ## Switch to production
 
@@ -113,8 +138,15 @@ is missing any key fails the run and writes nothing.
 - **App Check.** If App Check enforcement is ever switched on for the Realtime Database, the
   credential-free read stops working.
 - **Dates are in UTC.** "Odds in effect since" is the document's `effectiveFromMs`, printed as a UTC
-  date in the page's language (the `<time datetime>` attribute has the exact instant).
+  date in the page's language (the `<time datetime>` attribute has the exact instant). The odds
+  change notice also prints the time, "at 20:00 UTC". The game shows the same instant in the
+  player's own time zone, so the calendar date can differ by one.
 - **Schedules drift.** GitHub may start a scheduled run late under load, and disables schedules in a
   public repository after 60 days with no commits. A daily check that is not running alerts no one.
-- **The `upcoming` child** (next round's odds) is reserved for BL-558. This version ignores it, and
-  skips (with a warning) a galaxy that has only `upcoming` and no current odds yet.
+- **The odds change notice is only as current as the hourly run.** The backend clears `upcoming`
+  within an hour of the round opening (or 7 days after a mid-round change), and the page follows
+  on the next run. A galaxy that has only `upcoming` and no current odds yet is skipped with a
+  warning.
+- **The BL-558 translations are unreviewed.** The notice strings in `es`, `ja`, `ko`, `de`, `fr`
+  and `tr` were written with the code, matching each file's existing terms; no native speaker has
+  reviewed them yet.

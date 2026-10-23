@@ -3,6 +3,7 @@
   "devDatabaseHost": "ai-wars-dev-default-rtdb.firebaseio.com",
   "documentPath": "publicTrainingOdds",
   "schemaVersion": 1,
+  "upcomingSchemaVersion": 1,
   "siteUrl": "https://starthrown.com",
   "pageFile": "training-odds.html",
   "defaultLocale": "en",

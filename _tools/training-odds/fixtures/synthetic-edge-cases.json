@@ -508,11 +508,7 @@
     "captainsTotalPercent": "38.1%",
     "duplicateXpAmount": "1000",
     "duplicateXpAmountText": "1,000",
-    "publishedAt": 1792800000000,
-    "upcoming": {
-      "roundId": "002",
-      "note": "BL-558 reserved - must be ignored"
-    }
+    "publishedAt": 1792800000000
   },
   "galaxy_003": {
     "schemaVersion": 1,

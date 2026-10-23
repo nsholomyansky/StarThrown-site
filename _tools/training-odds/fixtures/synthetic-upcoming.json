@@ -1,0 +1,1755 @@
+{
+  "galaxy_001": {
+    "schemaVersion": 1,
+    "galaxyId": "galaxy_001",
+    "galaxyName": "Milky Way",
+    "roundId": "003",
+    "roundLabel": "3",
+    "roundStatus": "Active",
+    "roundStartMs": 1792346400000,
+    "tableFrozenAt": 1791914407461,
+    "effectiveFromMs": 1792504931000,
+    "source": "round",
+    "valid": true,
+    "experience": {
+      "x001": {
+        "type": "Experience",
+        "amount": "50",
+        "amountText": "50",
+        "weight": "0.15",
+        "percent": "15.0%"
+      },
+      "x002": {
+        "type": "Experience",
+        "amount": "100",
+        "amountText": "100",
+        "weight": "0.18",
+        "percent": "18.0%"
+      },
+      "x003": {
+        "type": "Experience",
+        "amount": "200",
+        "amountText": "200",
+        "weight": "0.15",
+        "percent": "15.0%"
+      },
+      "x004": {
+        "type": "Experience",
+        "amount": "400",
+        "amountText": "400",
+        "weight": "0.1",
+        "percent": "10.0%"
+      },
+      "x005": {
+        "type": "Experience",
+        "amount": "600",
+        "amountText": "600",
+        "weight": "0.039",
+        "percent": "3.9%"
+      }
+    },
+    "captains": {
+      "c001": {
+        "type": "Captain Unlock",
+        "captain": "Lirra",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.031",
+        "percent": "3.1%",
+        "levelCap": 14,
+        "levelCapText": "14"
+      },
+      "c002": {
+        "type": "Captain Unlock",
+        "captain": "Teklan",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.031",
+        "percent": "3.1%",
+        "levelCap": 12,
+        "levelCapText": "12"
+      },
+      "c003": {
+        "type": "Captain Unlock",
+        "captain": "Malor",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.03",
+        "percent": "3.0%",
+        "levelCap": 16,
+        "levelCapText": "16"
+      },
+      "c004": {
+        "type": "Captain Unlock",
+        "captain": "Vekk",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.026",
+        "percent": "2.6%",
+        "levelCap": 18,
+        "levelCapText": "18"
+      },
+      "c005": {
+        "type": "Captain Unlock",
+        "captain": "Myzon",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.025",
+        "percent": "2.5%",
+        "levelCap": 20,
+        "levelCapText": "20"
+      },
+      "c006": {
+        "type": "Captain Unlock",
+        "captain": "Damar",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.024",
+        "percent": "2.4%",
+        "levelCap": 22,
+        "levelCapText": "22"
+      },
+      "c007": {
+        "type": "Captain Unlock",
+        "captain": "Zorin",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.023",
+        "percent": "2.3%",
+        "levelCap": 24,
+        "levelCapText": "24"
+      },
+      "c008": {
+        "type": "Captain Unlock",
+        "captain": "Zenko",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.022",
+        "percent": "2.2%",
+        "levelCap": 26,
+        "levelCapText": "26"
+      },
+      "c009": {
+        "type": "Captain Unlock",
+        "captain": "Jorax",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.021",
+        "percent": "2.1%",
+        "levelCap": 28,
+        "levelCapText": "28"
+      },
+      "c010": {
+        "type": "Captain Unlock",
+        "captain": "Orlin",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.02",
+        "percent": "2.0%",
+        "levelCap": 30,
+        "levelCapText": "30"
+      },
+      "c011": {
+        "type": "Captain Unlock",
+        "captain": "Sovo",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.019",
+        "percent": "1.9%",
+        "levelCap": 32,
+        "levelCapText": "32"
+      },
+      "c012": {
+        "type": "Captain Unlock",
+        "captain": "Cavrel",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.018",
+        "percent": "1.8%",
+        "levelCap": 34,
+        "levelCapText": "34"
+      },
+      "c013": {
+        "type": "Captain Unlock",
+        "captain": "Phex",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.017",
+        "percent": "1.7%",
+        "levelCap": 36,
+        "levelCapText": "36"
+      },
+      "c014": {
+        "type": "Captain Unlock",
+        "captain": "Oneth",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.016",
+        "percent": "1.6%",
+        "levelCap": 38,
+        "levelCapText": "38"
+      },
+      "c015": {
+        "type": "Captain Unlock",
+        "captain": "Erix",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.015",
+        "percent": "1.5%",
+        "levelCap": 40,
+        "levelCapText": "40"
+      },
+      "c016": {
+        "type": "Captain Unlock",
+        "captain": "Bolen",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.014",
+        "percent": "1.4%",
+        "levelCap": 42,
+        "levelCapText": "42"
+      },
+      "c017": {
+        "type": "Captain Unlock",
+        "captain": "Asrel",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.012",
+        "percent": "1.2%",
+        "levelCap": 44,
+        "levelCapText": "44"
+      },
+      "c018": {
+        "type": "Captain Unlock",
+        "captain": "Fenra",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.009",
+        "percent": "0.9%",
+        "levelCap": 46,
+        "levelCapText": "46"
+      },
+      "c019": {
+        "type": "Captain Unlock",
+        "captain": "Quell",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.005",
+        "percent": "0.5%",
+        "levelCap": 48,
+        "levelCapText": "48"
+      },
+      "c020": {
+        "type": "Captain Unlock",
+        "captain": "Graves",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.003",
+        "percent": "0.3%",
+        "levelCap": 50,
+        "levelCapText": "50"
+      }
+    },
+    "experienceTotalPercent": "61.9%",
+    "captainsTotalPercent": "38.1%",
+    "duplicateXpAmount": "1000",
+    "duplicateXpAmountText": "1,000",
+    "publishedAt": 1792900000000,
+    "upcoming": {
+      "schemaVersion": 1,
+      "kind": "midRound",
+      "roundId": "003",
+      "roundLabel": "3",
+      "announcedStartMs": 1792346400000,
+      "opensAtMs": 1792346400000,
+      "detectedAt": 1792504931000,
+      "expiresAtMs": 1793109731000,
+      "reason": "Corrected a data-entry error: Graves & Teklan odds were swapped <by 0.1%>.",
+      "previous": {
+        "roundId": "003",
+        "roundLabel": "3",
+        "effectiveFromMs": 1791914407461
+      },
+      "changeCount": 2,
+      "rows": {
+        "x001": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          },
+          "new": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          }
+        },
+        "x002": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.18",
+            "percent": "18.0%"
+          },
+          "new": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.18",
+            "percent": "18.0%"
+          }
+        },
+        "x003": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "200",
+            "amountText": "200",
+            "weight": "0.15",
+            "percent": "15.0%"
+          },
+          "new": {
+            "amount": "200",
+            "amountText": "200",
+            "weight": "0.15",
+            "percent": "15.0%"
+          }
+        },
+        "x004": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "400",
+            "amountText": "400",
+            "weight": "0.1",
+            "percent": "10.0%"
+          },
+          "new": {
+            "amount": "400",
+            "amountText": "400",
+            "weight": "0.1",
+            "percent": "10.0%"
+          }
+        },
+        "x005": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "600",
+            "amountText": "600",
+            "weight": "0.039",
+            "percent": "3.9%"
+          },
+          "new": {
+            "amount": "600",
+            "amountText": "600",
+            "weight": "0.039",
+            "percent": "3.9%"
+          }
+        },
+        "c001": {
+          "type": "Captain Unlock",
+          "captain": "Lirra",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.031",
+            "percent": "3.1%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.031",
+            "percent": "3.1%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          }
+        },
+        "c002": {
+          "type": "Captain Unlock",
+          "captain": "Teklan",
+          "status": "changed",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.032",
+            "percent": "3.2%",
+            "levelCap": 12,
+            "levelCapText": "12"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.031",
+            "percent": "3.1%",
+            "levelCap": 12,
+            "levelCapText": "12"
+          }
+        },
+        "c003": {
+          "type": "Captain Unlock",
+          "captain": "Malor",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.03",
+            "percent": "3.0%",
+            "levelCap": 16,
+            "levelCapText": "16"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.03",
+            "percent": "3.0%",
+            "levelCap": 16,
+            "levelCapText": "16"
+          }
+        },
+        "c004": {
+          "type": "Captain Unlock",
+          "captain": "Vekk",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.026",
+            "percent": "2.6%",
+            "levelCap": 18,
+            "levelCapText": "18"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.026",
+            "percent": "2.6%",
+            "levelCap": 18,
+            "levelCapText": "18"
+          }
+        },
+        "c005": {
+          "type": "Captain Unlock",
+          "captain": "Myzon",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.025",
+            "percent": "2.5%",
+            "levelCap": 20,
+            "levelCapText": "20"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.025",
+            "percent": "2.5%",
+            "levelCap": 20,
+            "levelCapText": "20"
+          }
+        },
+        "c006": {
+          "type": "Captain Unlock",
+          "captain": "Damar",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.024",
+            "percent": "2.4%",
+            "levelCap": 22,
+            "levelCapText": "22"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.024",
+            "percent": "2.4%",
+            "levelCap": 22,
+            "levelCapText": "22"
+          }
+        },
+        "c007": {
+          "type": "Captain Unlock",
+          "captain": "Zorin",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.023",
+            "percent": "2.3%",
+            "levelCap": 24,
+            "levelCapText": "24"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.023",
+            "percent": "2.3%",
+            "levelCap": 24,
+            "levelCapText": "24"
+          }
+        },
+        "c008": {
+          "type": "Captain Unlock",
+          "captain": "Zenko",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.022",
+            "percent": "2.2%",
+            "levelCap": 26,
+            "levelCapText": "26"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.022",
+            "percent": "2.2%",
+            "levelCap": 26,
+            "levelCapText": "26"
+          }
+        },
+        "c009": {
+          "type": "Captain Unlock",
+          "captain": "Jorax",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.021",
+            "percent": "2.1%",
+            "levelCap": 28,
+            "levelCapText": "28"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.021",
+            "percent": "2.1%",
+            "levelCap": 28,
+            "levelCapText": "28"
+          }
+        },
+        "c010": {
+          "type": "Captain Unlock",
+          "captain": "Orlin",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.02",
+            "percent": "2.0%",
+            "levelCap": 30,
+            "levelCapText": "30"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.02",
+            "percent": "2.0%",
+            "levelCap": 30,
+            "levelCapText": "30"
+          }
+        },
+        "c011": {
+          "type": "Captain Unlock",
+          "captain": "Sovo",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.019",
+            "percent": "1.9%",
+            "levelCap": 32,
+            "levelCapText": "32"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.019",
+            "percent": "1.9%",
+            "levelCap": 32,
+            "levelCapText": "32"
+          }
+        },
+        "c012": {
+          "type": "Captain Unlock",
+          "captain": "Cavrel",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.018",
+            "percent": "1.8%",
+            "levelCap": 34,
+            "levelCapText": "34"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.018",
+            "percent": "1.8%",
+            "levelCap": 34,
+            "levelCapText": "34"
+          }
+        },
+        "c013": {
+          "type": "Captain Unlock",
+          "captain": "Phex",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.017",
+            "percent": "1.7%",
+            "levelCap": 36,
+            "levelCapText": "36"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.017",
+            "percent": "1.7%",
+            "levelCap": 36,
+            "levelCapText": "36"
+          }
+        },
+        "c014": {
+          "type": "Captain Unlock",
+          "captain": "Oneth",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.016",
+            "percent": "1.6%",
+            "levelCap": 38,
+            "levelCapText": "38"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.016",
+            "percent": "1.6%",
+            "levelCap": 38,
+            "levelCapText": "38"
+          }
+        },
+        "c015": {
+          "type": "Captain Unlock",
+          "captain": "Erix",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.015",
+            "percent": "1.5%",
+            "levelCap": 40,
+            "levelCapText": "40"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.015",
+            "percent": "1.5%",
+            "levelCap": 40,
+            "levelCapText": "40"
+          }
+        },
+        "c016": {
+          "type": "Captain Unlock",
+          "captain": "Bolen",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.014",
+            "percent": "1.4%",
+            "levelCap": 42,
+            "levelCapText": "42"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.014",
+            "percent": "1.4%",
+            "levelCap": 42,
+            "levelCapText": "42"
+          }
+        },
+        "c017": {
+          "type": "Captain Unlock",
+          "captain": "Asrel",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.012",
+            "percent": "1.2%",
+            "levelCap": 44,
+            "levelCapText": "44"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.012",
+            "percent": "1.2%",
+            "levelCap": 44,
+            "levelCapText": "44"
+          }
+        },
+        "c018": {
+          "type": "Captain Unlock",
+          "captain": "Fenra",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.009",
+            "percent": "0.9%",
+            "levelCap": 46,
+            "levelCapText": "46"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.009",
+            "percent": "0.9%",
+            "levelCap": 46,
+            "levelCapText": "46"
+          }
+        },
+        "c019": {
+          "type": "Captain Unlock",
+          "captain": "Quell",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.005",
+            "percent": "0.5%",
+            "levelCap": 48,
+            "levelCapText": "48"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.005",
+            "percent": "0.5%",
+            "levelCap": 48,
+            "levelCapText": "48"
+          }
+        },
+        "c020": {
+          "type": "Captain Unlock",
+          "captain": "Graves",
+          "status": "changed",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.002",
+            "percent": "0.2%",
+            "levelCap": 50,
+            "levelCapText": "50"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.003",
+            "percent": "0.3%",
+            "levelCap": 50,
+            "levelCapText": "50"
+          }
+        }
+      },
+      "totals": {
+        "experience": {
+          "previous": "61.9%",
+          "new": "61.9%"
+        },
+        "captains": {
+          "previous": "38.1%",
+          "new": "38.1%"
+        }
+      }
+    }
+  },
+  "galaxy_002": {
+    "schemaVersion": 1,
+    "galaxyId": "galaxy_002",
+    "galaxyName": "Andromeda",
+    "roundId": "002",
+    "roundLabel": "2",
+    "roundStatus": "Upcoming",
+    "roundStartMs": 1798833630000,
+    "tableFrozenAt": 1798401630000,
+    "effectiveFromMs": 1798833630000,
+    "source": "round",
+    "valid": true,
+    "experience": {
+      "x001": {
+        "type": "Experience",
+        "amount": "50",
+        "amountText": "50",
+        "weight": "0.15",
+        "percent": "15.0%"
+      },
+      "x002": {
+        "type": "Experience",
+        "amount": "100",
+        "amountText": "100",
+        "weight": "0.176",
+        "percent": "17.6%"
+      },
+      "x003": {
+        "type": "Experience",
+        "amount": "200",
+        "amountText": "200",
+        "weight": "0.15",
+        "percent": "15.0%"
+      },
+      "x004": {
+        "type": "Experience",
+        "amount": "400",
+        "amountText": "400",
+        "weight": "0.1",
+        "percent": "10.0%"
+      },
+      "x005": {
+        "type": "Experience",
+        "amount": "600",
+        "amountText": "600",
+        "weight": "0.039",
+        "percent": "3.9%"
+      }
+    },
+    "captains": {
+      "c001": {
+        "type": "Captain Unlock",
+        "captain": "Teklan",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.032",
+        "percent": "3.2%",
+        "levelCap": 12,
+        "levelCapText": "12"
+      },
+      "c002": {
+        "type": "Captain Unlock",
+        "captain": "Lirra",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.031",
+        "percent": "3.1%",
+        "levelCap": 14,
+        "levelCapText": "14"
+      },
+      "c003": {
+        "type": "Captain Unlock",
+        "captain": "Malor",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.03",
+        "percent": "3.0%",
+        "levelCap": 16,
+        "levelCapText": "16"
+      },
+      "c004": {
+        "type": "Captain Unlock",
+        "captain": "Vekk",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.026",
+        "percent": "2.6%",
+        "levelCap": 18,
+        "levelCapText": "18"
+      },
+      "c005": {
+        "type": "Captain Unlock",
+        "captain": "Myzon",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.025",
+        "percent": "2.5%",
+        "levelCap": 20,
+        "levelCapText": "20"
+      },
+      "c006": {
+        "type": "Captain Unlock",
+        "captain": "Damar",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.024",
+        "percent": "2.4%",
+        "levelCap": 22,
+        "levelCapText": "22"
+      },
+      "c007": {
+        "type": "Captain Unlock",
+        "captain": "Zorin",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.023",
+        "percent": "2.3%",
+        "levelCap": 24,
+        "levelCapText": "24"
+      },
+      "c008": {
+        "type": "Captain Unlock",
+        "captain": "Zenko",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.022",
+        "percent": "2.2%",
+        "levelCap": 26,
+        "levelCapText": "26"
+      },
+      "c009": {
+        "type": "Captain Unlock",
+        "captain": "Jorax",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.021",
+        "percent": "2.1%",
+        "levelCap": 28,
+        "levelCapText": "28"
+      },
+      "c010": {
+        "type": "Captain Unlock",
+        "captain": "Orlin",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.02",
+        "percent": "2.0%",
+        "levelCap": 30,
+        "levelCapText": "30"
+      },
+      "c011": {
+        "type": "Captain Unlock",
+        "captain": "Sovo",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.019",
+        "percent": "1.9%",
+        "levelCap": 32,
+        "levelCapText": "32"
+      },
+      "c012": {
+        "type": "Captain Unlock",
+        "captain": "Cavrel",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.018",
+        "percent": "1.8%",
+        "levelCap": 34,
+        "levelCapText": "34"
+      },
+      "c013": {
+        "type": "Captain Unlock",
+        "captain": "Phex",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.017",
+        "percent": "1.7%",
+        "levelCap": 36,
+        "levelCapText": "36"
+      },
+      "c014": {
+        "type": "Captain Unlock",
+        "captain": "Oneth",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.016",
+        "percent": "1.6%",
+        "levelCap": 38,
+        "levelCapText": "38"
+      },
+      "c015": {
+        "type": "Captain Unlock",
+        "captain": "Erix",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.015",
+        "percent": "1.5%",
+        "levelCap": 40,
+        "levelCapText": "40"
+      },
+      "c016": {
+        "type": "Captain Unlock",
+        "captain": "Bolen",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.014",
+        "percent": "1.4%",
+        "levelCap": 42,
+        "levelCapText": "42"
+      },
+      "c017": {
+        "type": "Captain Unlock",
+        "captain": "Asrel",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.012",
+        "percent": "1.2%",
+        "levelCap": 44,
+        "levelCapText": "44"
+      },
+      "c018": {
+        "type": "Captain Unlock",
+        "captain": "Fenra",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.009",
+        "percent": "0.9%",
+        "levelCap": 46,
+        "levelCapText": "46"
+      },
+      "c019": {
+        "type": "Captain Unlock",
+        "captain": "Quell",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.007",
+        "percent": "0.7%",
+        "levelCap": 48,
+        "levelCapText": "48"
+      },
+      "c020": {
+        "type": "Captain Unlock",
+        "captain": "Graves",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.004",
+        "percent": "0.4%",
+        "levelCap": 50,
+        "levelCapText": "50"
+      }
+    },
+    "experienceTotalPercent": "61.5%",
+    "captainsTotalPercent": "38.5%",
+    "duplicateXpAmount": "1000",
+    "duplicateXpAmountText": "1,000",
+    "publishedAt": 1792900000000,
+    "upcoming": {
+      "schemaVersion": 1,
+      "kind": "scheduled",
+      "roundId": "002",
+      "roundLabel": "2",
+      "announcedStartMs": 1798833630000,
+      "opensAtMs": 1798833630000,
+      "previous": {
+        "roundId": "001",
+        "roundLabel": "1",
+        "effectiveFromMs": 1790280030763
+      },
+      "changeCount": 3,
+      "rows": {
+        "x001": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          },
+          "new": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          }
+        },
+        "x002": {
+          "type": "Experience",
+          "status": "changed",
+          "previous": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.18",
+            "percent": "18.0%"
+          },
+          "new": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.176",
+            "percent": "17.6%"
+          }
+        },
+        "x003": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "200",
+            "amountText": "200",
+            "weight": "0.15",
+            "percent": "15.0%"
+          },
+          "new": {
+            "amount": "200",
+            "amountText": "200",
+            "weight": "0.15",
+            "percent": "15.0%"
+          }
+        },
+        "x004": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "400",
+            "amountText": "400",
+            "weight": "0.1",
+            "percent": "10.0%"
+          },
+          "new": {
+            "amount": "400",
+            "amountText": "400",
+            "weight": "0.1",
+            "percent": "10.0%"
+          }
+        },
+        "x005": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "600",
+            "amountText": "600",
+            "weight": "0.039",
+            "percent": "3.9%"
+          },
+          "new": {
+            "amount": "600",
+            "amountText": "600",
+            "weight": "0.039",
+            "percent": "3.9%"
+          }
+        },
+        "c001": {
+          "type": "Captain Unlock",
+          "captain": "Teklan",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.032",
+            "percent": "3.2%",
+            "levelCap": 12,
+            "levelCapText": "12"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.032",
+            "percent": "3.2%",
+            "levelCap": 12,
+            "levelCapText": "12"
+          }
+        },
+        "c002": {
+          "type": "Captain Unlock",
+          "captain": "Lirra",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.031",
+            "percent": "3.1%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.031",
+            "percent": "3.1%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          }
+        },
+        "c003": {
+          "type": "Captain Unlock",
+          "captain": "Malor",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.03",
+            "percent": "3.0%",
+            "levelCap": 16,
+            "levelCapText": "16"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.03",
+            "percent": "3.0%",
+            "levelCap": 16,
+            "levelCapText": "16"
+          }
+        },
+        "c004": {
+          "type": "Captain Unlock",
+          "captain": "Vekk",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.026",
+            "percent": "2.6%",
+            "levelCap": 18,
+            "levelCapText": "18"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.026",
+            "percent": "2.6%",
+            "levelCap": 18,
+            "levelCapText": "18"
+          }
+        },
+        "c005": {
+          "type": "Captain Unlock",
+          "captain": "Myzon",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.025",
+            "percent": "2.5%",
+            "levelCap": 20,
+            "levelCapText": "20"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.025",
+            "percent": "2.5%",
+            "levelCap": 20,
+            "levelCapText": "20"
+          }
+        },
+        "c006": {
+          "type": "Captain Unlock",
+          "captain": "Damar",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.024",
+            "percent": "2.4%",
+            "levelCap": 22,
+            "levelCapText": "22"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.024",
+            "percent": "2.4%",
+            "levelCap": 22,
+            "levelCapText": "22"
+          }
+        },
+        "c007": {
+          "type": "Captain Unlock",
+          "captain": "Zorin",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.023",
+            "percent": "2.3%",
+            "levelCap": 24,
+            "levelCapText": "24"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.023",
+            "percent": "2.3%",
+            "levelCap": 24,
+            "levelCapText": "24"
+          }
+        },
+        "c008": {
+          "type": "Captain Unlock",
+          "captain": "Zenko",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.022",
+            "percent": "2.2%",
+            "levelCap": 26,
+            "levelCapText": "26"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.022",
+            "percent": "2.2%",
+            "levelCap": 26,
+            "levelCapText": "26"
+          }
+        },
+        "c009": {
+          "type": "Captain Unlock",
+          "captain": "Jorax",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.021",
+            "percent": "2.1%",
+            "levelCap": 28,
+            "levelCapText": "28"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.021",
+            "percent": "2.1%",
+            "levelCap": 28,
+            "levelCapText": "28"
+          }
+        },
+        "c010": {
+          "type": "Captain Unlock",
+          "captain": "Orlin",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.02",
+            "percent": "2.0%",
+            "levelCap": 30,
+            "levelCapText": "30"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.02",
+            "percent": "2.0%",
+            "levelCap": 30,
+            "levelCapText": "30"
+          }
+        },
+        "c011": {
+          "type": "Captain Unlock",
+          "captain": "Sovo",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.019",
+            "percent": "1.9%",
+            "levelCap": 32,
+            "levelCapText": "32"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.019",
+            "percent": "1.9%",
+            "levelCap": 32,
+            "levelCapText": "32"
+          }
+        },
+        "c012": {
+          "type": "Captain Unlock",
+          "captain": "Cavrel",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.018",
+            "percent": "1.8%",
+            "levelCap": 34,
+            "levelCapText": "34"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.018",
+            "percent": "1.8%",
+            "levelCap": 34,
+            "levelCapText": "34"
+          }
+        },
+        "c013": {
+          "type": "Captain Unlock",
+          "captain": "Phex",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.017",
+            "percent": "1.7%",
+            "levelCap": 36,
+            "levelCapText": "36"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.017",
+            "percent": "1.7%",
+            "levelCap": 36,
+            "levelCapText": "36"
+          }
+        },
+        "c014": {
+          "type": "Captain Unlock",
+          "captain": "Oneth",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.016",
+            "percent": "1.6%",
+            "levelCap": 38,
+            "levelCapText": "38"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.016",
+            "percent": "1.6%",
+            "levelCap": 38,
+            "levelCapText": "38"
+          }
+        },
+        "c015": {
+          "type": "Captain Unlock",
+          "captain": "Erix",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.015",
+            "percent": "1.5%",
+            "levelCap": 40,
+            "levelCapText": "40"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.015",
+            "percent": "1.5%",
+            "levelCap": 40,
+            "levelCapText": "40"
+          }
+        },
+        "c016": {
+          "type": "Captain Unlock",
+          "captain": "Bolen",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.014",
+            "percent": "1.4%",
+            "levelCap": 42,
+            "levelCapText": "42"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.014",
+            "percent": "1.4%",
+            "levelCap": 42,
+            "levelCapText": "42"
+          }
+        },
+        "c017": {
+          "type": "Captain Unlock",
+          "captain": "Asrel",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.012",
+            "percent": "1.2%",
+            "levelCap": 44,
+            "levelCapText": "44"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.012",
+            "percent": "1.2%",
+            "levelCap": 44,
+            "levelCapText": "44"
+          }
+        },
+        "c018": {
+          "type": "Captain Unlock",
+          "captain": "Fenra",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.009",
+            "percent": "0.9%",
+            "levelCap": 46,
+            "levelCapText": "46"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.009",
+            "percent": "0.9%",
+            "levelCap": 46,
+            "levelCapText": "46"
+          }
+        },
+        "c019": {
+          "type": "Captain Unlock",
+          "captain": "Quell",
+          "status": "changed",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.005",
+            "percent": "0.5%",
+            "levelCap": 48,
+            "levelCapText": "48"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.007",
+            "percent": "0.7%",
+            "levelCap": 48,
+            "levelCapText": "48"
+          }
+        },
+        "c020": {
+          "type": "Captain Unlock",
+          "captain": "Graves",
+          "status": "changed",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.002",
+            "percent": "0.2%",
+            "levelCap": 50,
+            "levelCapText": "50"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.004",
+            "percent": "0.4%",
+            "levelCap": 50,
+            "levelCapText": "50"
+          }
+        }
+      },
+      "totals": {
+        "experience": {
+          "previous": "61.9%",
+          "new": "61.5%"
+        },
+        "captains": {
+          "previous": "38.1%",
+          "new": "38.5%"
+        }
+      }
+    }
+  },
+  "galaxy_003": {
+    "schemaVersion": 1,
+    "galaxyId": "galaxy_003",
+    "galaxyName": "Sombrero",
+    "roundId": "005",
+    "roundLabel": "5",
+    "roundStatus": "Upcoming",
+    "roundStartMs": 1798826400000,
+    "tableFrozenAt": 1798795800000,
+    "effectiveFromMs": 1798882200000,
+    "source": "round",
+    "valid": true,
+    "duplicateXpAmount": "1000",
+    "duplicateXpAmountText": "1,000",
+    "publishedAt": 1792900000000,
+    "experience": {
+      "x001": {
+        "type": "Experience",
+        "amount": "50",
+        "amountText": "50",
+        "weight": "0.3",
+        "percent": "30.0%"
+      },
+      "x002": {
+        "type": "Experience",
+        "amount": "150",
+        "amountText": "150",
+        "weight": "0.2",
+        "percent": "20.0%"
+      }
+    },
+    "captains": {
+      "c001": {
+        "type": "Captain Unlock",
+        "captain": "Teklan",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.25",
+        "percent": "25.0%",
+        "levelCap": 14,
+        "levelCapText": "14"
+      },
+      "c002": {
+        "type": "Captain Unlock",
+        "captain": "Vekk",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.15",
+        "percent": "15.0%",
+        "levelCap": 18,
+        "levelCapText": "18"
+      },
+      "c003": {
+        "type": "Captain Unlock",
+        "captain": "Lirra",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.1",
+        "percent": "10.0%",
+        "levelCap": 16,
+        "levelCapText": "16"
+      }
+    },
+    "experienceTotalPercent": "50.0%",
+    "captainsTotalPercent": "50.0%",
+    "upcoming": {
+      "schemaVersion": 1,
+      "kind": "scheduled",
+      "roundId": "005",
+      "roundLabel": "5",
+      "announcedStartMs": 1798826400000,
+      "opensAtMs": 1798882200000,
+      "previous": {
+        "roundId": "004",
+        "roundLabel": "4",
+        "effectiveFromMs": 1790877600000
+      },
+      "changeCount": 4,
+      "rows": {
+        "x001": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.3",
+            "percent": "30.0%"
+          },
+          "new": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.3",
+            "percent": "30.0%"
+          }
+        },
+        "x002": {
+          "type": "Experience",
+          "status": "removed",
+          "previous": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.2",
+            "percent": "20.0%"
+          }
+        },
+        "x003": {
+          "type": "Experience",
+          "status": "added",
+          "new": {
+            "amount": "150",
+            "amountText": "150",
+            "weight": "0.2",
+            "percent": "20.0%"
+          }
+        },
+        "c001": {
+          "type": "Captain Unlock",
+          "captain": "Teklan",
+          "status": "unchanged",
+          "levelCapChanged": true,
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.25",
+            "percent": "25.0%",
+            "levelCap": 12,
+            "levelCapText": "12"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.25",
+            "percent": "25.0%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          }
+        },
+        "c002": {
+          "type": "Captain Unlock",
+          "captain": "Vekk",
+          "status": "added",
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.15",
+            "percent": "15.0%",
+            "levelCap": 18,
+            "levelCapText": "18"
+          }
+        },
+        "c003": {
+          "type": "Captain Unlock",
+          "captain": "Lirra",
+          "status": "changed",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.25",
+            "percent": "25.0%",
+            "levelCap": 16,
+            "levelCapText": "16"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.1",
+            "percent": "10.0%",
+            "levelCap": 16,
+            "levelCapText": "16"
+          }
+        }
+      },
+      "totals": {
+        "experience": {
+          "previous": "50.0%",
+          "new": "50.0%"
+        },
+        "captains": {
+          "previous": "50.0%",
+          "new": "50.0%"
+        }
+      }
+    }
+  }
+}
