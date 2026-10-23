@@ -709,6 +709,9 @@
             <div id="sib-container" class="sib-container--large sib-container--vertical">
               <form id="sib-form" method="POST" action="https://f14a0655.sibforms.com/serve/MUIFALi4qvqzH2jfC9aCGPJhvJqvSvGTNyyyTMgj_Xx2HHR-_MPK_eVMM54llHZFgHbPRvZ5sIlC-llMwlahhu4KY8gtw0kANq8kL-yacRwtF5AVyylxNsTN-sqvfU8BeuqKjnPyPKclgF_t1Uo1WRe-VY8LG7VCWivJPPtZ6thbL_Y2-YGccGYdJNnCo9Dr3kZ8Whrq1VEvSMdEyQ==" data-type="subscription">
 
+                <!-- Shown by the load guard at the end of the page -->
+                <p class="age-error" id="FORM_load_error" role="alert" hidden style="margin: 0 0 0.75rem;"></p>
+
                 <!-- Email -->
                 <div style="padding: 4px 0;">
                   <div class="sib-input sib-form-block">
@@ -939,8 +942,55 @@
       }, true);
     })();
   </script>
-  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+  <script>
+    // If Brevo's script or reCAPTCHA has not loaded (blocked, slow or failing on the
+    // device), a tap on the button falls through to a plain POST and the visitor lands
+    // on Brevo's raw JSON error. This guard stops that plain POST: it waits up to 8 s for
+    // both to be ready and then submits again, or shows a plain message. If a script
+    // fails to load, or is still missing 3 s after the page loads, the message shows
+    // before the form is filled in.
+    (function () {
+      var form = document.getElementById('sib-form');
+      var note = document.getElementById('FORM_load_error');
+      var btn = document.querySelector('button[form="sib-form"]');
+      var blocked = false, waiting = false;
+      var BEFORE = 'This sign-up form didn’t finish loading. Reload the page before you fill it in.';
+      var AFTER = 'Sign-up didn’t go through: the form hadn’t finished loading. Reload the page and try again.';
+      function ready() {
+        return typeof window.invisibleCaptchaCallback === 'function' &&
+          !!window.grecaptcha && typeof window.grecaptcha.execute === 'function';
+      }
+      function show(text, scroll) {
+        note.textContent = text;
+        note.hidden = false;
+        if (scroll) note.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
+      window.sibFormLoadFailed = function () { blocked = true; show(BEFORE); };
+      window.addEventListener('load', function () {
+        setTimeout(function () { if (!ready() && !waiting) show(BEFORE); }, 3000);
+      });
+      form.addEventListener('submit', function (e) {
+        if (ready()) { note.hidden = true; return; }
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (blocked) { show(AFTER, true); return; }
+        if (waiting) return;
+        waiting = true;
+        btn.disabled = true;
+        var tries = 0;
+        var timer = setInterval(function () {
+          if (!ready() && ++tries < 32) return;
+          clearInterval(timer);
+          waiting = false;
+          btn.disabled = false;
+          if (ready()) { note.hidden = true; btn.click(); }
+          else show(AFTER, true);
+        }, 250);
+      }, true);
+    }());
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js" onerror="sibFormLoadFailed()"></script>
+  <script async defer src="https://www.google.com/recaptcha/api.js?hl=en" onerror="sibFormLoadFailed()"></script>
 
 </body>
 </html>

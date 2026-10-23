@@ -499,6 +499,13 @@
     }
     .grecaptcha-badge { visibility: hidden !important; }
 
+    .form-load-error {
+      font-size: 0.8rem;
+      color: #ff4949;
+      margin-top: 0.5rem;
+      text-align: left;
+    }
+
     .recaptcha-notice {
       font-size: 0.75rem;
       color: var(--text-muted);
@@ -1186,6 +1193,8 @@
                     </button>
                   </div>
                 </div>
+                <!-- Shown by the load guard at the end of the page -->
+                <p class="form-load-error" id="FORM_load_error" role="alert" hidden></p>
                 <div class="g-recaptcha" data-sitekey="6Lcc2twsAAAAAC3sl0NAh5w-azkjzNMRzPU5wo6F" data-callback="invisibleCaptchaCallback" data-size="invisible"></div>
                 <input type="text" name="email_address_check" value="" class="input--hidden">
                 <input type="hidden" name="locale" value="en">
@@ -1298,8 +1307,55 @@
     window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
     var AUTOHIDE = Boolean(0);
   </script>
-  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+  <script>
+    // If Brevo's script or reCAPTCHA has not loaded (blocked, slow or failing on the
+    // device), a tap on the button falls through to a plain POST and the visitor lands
+    // on Brevo's raw JSON error. This guard stops that plain POST: it waits up to 8 s for
+    // both to be ready and then submits again, or shows a plain message. If a script
+    // fails to load, or is still missing 3 s after the page loads, the message shows
+    // before the form is filled in.
+    (function () {
+      var form = document.getElementById('sib-form');
+      var note = document.getElementById('FORM_load_error');
+      var btn = document.querySelector('button[form="sib-form"]');
+      var blocked = false, waiting = false;
+      var BEFORE = 'This sign-up form didn’t finish loading. Reload the page before you fill it in.';
+      var AFTER = 'Sign-up didn’t go through: the form hadn’t finished loading. Reload the page and try again.';
+      function ready() {
+        return typeof window.invisibleCaptchaCallback === 'function' &&
+          !!window.grecaptcha && typeof window.grecaptcha.execute === 'function';
+      }
+      function show(text, scroll) {
+        note.textContent = text;
+        note.hidden = false;
+        if (scroll) note.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
+      window.sibFormLoadFailed = function () { blocked = true; show(BEFORE); };
+      window.addEventListener('load', function () {
+        setTimeout(function () { if (!ready() && !waiting) show(BEFORE); }, 3000);
+      });
+      form.addEventListener('submit', function (e) {
+        if (ready()) { note.hidden = true; return; }
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (blocked) { show(AFTER, true); return; }
+        if (waiting) return;
+        waiting = true;
+        btn.disabled = true;
+        var tries = 0;
+        var timer = setInterval(function () {
+          if (!ready() && ++tries < 32) return;
+          clearInterval(timer);
+          waiting = false;
+          btn.disabled = false;
+          if (ready()) { note.hidden = true; btn.click(); }
+          else show(AFTER, true);
+        }, 250);
+      }, true);
+    }());
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js" onerror="sibFormLoadFailed()"></script>
+  <script async defer src="https://www.google.com/recaptcha/api.js?hl=en" onerror="sibFormLoadFailed()"></script>
 
 </body>
 </html>
