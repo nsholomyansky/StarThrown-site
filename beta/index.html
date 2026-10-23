@@ -954,8 +954,8 @@
       var note = document.getElementById('FORM_load_error');
       var btn = document.querySelector('button[form="sib-form"]');
       var blocked = false, waiting = false;
-      var BEFORE = 'This sign-up form didn’t finish loading. Reload the page before you fill it in.';
-      var AFTER = 'Sign-up didn’t go through: the form hadn’t finished loading. Reload the page and try again.';
+      var BEFORE = 'This sign-up form didn’t load. Try reloading the page. If it still doesn’t load, an ad blocker, VPN or network filter may be blocking it. Turn it off, or switch to another browser or to mobile data, and try again.';
+      var AFTER = 'Sign-up didn’t go through: the form hadn’t finished loading. Try reloading the page. If that doesn’t work, an ad blocker, VPN or network filter may be blocking it. Turn it off, or switch to another browser or to mobile data.';
       function ready() {
         return typeof window.invisibleCaptchaCallback === 'function' &&
           !!window.grecaptcha && typeof window.grecaptcha.execute === 'function';
