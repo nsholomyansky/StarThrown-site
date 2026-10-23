@@ -647,6 +647,24 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 22px rgba(79,143,255,0.5);
     }
     .faq-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .screens {
+      width: 100%;
+      max-width: 560px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+      margin: 0 auto 1.75rem;
+    }
+    .screens a { display: block; border-radius: 12px; }
+    .screens a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .screens img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(120, 170, 255, 0.35);
+      box-shadow: 0 0 18px rgba(79, 143, 255, 0.18);
+    }
     @media (max-width: 480px) {
       .info-panel { padding: 1.1rem 1.1rem; }
     }
@@ -812,6 +830,11 @@
       </div>
 
       <a href="/beta/faq" class="faq-btn">Read the Beta FAQ</a>
+
+      <div class="screens">
+        <a href="/img/beta-home.webp" target="_blank" rel="noopener"><img src="/img/beta-home.webp" width="720" height="1162" loading="lazy" alt="Star Thrown Home screen: Fleet 1 is on its way to attack Outpost 52, with resources, news and the round's end date." /></a>
+        <a href="/img/beta-fleet.webp" target="_blank" rel="noopener"><img src="/img/beta-fleet.webp" width="720" height="1162" loading="lazy" alt="Star Thrown Fleet screen: orders for three fleets, with Fleet 1 attacking Outpost 52, and each fleet's captain and ships." /></a>
+      </div>
 
       <div class="info-row">
       <section class="info-panel" aria-labelledby="how-heading">
