@@ -649,11 +649,23 @@
     .faq-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .screens {
       width: 100%;
-      max-width: 560px;
+      max-width: 840px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
       gap: 0.9rem;
       margin: 0 auto 1.75rem;
+    }
+    /* Phones: one swipeable row, so each screen stays big enough to read */
+    @media (max-width: 699px) {
+      .screens {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.5rem;
+      }
+      .screens a { flex: 0 0 72%; scroll-snap-align: center; }
     }
     .screens a { display: block; border-radius: 12px; }
     .screens a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -830,8 +842,9 @@
       <a href="/beta/faq" class="faq-btn">Read the Beta FAQ</a>
 
       <div class="screens">
-        <a href="/img/beta-home.webp" target="_blank" rel="noopener"><img src="/img/beta-home.webp" width="720" height="1162" loading="lazy" alt="Star Thrown Home screen: Fleet 1 is on its way to attack Outpost 52, with resources, news and the round's end date." /></a>
-        <a href="/img/beta-fleet.webp" target="_blank" rel="noopener"><img src="/img/beta-fleet.webp" width="720" height="1162" loading="lazy" alt="Star Thrown Fleet screen: orders for three fleets, with Fleet 1 attacking Outpost 52, and each fleet's captain and ships." /></a>
+        <a href="/img/beta-map.webp" target="_blank" rel="noopener"><img src="/img/beta-map.webp" width="1080" height="1920" loading="lazy" alt="Star Thrown galaxy map: Stardust's fleet and three allied fleets closing on Outpost 52." /></a>
+        <a href="/img/beta-home.webp" target="_blank" rel="noopener"><img src="/img/beta-home.webp" width="1080" height="1743" loading="lazy" alt="Star Thrown Home screen: Fleet 1 is on its way to attack Outpost 52, with resources, news and the round's end date." /></a>
+        <a href="/img/beta-fleet.webp" target="_blank" rel="noopener"><img src="/img/beta-fleet.webp" width="1080" height="1743" loading="lazy" alt="Star Thrown Fleet screen: orders for three fleets, with Fleet 1 attacking Outpost 52, and each fleet's captain and ships." /></a>
       </div>
 
       <div class="info-row">
