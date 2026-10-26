@@ -673,6 +673,7 @@
       display: block;
       width: 100%;
       height: auto;
+      aspect-ratio: 1080 / 1920;
       border-radius: 12px;
       border: 1px solid rgba(120, 170, 255, 0.35);
       box-shadow: 0 0 18px rgba(79, 143, 255, 0.18);
@@ -689,7 +690,7 @@
   <div class="page">
 
     <nav class="nav" aria-label="Site">
-      <a href="/" class="nav-home" aria-label="Star Thrown home"><img src="/StarThrownLogo.png" alt="Star Thrown" class="nav-logo" /></a>
+      <a href="/" class="nav-home" aria-label="Star Thrown home"><img src="/img/nav-logo.webp" width="240" height="135" alt="Star Thrown" class="nav-logo" /></a>
       <div class="site-menu">
         <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">
           <span></span><span></span><span></span>
@@ -844,9 +845,9 @@
       <a href="/beta/faq" class="faq-btn">Read the Beta FAQ</a>
 
       <div class="screens">
-        <a href="/img/beta-map.webp" target="_blank" rel="noopener"><img src="/img/beta-map.webp" width="1080" height="1920" loading="lazy" alt="Star Thrown galaxy map: Stardust's fleet and three allied fleets closing on Outpost 52." /></a>
-        <a href="/img/beta-home.webp" target="_blank" rel="noopener"><img src="/img/beta-home.webp" width="1080" height="1920" loading="lazy" alt="Star Thrown Home screen: Fleet 1 is on its way to attack Outpost 52, with resources, news and the round's end date." /></a>
-        <a href="/img/beta-fleet.webp" target="_blank" rel="noopener"><img src="/img/beta-fleet.webp" width="1080" height="1920" loading="lazy" alt="Star Thrown Fleet screen: orders for three fleets, with Fleet 1 attacking Outpost 52, and each fleet's captain and ships." /></a>
+        <a href="/img/beta-map.webp" target="_blank" rel="noopener"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/beta-map.webp" width="1080" height="1920" alt="Star Thrown galaxy map: Stardust's fleet and three allied fleets closing on Outpost 52." /></a>
+        <a href="/img/beta-home.webp" target="_blank" rel="noopener"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/beta-home.webp" width="1080" height="1920" alt="Star Thrown Home screen: Fleet 1 is on its way to attack Outpost 52, with resources, news and the round's end date." /></a>
+        <a href="/img/beta-fleet.webp" target="_blank" rel="noopener"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/beta-fleet.webp" width="1080" height="1920" alt="Star Thrown Fleet screen: orders for three fleets, with Fleet 1 attacking Outpost 52, and each fleet's captain and ships." /></a>
       </div>
 
       <div class="info-row">
@@ -983,10 +984,11 @@
   <script>
     // If Brevo's script or reCAPTCHA has not loaded (blocked, slow or failing on the
     // device), a tap on the button falls through to a plain POST and the visitor lands
-    // on Brevo's raw JSON error. This guard stops that plain POST: it waits up to 8 s for
+    // on Brevo's raw JSON error. This guard stops that plain POST: it waits up to 20 s for
     // both to be ready and then submits again, or shows a plain message. If a script
     // fails to load, or is still missing 3 s after the page loads, the message shows
-    // before the form is filled in.
+    // before the form is filled in. The screenshots wait for the form (or for a failure,
+    // or the page load) so they do not slow reCAPTCHA on a slow phone.
     (function () {
       var form = document.getElementById('sib-form');
       var note = document.getElementById('FORM_load_error');
@@ -998,13 +1000,25 @@
         return typeof window.invisibleCaptchaCallback === 'function' &&
           !!window.grecaptcha && typeof window.grecaptcha.execute === 'function';
       }
+      var screensOn = false;
+      function showScreens() {
+        if (screensOn) return;
+        screensOn = true;
+        var imgs = document.querySelectorAll('.screens img[data-src]');
+        for (var i = 0; i < imgs.length; i++) imgs[i].src = imgs[i].getAttribute('data-src');
+      }
+      var poll = setInterval(function () {
+        if (ready()) { clearInterval(poll); showScreens(); }
+      }, 250);
       function show(text, scroll) {
         note.textContent = text;
         note.hidden = false;
         if (scroll) note.scrollIntoView({ block: 'center', behavior: 'smooth' });
       }
-      window.sibFormLoadFailed = function () { blocked = true; show(BEFORE); };
+      window.sibFormLoadFailed = function () { blocked = true; show(BEFORE); showScreens(); };
       window.addEventListener('load', function () {
+        clearInterval(poll);
+        showScreens();
         setTimeout(function () { if (!ready() && !waiting) show(BEFORE); }, 3000);
       });
       form.addEventListener('submit', function (e) {
@@ -1017,7 +1031,7 @@
         btn.disabled = true;
         var tries = 0;
         var timer = setInterval(function () {
-          if (!ready() && ++tries < 32) return;
+          if (!ready() && ++tries < 80) return;
           clearInterval(timer);
           waiting = false;
           btn.disabled = false;
