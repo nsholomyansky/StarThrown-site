@@ -28,6 +28,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
+  <!-- Start the Brevo and reCAPTCHA downloads at the top of the page. Same two scripts and hosts as the tags at the end of the body; nothing new is loaded. -->
+  <link rel="preconnect" href="https://www.google.com" />
+  <link rel="preload" as="script" href="https://sibforms.com/forms/end-form/build/main.js" />
+  <link rel="preload" as="script" href="https://www.google.com/recaptcha/api.js?hl=en" />
 
   <style>
     *, *::before, *::after {
@@ -500,6 +504,47 @@
       filter: drop-shadow(0 0 8px rgba(240, 192, 96, 0.45));
     }
     .nav-home:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    /* "Sign up now": electric-blue glow, a light sweep and a slow pulse (still under reduced motion) */
+    .signup-head {
+      margin: 0.1rem 0 1rem;
+    }
+    .signup-title {
+      position: relative;
+      display: inline-block;
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.35rem, 5vw, 1.8rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: transparent;
+      background: linear-gradient(100deg, #6fd6ff 0%, #6fd6ff 42%, #ffffff 50%, #6fd6ff 58%, #6fd6ff 100%);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 0 2px rgba(190, 240, 255, 0.95)) drop-shadow(0 0 10px rgba(80, 200, 255, 0.8)) drop-shadow(0 0 26px rgba(79, 143, 255, 0.6));
+      animation: title-sweep 3.6s ease-in-out infinite;
+    }
+    .signup-title::before {
+      content: "";
+      position: absolute;
+      inset: -0.7em -1em;
+      z-index: -1;
+      background: radial-gradient(ellipse at center, rgba(80, 190, 255, 0.32), transparent 70%);
+      animation: title-pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes title-sweep {
+      0%, 30%  { background-position: 100% 0; }
+      80%, 100% { background-position: 0% 0; }
+    }
+    @keyframes title-pulse {
+      0%, 100% { opacity: 0.55; transform: scale(0.96); }
+      50%      { opacity: 1; transform: scale(1.04); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .signup-title, .signup-title::before { animation: none; }
+    }
     .date-line {
       font-size: 0.8rem;
       color: var(--gold);
@@ -682,6 +727,404 @@
       .info-panel { padding: 1.1rem 1.1rem; }
     }
   </style>
+  <style id="hero-art">
+    /* ═══════════════════════════════════════════════════════════════════
+       FINAL · LOGO HERO, CALMER. An additive layer: it restyles and wraps only.
+       No form field, name, id, notice or word below was changed.
+       Motion (research 4.3, 5): on arrival, one wordmark settle (0.7 s), then one SIGN UP NOW sweep and
+       two pulses; all of it ends by 2.7 s. Nothing else moves. Every animation is finite, and all
+       of them are off under prefers-reduced-motion. Nothing waits for the form.
+       ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      --ice: #bff0ff;
+      --cyan: #6fd6ff;
+      --earth-d: clamp(640px, 74vw, 980px);
+      --hero-h: 700px;
+      --logo-w: min(288px, 78vw);
+    }
+    @media (max-height: 720px) { :root { --logo-w: min(256px, 70vw); } }
+
+    .page { padding-top: 0; overflow-x: hidden; overflow-x: clip; }
+
+    /* The hero carries the logo, so the nav keeps only the menu, floated top right */
+    .nav {
+      position: absolute; top: 0.85rem; left: 0; right: 0;
+      width: 100%; max-width: 900px; margin: 0 auto; padding: 0 1.5rem;
+      justify-content: flex-end; z-index: 20;
+    }
+
+    /* ── Backdrop: nebula and stars (code-drawn, still) ── */
+    .hero-bg {
+      position: absolute; top: 0; left: 0; right: 0; height: var(--hero-h);
+      z-index: 0; overflow: hidden; pointer-events: none;
+      -webkit-mask-image: linear-gradient(#000 0, #000 86%, transparent 100%);
+              mask-image: linear-gradient(#000 0, #000 86%, transparent 100%);
+    }
+    .neb { position: absolute; inset: -4% -6%; }
+    .neb-1 {
+      background:
+        radial-gradient(62% 26% at 12% 15%, rgba(118, 74, 236, 0.46), transparent 72%),
+        radial-gradient(58% 30% at 94% 24%, rgba(30, 118, 255, 0.44), transparent 74%),
+        radial-gradient(52% 18% at 50% 14%, rgba(255, 176, 70, 0.22), transparent 72%),
+        radial-gradient(70% 20% at 20% 46%, rgba(0, 190, 230, 0.16), transparent 74%);
+    }
+    .neb-2 {
+      background:
+        radial-gradient(48% 22% at 78% 52%, rgba(150, 70, 220, 0.20), transparent 72%),
+        radial-gradient(60% 20% at 6% 34%, rgba(40, 110, 255, 0.24), transparent 72%),
+        linear-gradient(118deg, transparent 34%, rgba(150, 180, 255, 0.07) 50%, transparent 66%);
+    }
+    .hstars { position: absolute; inset: 0; background-repeat: no-repeat; }
+    .hstars-a { background-image:
+        radial-gradient(1.25px 1.25px at 45.4% 37.6%,#d4e8ff,transparent 72%),
+        radial-gradient(1.0px 1.0px at 50.8% 39.4%,#ffe9c4,transparent 72%),
+        radial-gradient(1.0px 1.0px at 47.7% 41.1%,#ffffff,transparent 72%),
+        radial-gradient(1.5px 1.5px at 44.9% 10.6%,#ffe9c4,transparent 72%),
+        radial-gradient(1.25px 1.25px at 62.9% 39.9%,#d4e8ff,transparent 72%),
+        radial-gradient(1.0px 1.0px at 64.8% 41.2%,#ffe9c4,transparent 72%),
+        radial-gradient(1.0px 1.0px at 3.4% 35.6%,#ffffff,transparent 72%),
+        radial-gradient(1.0px 1.0px at 20.3% 17.1%,#d4e8ff,transparent 72%),
+        radial-gradient(1.0px 1.0px at 33.3% 39.6%,#ffe9c4,transparent 72%),
+        radial-gradient(1.0px 1.0px at 24.4% 20.5%,#ffe9c4,transparent 72%),
+        radial-gradient(1.25px 1.25px at 10.2% 43.7%,#ffe9c4,transparent 72%),
+        radial-gradient(1.5px 1.5px at 97.6% 55.7%,#d4e8ff,transparent 72%),
+        radial-gradient(1.25px 1.25px at 32.3% 16.3%,#ffffff,transparent 72%),
+        radial-gradient(1.25px 1.25px at 8.7% 50.9%,#ffffff,transparent 72%),
+        radial-gradient(1.0px 1.0px at 83.3% 26.4%,#ffe9c4,transparent 72%),
+        radial-gradient(1.0px 1.0px at 2.1% 15.0%,#d4e8ff,transparent 72%),
+        radial-gradient(1.25px 1.25px at 38.0% 47.2%,#ffffff,transparent 72%),
+        radial-gradient(1.5px 1.5px at 56.4% 14.3%,#d4e8ff,transparent 72%),
+        radial-gradient(1.0px 1.0px at 34.3% 21.6%,#d4e8ff,transparent 72%),
+        radial-gradient(1.0px 1.0px at 74.8% 9.1%,#ffe9c4,transparent 72%),
+        radial-gradient(1.25px 1.25px at 11.7% 5.4%,#ffffff,transparent 72%),
+        radial-gradient(1.5px 1.5px at 67.5% 13.7%,#ffffff,transparent 72%),
+        radial-gradient(1.25px 1.25px at 96.6% 51.1%,#ffe9c4,transparent 72%),
+        radial-gradient(1.0px 1.0px at 38.8% 27.0%,#ffffff,transparent 72%),
+        radial-gradient(1.5px 1.5px at 27.9% 64.1%,#d4e8ff,transparent 72%),
+        radial-gradient(1.0px 1.0px at 97.8% 2.8%,#d4e8ff,transparent 72%),
+        radial-gradient(1.5px 1.5px at 97.6% 40.3%,#ffffff,transparent 72%),
+        radial-gradient(1.25px 1.25px at 6.0% 10.9%,#d4e8ff,transparent 72%),
+        radial-gradient(1.25px 1.25px at 2.9% 40.9%,#d4e8ff,transparent 72%),
+        radial-gradient(1.5px 1.5px at 9.0% 7.3%,#ffe9c4,transparent 72%); }
+    .hstars-b { background-image:
+        radial-gradient(2.1px 2.1px at 25.3% 40.3%,#ffe9c4,transparent 72%),
+        radial-gradient(2.1px 2.1px at 45.5% 63.4%,#ffe9c4,transparent 72%),
+        radial-gradient(2.5px 2.5px at 15.0% 26.4%,#ffffff,transparent 72%),
+        radial-gradient(2.5px 2.5px at 31.8% 16.2%,#ffffff,transparent 72%),
+        radial-gradient(2.5px 2.5px at 71.6% 11.7%,#ffe9c4,transparent 72%),
+        radial-gradient(2.1px 2.1px at 20.9% 62.8%,#ffe9c4,transparent 72%),
+        radial-gradient(1.7px 1.7px at 9.5% 4.6%,#ffffff,transparent 72%),
+        radial-gradient(2.5px 2.5px at 51.2% 18.0%,#ffe9c4,transparent 72%),
+        radial-gradient(2.5px 2.5px at 39.6% 28.6%,#d4e8ff,transparent 72%),
+        radial-gradient(2.5px 2.5px at 30.2% 12.8%,#ffffff,transparent 72%),
+        radial-gradient(2.5px 2.5px at 14.1% 32.4%,#ffe9c4,transparent 72%),
+        radial-gradient(1.7px 1.7px at 61.0% 19.6%,#ffe9c4,transparent 72%); }
+
+    /* ── One fleet, wide screens only, standing still: the phone's first screen has no open sky for it.
+          Its image loads once the form is ready and simply appears (no fly-in, no fade). ── */
+    .flt { display: none; position: absolute; left: max(0.5rem, calc(50% - 450px)); top: 150px; width: clamp(84px, 9vw, 116px); }
+    .flt img { display: block; width: 100%; height: auto; filter: drop-shadow(0 0 7px rgba(90, 200, 255, 0.5)); }
+
+    /* ── Hero: logo, label, headline ── */
+    .hero { position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column; align-items: center; padding-top: 1.35rem; }
+    .hero-home { display: block; line-height: 0; border-radius: 14px; -webkit-tap-highlight-color: transparent; }
+    .hero-home:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+    /* the one settle, on arrival: the wordmark scales 1.03 to 1.0 in 0.7 s (research 4.3) */
+    .logo-stage { position: relative; width: var(--logo-w); margin: 0 auto; animation: logo-settle 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    @keyframes logo-settle { from { transform: scale(1.03); } to { transform: none; } }
+    /* a darkened pool of space behind the wordmark, so it sits on a calm area (brand doc 5.1) */
+    .logo-stage::before {
+      content: ''; position: absolute; z-index: 0; inset: -26% -40% -34%;
+      background: radial-gradient(closest-side, rgba(3, 6, 16, 0.64), rgba(3, 6, 16, 0.32) 58%, transparent);
+    }
+    .logo-aura {
+      position: absolute; z-index: 1; left: -24%; right: -24%; top: -30%; bottom: -26%;
+      background:
+        radial-gradient(closest-side, rgba(255, 190, 90, 0.26), rgba(255, 150, 60, 0.08) 55%, transparent 100%),
+        radial-gradient(closest-side at 50% 60%, rgba(70, 150, 255, 0.26), transparent 100%);
+    }
+    .hero-logo {
+      position: relative; z-index: 2; display: block; width: 100%; height: auto;
+      filter: drop-shadow(0 0 10px rgba(255, 186, 86, 0.30)) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.75));
+    }
+    .page-label {
+      display: inline-flex; align-items: center; gap: 0.7em;
+      margin: 1.45rem 0 0.4rem; padding: 0.26rem 0.95rem;
+      border: 1px solid rgba(240, 192, 96, 0.5); border-radius: 999px;
+      background: rgba(8, 13, 26, 0.6);
+      box-shadow: 0 0 16px rgba(240, 192, 96, 0.2), inset 0 0 12px rgba(240, 192, 96, 0.08);
+      filter: none; position: relative; z-index: 2;
+    }
+    .page-label::before, .page-label::after { content: ''; width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); box-shadow: 0 0 7px var(--gold); }
+    .page-heading {
+      position: relative; z-index: 2; margin-bottom: 0;
+      font-size: clamp(1rem, 4.5vw, 1.55rem); line-height: 1.3;
+      color: transparent;
+      background: linear-gradient(180deg, #fff1c8 0%, #f4c86a 52%, #c98f2c 100%);
+      -webkit-background-clip: text; background-clip: text;
+      filter: drop-shadow(0 0 10px rgba(240, 192, 96, 0.38));
+    }
+    .page-desc {
+      position: relative; z-index: 3; max-width: 342px; text-wrap: balance;
+      margin: 0.5rem 0 0.7rem; font-size: 0.88rem; line-height: 1.5; color: #e6eefb;
+      text-shadow: 0 1px 8px #05080f, 0 0 3px #05080f;
+    }
+    /* her sentence on a line of its own (research E4); same words */
+    .page-desc .solo { display: block; color: #fff; font-weight: 400; }
+
+    /* ── Dates: a two-stop mission timeline in glass ── */
+    .date-line {
+      position: relative; z-index: 3; display: grid; width: 100%; max-width: 420px;
+      margin: 0 0 0.7rem; padding: 0.22rem 0.9rem; text-align: left; line-height: 1.25;
+      border: 1px solid rgba(111, 214, 255, 0.32); border-radius: 14px;
+      background: linear-gradient(135deg, rgba(40, 80, 170, 0.34), rgba(7, 12, 26, 0.86) 55%, rgba(60, 50, 40, 0.5));
+      box-shadow: 0 0 26px rgba(79, 143, 255, 0.18), inset 0 0 22px rgba(111, 214, 255, 0.06);
+    }
+    .dl { position: relative; padding: 0.26rem 0 0.26rem 1.5rem; }
+    .dl + .dl { border-top: 1px solid rgba(111, 214, 255, 0.16); }
+    .dl::before {
+      content: ''; position: absolute; left: 0.1rem; top: 0.66rem; width: 9px; height: 9px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff, var(--gold) 55%, #b9791a); box-shadow: 0 0 10px rgba(240, 192, 96, 0.9);
+    }
+    .dl-what { display: block; font-size: 0.72rem; letter-spacing: 0.03em; color: #b4c4df; }
+    .date-line strong { display: block; font-size: 1rem; line-height: 1.3; font-weight: 500; letter-spacing: 0.01em; color: var(--gold); }
+
+    /* ── SIGN UP NOW: the approved electric-blue title, light rails, Earth rising behind ── */
+    .signup-head {
+      position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+      width: 100%; max-width: 560px; margin: 0.15rem 0 0.55rem;
+    }
+    /* On arrival, after the wordmark settles (0.7 s): one light sweep and two halo pulses, both over by 2.7 s (research 4.3) */
+    .signup-title { font-size: clamp(1.5rem, 6vw, 2rem); line-height: 1.15; animation: ft-title-sweep 2s ease-in-out 0.7s 1 both; }
+    .signup-title::before { opacity: 0.8; animation: ft-title-pulse 1s ease-in-out 0.7s 2 both; }
+    .signup-head::before, .signup-head::after {
+      content: ''; flex: 1; height: 2px; border-radius: 2px;
+      background: linear-gradient(90deg, transparent, rgba(111, 214, 255, 0.95)); box-shadow: 0 0 10px rgba(80, 190, 255, 0.8);
+    }
+    .signup-head::after { background: linear-gradient(270deg, transparent, rgba(111, 214, 255, 0.95)); }
+    @keyframes ft-title-sweep { 0%, 30% { background-position: 100% 0; } 80%, 100% { background-position: 0% 0; } }
+    @keyframes ft-title-pulse { 0%, 100% { opacity: 0.8; transform: none; } 50% { opacity: 1; transform: scale(1.06); } }
+
+    /* Earth's limb: its rim sits just above the title; the photo fades in once the form is ready */
+    .earth {
+      position: absolute; z-index: -1; pointer-events: none;
+      left: 50%; top: -310px; width: calc(var(--earth-d) + 520px); height: calc(var(--earth-d) * 0.6 + 260px);
+      margin-left: calc(var(--earth-d) / -2 - 260px);
+      -webkit-mask-image: linear-gradient(#000 0, #000 calc(100% - 200px), transparent 100%);
+              mask-image: linear-gradient(#000 0, #000 calc(100% - 200px), transparent 100%);
+    }
+    .earth-in { position: absolute; left: 260px; top: 260px; width: var(--earth-d); height: var(--earth-d); }
+    .earth-glow {
+      position: absolute; inset: 0; border-radius: 50%;
+      box-shadow:
+        0 -2px 14px 3px rgba(170, 236, 255, 0.85),
+        0 -8px 46px 8px rgba(70, 150, 255, 0.52),
+        0 -26px 120px 26px rgba(50, 100, 230, 0.30),
+        inset 0 3px 7px rgba(220, 247, 255, 0.95),
+        inset 0 10px 28px rgba(90, 178, 255, 0.50),
+        inset 0 30px 80px rgba(40, 100, 220, 0.20);
+    }
+    .earth-body {
+      position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+      background: radial-gradient(120% 55% at 50% 0%, #11509f 0%, #092654 26%, #050f26 52%, #040a18 100%);
+      -webkit-mask-image: linear-gradient(#000 0, #000 20%, transparent 44%);
+              mask-image: linear-gradient(#000 0, #000 20%, transparent 44%);
+    }
+    /* the photo's file loads once the form is ready (a transparent pixel until then) and simply appears: no fade */
+    /* The photo is a 560x210 crop, so at width:100% it covers only the top 37.5% of the disc, while .earth-body's own mask is still ~27% opaque there: without the
+       mask below, the photo's bottom edge showed as a hard horizontal line across the lit rim beside the form card (desktop and tablet). The photo now fades to
+       fully transparent at its own bottom edge, so no edge exists at any width or window height; the body mask and the glow are unchanged. */
+    .earth-body img {
+      position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0.9; filter: brightness(0.9) saturate(1.2);
+      -webkit-mask-image: linear-gradient(#000 0, #000 45%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.18) 90%, transparent 100%);
+              mask-image: linear-gradient(#000 0, #000 45%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.18) 90%, transparent 100%);
+    }
+    .earth-body::after {
+      content: ''; position: absolute; inset: 0;
+      /* a lit limb and a dark body: only the first ~45 px inside the rim is bright, so the title above sits on dark space */
+      background:
+        radial-gradient(90% 40% at 78% 0%, rgba(255, 244, 214, 0.14), transparent 70%),
+        radial-gradient(closest-side, rgba(4, 9, 22, 0.95) 0, rgba(4, 9, 22, 0.95) calc(var(--earth-d) / 2 - 48px), rgba(4, 9, 22, 0.62) calc(var(--earth-d) / 2 - 22px), rgba(4, 9, 22, 0.06) calc(var(--earth-d) / 2));
+    }
+
+    /* ── Glowing glass form card (a frame wraps the whole card as a unit) ── */
+    .form-frame { position: relative; z-index: 2; width: 100%; max-width: 560px; margin-bottom: 1.6rem; border-radius: 20px; }
+    .form-frame::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.6px; z-index: 3; pointer-events: none;
+      background: linear-gradient(140deg, rgba(150, 228, 255, 1), rgba(79, 143, 255, 0.35) 28%, rgba(240, 192, 96, 0.7) 62%, rgba(150, 228, 255, 0.95));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+              mask-composite: exclude;
+    }
+    .form-frame::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit; z-index: -1; pointer-events: none;
+      box-shadow: 0 0 30px rgba(79, 143, 255, 0.45), 0 0 90px rgba(79, 143, 255, 0.22), 0 0 160px rgba(111, 214, 255, 0.10);
+    }
+    .form-frame .form-card {
+      position: relative; z-index: 1; max-width: none; margin: 0; border: 0; border-radius: 20px;
+      padding: 0.95rem 1.6rem 1.15rem;
+      background:
+        radial-gradient(120% 40% at 50% 0%, rgba(79, 143, 255, 0.20), transparent 70%),
+        linear-gradient(180deg, rgba(10, 18, 40, 0.88), rgba(6, 10, 22, 0.93));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 0 70px rgba(79, 143, 255, 0.07);
+    }
+    #sib-container .entry__label { color: #a3b8da !important; margin-bottom: 0.4rem !important; }
+    .custom-field-label { color: #a3b8da; }
+    .email-hint { color: #98afd0; margin-top: 0.4rem; margin-bottom: 0.9rem; }
+    /* Brevo's own white wrapper around the input is made transparent, so the rounded field has no white corners */
+    #sib-container .entry__field {
+      position: relative; display: block; width: 100%; margin: 0;
+      background: transparent !important; border: 0 !important; border-radius: 0 !important; overflow: visible !important; box-shadow: none !important;
+    }
+    #sib-container .entry__field::after {
+      content: ''; position: absolute; inset: -3px; border-radius: 9px; pointer-events: none;
+      box-shadow: 0 0 0 1px rgba(111, 214, 255, 0.55), 0 0 20px rgba(80, 190, 255, 0.42);
+      opacity: 0.6;
+    }
+    #sib-container .entry__field:focus-within::after { opacity: 1; }
+    #sib-container input.input {
+      box-sizing: border-box !important; font-size: 1rem !important; padding: 0.6rem 1rem !important; height: 48px !important; min-height: 0 !important;
+      border-color: rgba(111, 214, 255, 0.5) !important;
+    }
+    .custom-radio__dot { border-color: rgba(111, 214, 255, 0.5); }
+    .custom-radio input:checked + .custom-radio__dot { box-shadow: 0 0 10px rgba(240, 192, 96, 0.7); }
+
+    /* Submit: the site's gold primary button with a baked-in highlight. Pressed and disabled states answer at once. */
+    #sib-container .sib-form-block__button {
+      position: relative !important; overflow: visible !important;
+      background:
+        linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.34) 46%, transparent 62%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0) 52%),
+        linear-gradient(135deg, #8a6010 0%, #f0c060 58%, #ffdc90 100%) !important;
+      box-shadow: 0 0 0 1px rgba(255, 224, 150, 0.55), 0 6px 24px rgba(240, 192, 96, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
+      font-size: 1rem !important; letter-spacing: 0.04em !important; padding: 0.9rem 2rem !important;
+      transition: transform 0.06s ease-out, filter 0.06s ease-out, opacity 0.2s, box-shadow 0.2s !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #sib-container .sib-form-block__button:active:not(:disabled) {
+      transform: translateY(1px) scale(0.985) !important; filter: brightness(1.12) !important;
+      box-shadow: 0 0 0 1px rgba(255, 224, 150, 0.8), 0 2px 12px rgba(240, 192, 96, 0.5), inset 0 2px 6px rgba(80, 50, 0, 0.35) !important;
+    }
+    /* While the load guard holds an early tap (or Brevo is sending), the button is disabled: dim it and show Brevo's own loader icon */
+    #sib-container .sib-form-block__button:disabled { opacity: 0.8 !important; cursor: progress !important; filter: saturate(0.8) !important; }
+    #sib-container .sib-form-block__button:disabled .sib-hide-loader-icon { display: inline-block; fill: #05080f; }
+
+    /* ── Section rails, luminous panels ── */
+    .rail { position: relative; width: 100%; max-width: 560px; height: 12px; margin: 0.1rem 0 1.15rem; }
+    .rail::before {
+      content: ''; position: absolute; left: 0; right: 0; top: 5px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(111, 214, 255, 0.7) 30%, rgba(240, 192, 96, 0.8) 50%, rgba(111, 214, 255, 0.7) 70%, transparent);
+    }
+    .rail::after { content: ''; position: absolute; left: 50%; top: 1px; width: 8px; height: 8px; margin-left: -4px; background: var(--gold); transform: rotate(45deg); box-shadow: 0 0 12px var(--gold); }
+    .info-panel {
+      position: relative; border: 0; border-radius: 18px;
+      background:
+        radial-gradient(ellipse at 10% 0%, rgba(79, 143, 255, 0.22), transparent 58%),
+        radial-gradient(ellipse at 100% 100%, rgba(240, 192, 96, 0.10), transparent 58%),
+        rgba(8, 14, 30, 0.78);
+      box-shadow: 0 0 34px rgba(79, 143, 255, 0.16), inset 0 0 44px rgba(79, 143, 255, 0.05);
+    }
+    .info-panel::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+      background: linear-gradient(135deg, rgba(111, 214, 255, 0.75), rgba(79, 143, 255, 0.12) 42%, rgba(240, 192, 96, 0.55));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+              mask-composite: exclude;
+    }
+    .panel-heading { display: flex; align-items: center; gap: 0.7rem; filter: drop-shadow(0 0 6px rgba(240, 192, 96, 0.35)); }
+    .panel-heading::before { content: ''; flex: none; width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); box-shadow: 0 0 9px var(--gold); }
+    .panel-heading::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(240, 192, 96, 0.6), transparent); }
+    .steps { list-style: none; padding-left: 0; counter-reset: st; gap: 0.85rem; }
+    .steps li { position: relative; counter-increment: st; padding-left: 2.5rem; }
+    .steps li::before {
+      content: counter(st); position: absolute; left: 0; top: 0.05rem; width: 1.65rem; height: 1.65rem; border-radius: 50%;
+      display: grid; place-items: center; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.72rem; color: #05080f;
+      background: radial-gradient(circle at 32% 30%, #fff 0, #8fe4ff 38%, #4f8fff 100%); box-shadow: 0 0 14px rgba(80, 190, 255, 0.75);
+    }
+    .steps li:not(:last-child)::after { content: ''; position: absolute; left: 0.8rem; top: 1.85rem; bottom: -0.8rem; width: 1px; background: linear-gradient(180deg, rgba(111, 214, 255, 0.6), rgba(111, 214, 255, 0.05)); }
+    .facts { list-style: none; padding-left: 0; }
+    .facts li { position: relative; padding-left: 1.35rem; }
+    .facts li::before { content: ''; position: absolute; left: 0.1rem; top: 0.5em; width: 6px; height: 6px; background: var(--cyan); transform: rotate(45deg); box-shadow: 0 0 8px rgba(111, 214, 255, 0.9); }
+
+    /* ── The game's screens, directly under the form: plain rounded cards, as the base has them (research 5: no frame, bezel or
+          overlay on the screens). Only the row's spacing changes. On phones the row scrolls sideways, which clips anything drawn
+          outside it, so the row has enough padding for the base's soft card shadow to fade out inside it (no hard edge), and it runs
+          to the screen edges so the next card leaves the screen instead of ending at a cut line in the page ── */
+    .screens { margin-bottom: 0.4rem; }
+    @media (max-width: 699px) {
+      .screens { width: calc(100% + 3rem); max-width: none; margin: -18px -1.5rem 0.4rem; padding: 18px 1.5rem 24px; }
+    }
+    .screens a { cursor: zoom-in; }
+    /* a soft pool of light behind the row, drawn on the row's (non-scrolling) parent so the scroll row never clips it; it is not a frame.
+       Both gradients reach transparent inside the box, so the box has no visible edge (the old lower one ran past the box and ended in a straight line) */
+    .screens-stage { position: relative; isolation: isolate; width: 100%; max-width: 840px; }
+    .screens-stage::before {
+      content: ''; position: absolute; z-index: -1; left: -14%; right: -14%; top: -6%; bottom: -4%; pointer-events: none;
+      background:
+        radial-gradient(ellipse 52% 46% at 50% 46%, rgba(60, 140, 255, 0.30), rgba(90, 70, 230, 0.12) 55%, transparent 76%),
+        radial-gradient(ellipse 40% 16% at 50% 80%, rgba(111, 214, 255, 0.22), transparent 80%);
+    }
+    .info-row { position: relative; isolation: isolate; }
+    .info-row::before {
+      content: ''; position: absolute; z-index: -1; left: -10%; right: -10%; top: -8%; bottom: -6%; pointer-events: none;
+      background: radial-gradient(ellipse 45% 40% at 18% 28%, rgba(110, 70, 230, 0.20), transparent 70%), radial-gradient(ellipse 45% 42% at 86% 72%, rgba(40, 120, 255, 0.18), transparent 70%);
+    }
+    .faq-btn { margin-top: 0; }
+    footer { border-top-color: rgba(111, 214, 255, 0.14); padding-bottom: calc(1.5rem + 64px + env(safe-area-inset-bottom, 0px)); }
+
+    /* ── Lightbox for the screens: a tap enlarges in place at full resolution ── */
+    .shot-dialog { margin: auto; border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; max-height: 100dvh; overflow: hidden; color: #fff; }
+    .shot-dialog::backdrop { background: rgba(3, 6, 14, 0.9); }
+    .shot-dialog img { display: block; margin: 0 auto; max-width: 100vw; max-height: 100vh; max-height: 100dvh; width: auto; height: auto; object-fit: contain; }
+    .shot-close {
+      position: fixed; top: calc(0.6rem + env(safe-area-inset-top, 0px)); right: 0.6rem; z-index: 2; width: 44px; height: 44px;
+      border-radius: 50%; border: 1px solid rgba(160, 225, 255, 0.7); background: rgba(8, 13, 26, 0.85); color: #fff;
+      font: 400 1.7rem/1 'Space Grotesk', sans-serif; cursor: pointer; box-shadow: 0 0 14px rgba(79, 143, 255, 0.5);
+    }
+    .shot-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* ── Pinned sign-up bar: appears only once the form has scrolled out of view; hidden while a form field has focus ── */
+    .pin-bar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+      padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+      background: linear-gradient(180deg, rgba(5, 8, 15, 0), rgba(5, 8, 15, 0.92) 38%);
+      transform: translateY(110%); visibility: hidden; transition: transform 0.22s ease-out, visibility 0s linear 0.22s;
+    }
+    .pin-bar.is-on { transform: none; visibility: visible; transition: transform 0.22s ease-out; }
+    .pin-btn {
+      display: block; width: 100%; max-width: 560px; margin: 0 auto; padding: 0.8rem 1.5rem; border: 0; border-radius: 6px; cursor: pointer;
+      font: 600 1rem 'Space Grotesk', sans-serif; letter-spacing: 0.04em; color: #05080f;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0) 52%),
+        linear-gradient(135deg, #8a6010 0%, #f0c060 58%, #ffdc90 100%);
+      box-shadow: 0 0 0 1px rgba(255, 224, 150, 0.55), 0 4px 18px rgba(240, 192, 96, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+      -webkit-tap-highlight-color: transparent; transition: transform 0.06s ease-out, filter 0.06s ease-out;
+    }
+    .pin-btn:active { transform: translateY(1px) scale(0.985); filter: brightness(1.12); }
+    .pin-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* ── Desktop ── */
+    @media (min-width: 760px) {
+      :root { --hero-h: 880px; }
+      .logo-stage { width: 440px; }
+      .hero { padding-top: 2.4rem; }
+      .page-desc { max-width: 560px; font-size: 0.95rem; }
+      .date-line { grid-template-columns: 1fr 1fr; max-width: 640px; padding: 0.5rem 1.1rem; }
+      .dl + .dl { border-top: 0; border-left: 1px solid rgba(111, 214, 255, 0.16); padding-left: 1.9rem; }
+      .dl:nth-child(2)::before { left: 0.4rem; }
+      .flt { display: block; }
+    }
+    @media (max-width: 480px) { .form-frame .form-card { padding: 0.9rem 1.15rem 1.05rem; } }
+    /* very narrow phones: keep the headline on one line (T10) */
+    @media (max-width: 345px) { .page-heading { font-size: 0.82rem; letter-spacing: 0.06em; } }
+
+    /* ── Reduced motion: every animation and transition off; the page stands still and finished ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -689,8 +1132,16 @@
 
   <div class="page">
 
+    <!-- Hero backdrop: nebula and stars, code-drawn and still. On wide screens one fleet holds station (an image, no motion). -->
+    <div class="hero-bg" aria-hidden="true">
+      <div class="neb neb-1"></div>
+      <div class="neb neb-2"></div>
+      <div class="hstars hstars-a"></div>
+      <div class="hstars hstars-b"></div>
+      <span class="flt"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-art="/img/hero-fleet.webp" width="180" height="139" alt="" /></span>
+    </div>
+
     <nav class="nav" aria-label="Site">
-      <a href="/" class="nav-home" aria-label="Star Thrown home"><img src="/img/nav-logo.webp" width="240" height="135" alt="Star Thrown" class="nav-logo" /></a>
       <div class="site-menu">
         <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">
           <span></span><span></span><span></span>
@@ -705,19 +1156,27 @@
 
     <main>
 
-      <p class="page-label">Free to Join · 18+</p>
-      <h1 class="page-heading">Be First Into the Galaxy</h1>
-      <div class="divider"></div>
+      <header class="hero">
+        <a href="/" class="hero-home" aria-label="Star Thrown home">
+        <div class="logo-stage">
+          <div class="logo-aura" aria-hidden="true"></div>
+          <img class="hero-logo" src="/img/hero-logo.webp" width="640" height="387" alt="Star Thrown" fetchpriority="high" decoding="async" />
+        </div>
+        </a>
+        <p class="page-label">Free to Join · 18+</p>
+        <h1 class="page-heading">Be First Into the Galaxy</h1>
+      </header>
 
       <p class="page-desc">
-        Here's your opportunity to play Star Thrown™ before it launches and leave your
-        fingerprint on the game. It's built by just one person: me. Your honest first
-        impressions mean the world to me. Join an Alliance in one 18-day, 5x Speed Round,
-        free on iPhone and Android.
+        Here's your opportunity to play Star Thrown™, a mobile strategy game set in Space, before it
+        launches. <span class="solo">It's built by just one person: me.</span>
       </p>
 
-      <p class="date-line">The beta opens <strong>Saturday, November&nbsp;7 at 12&nbsp;PM&nbsp;EST</strong>.<br>The round starts <strong>Monday, November&nbsp;9 at 12&nbsp;PM&nbsp;EST</strong>.</p>
+      <p class="date-line"><span class="dl"><span class="dl-what">The beta opens</span> <strong>Sat,&nbsp;Nov&nbsp;7,&nbsp;12&nbsp;PM&nbsp;EST.</strong></span><span class="dl"><span class="dl-what">The 18-day, 5x Speed Round starts</span> <strong>Mon,&nbsp;Nov&nbsp;9,&nbsp;12&nbsp;PM&nbsp;EST.</strong></span></p>
 
+      <div class="signup-head"><span class="earth" aria-hidden="true"><span class="earth-in"><span class="earth-glow"></span><span class="earth-body"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-art="/img/hero-earth.webp" width="560" height="210" alt="" /></span></span></span><h2 class="signup-title">Sign up now</h2></div>
+
+      <div class="form-frame">
       <div class="form-card">
 
         <!-- Begin Brevo Form -->
@@ -841,14 +1300,21 @@
         <p class="recaptcha-notice">Protected by reCAPTCHA — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> &amp; <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a></p>
 
       </div>
+      </div>
 
-      <a href="/beta/faq" class="faq-btn">Read the Beta FAQ</a>
-
+      <div class="screens-stage">
       <div class="screens">
         <a href="/img/beta-map.webp" target="_blank" rel="noopener"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/beta-map.webp" width="1080" height="1920" alt="Star Thrown galaxy map: Stardust's fleet and three allied fleets closing on Outpost 52." /></a>
         <a href="/img/beta-home.webp" target="_blank" rel="noopener"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/beta-home.webp" width="1080" height="1920" alt="Star Thrown Home screen: Fleet 1 is on its way to attack Outpost 52, with resources, news and the round's end date." /></a>
         <a href="/img/beta-fleet.webp" target="_blank" rel="noopener"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/beta-fleet.webp" width="1080" height="1920" alt="Star Thrown Fleet screen: orders for three fleets, with Fleet 1 attacking Outpost 52, and each fleet's captain and ships." /></a>
       </div>
+      </div>
+
+      <p class="page-desc" style="margin-top:1.1rem">Leave your fingerprint on the game: your honest first impressions mean the world to me. Join an Alliance in the Speed Round, free on iPhone and Android.</p>
+
+      <a href="/beta/faq" class="faq-btn">Read the Beta FAQ</a>
+
+      <div class="rail" aria-hidden="true"></div>
 
       <div class="info-row">
       <section class="info-panel" aria-labelledby="how-heading">
@@ -891,12 +1357,24 @@
     <p class="footer-press">iPhone and TestFlight are trademarks of Apple Inc., registered in the U.S. and other countries and regions.</p>
   </footer>
 
+  <!-- Screens lightbox: a tap on a screen enlarges it in place at full resolution (the plain links still work without script) -->
+  <dialog id="shot-dialog" class="shot-dialog">
+    <form method="dialog"><button class="shot-close" aria-label="Close">&times;</button></form>
+    <img alt="" width="1080" height="1920" />
+  </dialog>
+
+  <!-- Pinned sign-up bar: shown only after the form has scrolled out of view; a tap scrolls to the email field and focuses it -->
+  <div class="pin-bar" id="pin-bar"><button type="button" class="pin-btn">Sign up</button></div>
+
   <script>
     (function () {
       const canvas = document.getElementById('starfield');
       const ctx = canvas.getContext('2d');
       let stars = [];
       const STAR_COUNT = 260;
+      // Reduced motion: draw the stars once and stop. Hidden tab: stop the loop, restart when the tab returns.
+      const still = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      let looping = true;
       function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
       function seed() {
         stars = [];
@@ -912,10 +1390,12 @@
           ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(200, 220, 255, ${a})`; ctx.fill();
         });
+        if (still || document.hidden) { looping = false; return; }
         requestAnimationFrame(draw);
       }
       resize(); seed(); requestAnimationFrame(draw);
-      let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { resize(); seed(); }, 150); });
+      document.addEventListener('visibilitychange', () => { if (!document.hidden && !still && !looping) { looping = true; requestAnimationFrame(draw); } });
+      let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { resize(); seed(); if (!looping) draw(); }, 150); });
     }());
   </script>
 
@@ -1039,6 +1519,78 @@
           else show(AFTER, true);
         }, 250);
       }, true);
+    }());
+  </script>
+  <script>
+    // Hero art: once the sign-up form is ready (the trigger the screenshots use), the Earth photo and, on wide screens,
+    // the fleet load. Nothing here competes with Brevo or reCAPTCHA while they load.
+    (function () {
+      var imgs = document.querySelectorAll('img[data-art]');
+      var wide = window.matchMedia('(min-width: 760px)').matches;
+      var done = false;
+      function ready() {
+        return typeof window.invisibleCaptchaCallback === 'function' &&
+          !!window.grecaptcha && typeof window.grecaptcha.execute === 'function';
+      }
+      function go() {
+        if (done) return;
+        done = true;
+        for (var i = 0; i < imgs.length; i++) {
+          if (!wide && imgs[i].closest('.flt')) continue;
+          imgs[i].src = imgs[i].getAttribute('data-art');
+        }
+      }
+      var poll = setInterval(function () { if (ready()) { clearInterval(poll); go(); } }, 250);
+      window.addEventListener('load', function () { clearInterval(poll); go(); });
+    }());
+  </script>
+  <script>
+    // Screens lightbox (first-party <dialog>): without script, or in a browser without <dialog>, the links open the image as before.
+    (function () {
+      var dlg = document.getElementById('shot-dialog');
+      if (!dlg || typeof dlg.showModal !== 'function') return;
+      var img = dlg.querySelector('img');
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('.screens a');
+        if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+        var t = a.querySelector('img');
+        e.preventDefault();
+        img.alt = t.alt;
+        img.src = a.getAttribute('href');
+        dlg.showModal();
+      });
+      dlg.addEventListener('click', function (e) { if (!e.target.closest('.shot-close')) dlg.close(); });
+      dlg.addEventListener('close', function () { img.removeAttribute('src'); });
+    }());
+  </script>
+  <script>
+    // Pinned sign-up bar. Shown only once the whole form card has scrolled up out of view; hidden again as soon as any
+    // part of the card is on screen, a form field has focus (so it is gone before a keyboard opens), or the sign-up has gone through.
+    (function () {
+      var bar = document.getElementById('pin-bar');
+      var card = document.querySelector('.form-frame');
+      var email = document.getElementById('EMAIL');
+      var okMsg = document.getElementById('success-message');
+      if (!bar || !card || !email || !('IntersectionObserver' in window)) return;
+      var gone = false, focused = false;
+      function paint() {
+        var done = !!okMsg && okMsg.classList.contains('sib-form-message-panel--active');
+        bar.classList.toggle('is-on', gone && !focused && !done);
+      }
+      new IntersectionObserver(function (entries) {
+        var e = entries[entries.length - 1];
+        gone = !e.isIntersecting && e.boundingClientRect.bottom <= 0;
+        paint();
+      }).observe(card);
+      function inForm() { var a = document.activeElement; return !!(a && a.closest && a.closest('.form-frame')); }
+      document.addEventListener('focusin', function () { focused = inForm(); paint(); });
+      document.addEventListener('focusout', function () { setTimeout(function () { focused = inForm(); paint(); }, 0); });
+      if (okMsg && window.MutationObserver) new MutationObserver(paint).observe(okMsg, { attributes: true, attributeFilter: ['class'] });
+      bar.querySelector('button').addEventListener('click', function () {
+        var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        email.scrollIntoView({ block: 'center', behavior: calm ? 'auto' : 'smooth' });
+        email.focus({ preventScroll: true });
+      });
     }());
   </script>
   <script defer src="https://sibforms.com/forms/end-form/build/main.js" onerror="sibFormLoadFailed()"></script>
