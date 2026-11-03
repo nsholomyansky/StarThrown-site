@@ -1,0 +1,20 @@
+{
+  "databaseHost": null,
+  "devDatabaseHost": "ai-wars-dev-default-rtdb.firebaseio.com",
+  "documentPath": "publicTrainingOdds",
+  "schemaVersion": 1,
+  "upcomingSchemaVersion": 1,
+  "siteUrl": "https://starthrown.com",
+  "pageFile": "training-odds.html",
+  "defaultLocale": "en",
+  "locales": ["en", "es", "ja", "ko", "de", "fr", "tr"],
+  "localeNames": {
+    "en": "English",
+    "es": "Español",
+    "ja": "日本語",
+    "ko": "한국어",
+    "de": "Deutsch",
+    "fr": "Français",
+    "tr": "Türkçe"
+  }
+}

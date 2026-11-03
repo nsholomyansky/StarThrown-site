@@ -1,0 +1,541 @@
+{
+  "galaxy_seam_a": {
+    "schemaVersion": 1,
+    "galaxyId": "galaxy_seam_a",
+    "galaxyName": "Synth",
+    "roundId": "002",
+    "roundLabel": "2",
+    "roundStatus": "Upcoming",
+    "roundStartMs": 1794679200000,
+    "tableFrozenAt": 1794420000000,
+    "effectiveFromMs": 1794679200000,
+    "source": "round",
+    "valid": true,
+    "experience": {
+      "x001": {
+        "type": "Experience",
+        "amount": "50",
+        "amountText": "50",
+        "weight": "0.15",
+        "percent": "15.0%"
+      },
+      "x002": {
+        "type": "Experience",
+        "amount": "100",
+        "amountText": "100",
+        "weight": "0.24",
+        "percent": "24.0%"
+      }
+    },
+    "captains": {
+      "c001": {
+        "type": "Captain Unlock",
+        "captain": "Vekk",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.31",
+        "percent": "31.0%",
+        "levelCap": 18,
+        "levelCapText": "18"
+      },
+      "c002": {
+        "type": "Captain Unlock",
+        "captain": "Teklan",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.3",
+        "percent": "30.0%",
+        "levelCap": 14,
+        "levelCapText": "14"
+      }
+    },
+    "experienceTotalPercent": "39.0%",
+    "captainsTotalPercent": "61.0%",
+    "duplicateXpAmount": "1000",
+    "duplicateXpAmountText": "1,000",
+    "publishedAt": 1015,
+    "upcoming": {
+      "schemaVersion": 1,
+      "kind": "scheduled",
+      "roundId": "002",
+      "roundLabel": "2",
+      "announcedStartMs": 1794679200000,
+      "opensAtMs": 1794679200000,
+      "previous": {
+        "roundId": "001",
+        "roundLabel": "1",
+        "effectiveFromMs": 1793556000000
+      },
+      "changeCount": 3,
+      "rows": {
+        "x001": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          },
+          "new": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          }
+        },
+        "x002": {
+          "type": "Experience",
+          "status": "changed",
+          "previous": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.45",
+            "percent": "45.0%"
+          },
+          "new": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.24",
+            "percent": "24.0%"
+          }
+        },
+        "c001": {
+          "type": "Captain Unlock",
+          "captain": "Vekk",
+          "status": "added",
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.31",
+            "percent": "31.0%",
+            "levelCap": 18,
+            "levelCapText": "18"
+          }
+        },
+        "c002": {
+          "type": "Captain Unlock",
+          "captain": "Teklan",
+          "status": "unchanged",
+          "levelCapChanged": true,
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.3",
+            "percent": "30.0%",
+            "levelCap": 12,
+            "levelCapText": "12"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.3",
+            "percent": "30.0%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          }
+        },
+        "c003": {
+          "type": "Captain Unlock",
+          "captain": "Lirra",
+          "status": "removed",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.1",
+            "percent": "10.0%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          }
+        }
+      },
+      "totals": {
+        "experience": {
+          "previous": "60.0%",
+          "new": "39.0%"
+        },
+        "captains": {
+          "previous": "40.0%",
+          "new": "61.0%"
+        }
+      }
+    }
+  },
+  "galaxy_seam_b": {
+    "schemaVersion": 1,
+    "galaxyId": "galaxy_seam_b",
+    "galaxyName": "Synth",
+    "roundId": "001",
+    "roundLabel": "1",
+    "roundStatus": "Active",
+    "roundStartMs": 1793556000000,
+    "tableFrozenAt": 1793383200000,
+    "effectiveFromMs": 1794420001000,
+    "source": "round",
+    "valid": true,
+    "experience": {
+      "x001": {
+        "type": "Experience",
+        "amount": "50",
+        "amountText": "50",
+        "weight": "0.15",
+        "percent": "15.0%"
+      },
+      "x002": {
+        "type": "Experience",
+        "amount": "100",
+        "amountText": "100",
+        "weight": "0.44",
+        "percent": "44.0%"
+      }
+    },
+    "captains": {
+      "c001": {
+        "type": "Captain Unlock",
+        "captain": "Teklan",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.3",
+        "percent": "30.0%",
+        "levelCap": 12,
+        "levelCapText": "12"
+      },
+      "c002": {
+        "type": "Captain Unlock",
+        "captain": "Lirra",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.11",
+        "percent": "11.0%",
+        "levelCap": 14,
+        "levelCapText": "14"
+      }
+    },
+    "experienceTotalPercent": "59.0%",
+    "captainsTotalPercent": "41.0%",
+    "duplicateXpAmount": "1000",
+    "duplicateXpAmountText": "1,000",
+    "publishedAt": 1018,
+    "upcoming": {
+      "schemaVersion": 1,
+      "kind": "midRound",
+      "roundId": "001",
+      "roundLabel": "1",
+      "announcedStartMs": 1793556000000,
+      "opensAtMs": 1793556000000,
+      "detectedAt": 1794420001000,
+      "expiresAtMs": 1795024801000,
+      "reason": "Fixed a typo <b>& more</b>",
+      "previous": {
+        "roundId": "001",
+        "roundLabel": "1",
+        "effectiveFromMs": 1793556000000
+      },
+      "changeCount": 2,
+      "rows": {
+        "x001": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          },
+          "new": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          }
+        },
+        "x002": {
+          "type": "Experience",
+          "status": "changed",
+          "previous": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.45",
+            "percent": "45.0%"
+          },
+          "new": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.44",
+            "percent": "44.0%"
+          }
+        },
+        "c001": {
+          "type": "Captain Unlock",
+          "captain": "Teklan",
+          "status": "unchanged",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.3",
+            "percent": "30.0%",
+            "levelCap": 12,
+            "levelCapText": "12"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.3",
+            "percent": "30.0%",
+            "levelCap": 12,
+            "levelCapText": "12"
+          }
+        },
+        "c002": {
+          "type": "Captain Unlock",
+          "captain": "Lirra",
+          "status": "changed",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.1",
+            "percent": "10.0%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.11",
+            "percent": "11.0%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          }
+        }
+      },
+      "totals": {
+        "experience": {
+          "previous": "60.0%",
+          "new": "59.0%"
+        },
+        "captains": {
+          "previous": "40.0%",
+          "new": "41.0%"
+        }
+      }
+    }
+  },
+  "galaxy_seam_c": {
+    "schemaVersion": 1,
+    "galaxyId": "galaxy_seam_c",
+    "galaxyName": "Synth",
+    "roundId": "002",
+    "roundLabel": "2",
+    "roundStatus": "Upcoming",
+    "roundStartMs": 1794679200000,
+    "tableFrozenAt": 1794420000000,
+    "effectiveFromMs": 1794679200000,
+    "source": "round",
+    "valid": true,
+    "experience": {
+      "x001": {
+        "type": "Experience",
+        "amount": "50",
+        "amountText": "50",
+        "weight": "0.15",
+        "percent": "15.0%"
+      },
+      "x002": {
+        "type": "Experience",
+        "amount": "100",
+        "amountText": "100",
+        "weight": "0.45",
+        "percent": "45.0%"
+      }
+    },
+    "captains": {
+      "c001": {
+        "type": "Captain Unlock",
+        "captain": "Teklan",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.3",
+        "percent": "30.0%",
+        "levelCap": 12,
+        "levelCapText": "12"
+      },
+      "c002": {
+        "type": "Captain Unlock",
+        "captain": "Lirra",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.1",
+        "percent": "10.0%",
+        "levelCap": 14,
+        "levelCapText": "14"
+      }
+    },
+    "experienceTotalPercent": "60.0%",
+    "captainsTotalPercent": "40.0%",
+    "duplicateXpAmount": "1000",
+    "duplicateXpAmountText": "1,000",
+    "publishedAt": 1021
+  },
+  "galaxy_seam_d": {
+    "schemaVersion": 1,
+    "galaxyId": "galaxy_seam_d",
+    "galaxyName": "Synth",
+    "roundId": "002",
+    "roundLabel": "2",
+    "roundStatus": "Upcoming",
+    "roundStartMs": 1794427200000,
+    "tableFrozenAt": 1794420000000,
+    "effectiveFromMs": 1794506400000,
+    "source": "round",
+    "valid": true,
+    "experience": {
+      "x001": {
+        "type": "Experience",
+        "amount": "50",
+        "amountText": "50",
+        "weight": "0.15",
+        "percent": "15.0%"
+      },
+      "x002": {
+        "type": "Experience",
+        "amount": "100",
+        "amountText": "100",
+        "weight": "0.24",
+        "percent": "24.0%"
+      }
+    },
+    "captains": {
+      "c001": {
+        "type": "Captain Unlock",
+        "captain": "Vekk",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.31",
+        "percent": "31.0%",
+        "levelCap": 18,
+        "levelCapText": "18"
+      },
+      "c002": {
+        "type": "Captain Unlock",
+        "captain": "Teklan",
+        "amount": "1000",
+        "amountText": "1,000",
+        "weight": "0.3",
+        "percent": "30.0%",
+        "levelCap": 14,
+        "levelCapText": "14"
+      }
+    },
+    "experienceTotalPercent": "39.0%",
+    "captainsTotalPercent": "61.0%",
+    "duplicateXpAmount": "1000",
+    "duplicateXpAmountText": "1,000",
+    "publishedAt": 1024,
+    "upcoming": {
+      "schemaVersion": 1,
+      "kind": "scheduled",
+      "roundId": "002",
+      "roundLabel": "2",
+      "announcedStartMs": 1794427200000,
+      "opensAtMs": 1794506400000,
+      "previous": {
+        "roundId": "001",
+        "roundLabel": "1",
+        "effectiveFromMs": 1793556000000
+      },
+      "changeCount": 3,
+      "rows": {
+        "x001": {
+          "type": "Experience",
+          "status": "unchanged",
+          "previous": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          },
+          "new": {
+            "amount": "50",
+            "amountText": "50",
+            "weight": "0.15",
+            "percent": "15.0%"
+          }
+        },
+        "x002": {
+          "type": "Experience",
+          "status": "changed",
+          "previous": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.45",
+            "percent": "45.0%"
+          },
+          "new": {
+            "amount": "100",
+            "amountText": "100",
+            "weight": "0.24",
+            "percent": "24.0%"
+          }
+        },
+        "c001": {
+          "type": "Captain Unlock",
+          "captain": "Vekk",
+          "status": "added",
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.31",
+            "percent": "31.0%",
+            "levelCap": 18,
+            "levelCapText": "18"
+          }
+        },
+        "c002": {
+          "type": "Captain Unlock",
+          "captain": "Teklan",
+          "status": "unchanged",
+          "levelCapChanged": true,
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.3",
+            "percent": "30.0%",
+            "levelCap": 12,
+            "levelCapText": "12"
+          },
+          "new": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.3",
+            "percent": "30.0%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          }
+        },
+        "c003": {
+          "type": "Captain Unlock",
+          "captain": "Lirra",
+          "status": "removed",
+          "previous": {
+            "amount": "1000",
+            "amountText": "1,000",
+            "weight": "0.1",
+            "percent": "10.0%",
+            "levelCap": 14,
+            "levelCapText": "14"
+          }
+        }
+      },
+      "totals": {
+        "experience": {
+          "previous": "60.0%",
+          "new": "39.0%"
+        },
+        "captains": {
+          "previous": "40.0%",
+          "new": "61.0%"
+        }
+      }
+    }
+  }
+}

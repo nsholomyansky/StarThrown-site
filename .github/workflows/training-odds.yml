@@ -1,0 +1,111 @@
+# BL-557: keeps training-odds.html (and its translations) equal to the public odds document.
+# Hourly: rebuild the pages; commit and push to main only when a page changed.
+# Daily (the 05:07 UTC run): also check the committed and the deployed pages against the SAME
+# document that run built from, so a document change between a build and the check is never a
+# false alarm; the deployed check waits for GitHub Pages to publish that run's push.
+# No secrets: the document is public-read, and the push uses this workflow's own GITHUB_TOKEN.
+# How it works, and how to switch to production: _tools/training-odds/README.md.
+# Until config.json names the production databaseHost, every run fails and writes nothing.
+
+name: Training odds
+
+on:
+  schedule:
+    - cron: '7 0-4,6-23 * * *'  # hourly build (keep in step with the 'daily' step below)
+    - cron: '7 5 * * *'         # the same build, plus the daily check
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'What to run'
+        type: choice
+        options: [build, check]
+        default: build
+
+permissions:
+  contents: write
+
+concurrency:
+  group: training-odds
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: ${{ github.event_name == 'schedule' || inputs.job == 'build' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Exit 0 = pages built. Exit 3 = pages built, but a galaxy's table is invalid and its entry
+      # says "temporarily unavailable": commit that, then fail the job below so the owner is told.
+      # Any other exit = nothing was written (no production host, document unreachable, empty, or malformed).
+      - name: Build the odds pages
+        id: build
+        run: |
+          set +e
+          node _tools/training-odds/build.mjs --save-document "$RUNNER_TEMP/odds-document.json"
+          code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -ne 0 ] && [ "$code" -ne 3 ]; then exit "$code"; fi
+          exit 0
+
+      - name: Commit and push if a page changed
+        run: |
+          git add -A -- ':(glob)**/training-odds.html'
+          if git diff --cached --quiet; then
+            echo "No page changed."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Training odds: update from the odds document'
+          if git push origin HEAD:main; then exit 0; fi
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Daily check, committed pages against the document this run built from
+        id: daily
+        if: ${{ github.event.schedule == '7 5 * * *' }}
+        run: node _tools/training-odds/check.mjs --input "$RUNNER_TEMP/odds-document.json"
+
+      # GitHub Pages publishes a push a minute or more after it lands; retry for up to 15 minutes.
+      # A page that still differs after that is reported (AC-W6).
+      - name: Daily check, deployed pages against the document this run built from
+        if: ${{ github.event.schedule == '7 5 * * *' && (success() || steps.daily.outcome == 'failure') }}
+        run: |
+          for i in $(seq 1 16); do
+            if node _tools/training-odds/check.mjs --deployed --input "$RUNNER_TEMP/odds-document.json"; then exit 0; fi
+            if [ "$i" -lt 16 ]; then echo "Retrying in 60s ($i/16)."; sleep 60; fi
+          done
+          exit 1
+
+      - name: Fail when a galaxy's odds are unavailable
+        if: ${{ steps.build.outputs.code == '3' }}
+        run: |
+          echo "::error::At least one galaxy's odds table is invalid, and the page says its odds are temporarily unavailable. See the 'Build the odds pages' log."
+          exit 1
+
+  # Manual only: checks the committed and deployed pages against the live document.
+  check:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.job == 'check' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check the committed pages against the odds document
+        run: node _tools/training-odds/check.mjs
+
+      - name: Check the deployed pages against the odds document
+        if: ${{ success() || failure() }}
+        run: node _tools/training-odds/check.mjs --deployed
