@@ -321,10 +321,15 @@ test('--dev without --root refuses before reading anything', () => {
   assert.equal(existsSync(join(c.site, CONFIG.pageFile)), false);
 });
 
-test('the shipped config names no production host, and a plain build refuses without touching the network', () => {
-  assert.equal(CONFIG.databaseHost, null, 'databaseHost is set only when production serves the document');
+test('the shipped config never names the dev host, and an unset databaseHost refuses without touching the network', () => {
+  // Staging during the beta, production from launch (owner, 2026-11-03); never dev's odds on starthrown.com.
+  assert.equal(typeof CONFIG.databaseHost, 'string');
+  assert.doesNotMatch(CONFIG.databaseHost, /ai-wars-dev/);
+  assert.notEqual(CONFIG.databaseHost, CONFIG.devDatabaseHost);
   assert.match(CONFIG.devDatabaseHost, /^ai-wars-dev-/);
   const c = toolCopy();
+  const cfgPath = join(c.site, '_tools', 'training-odds', 'config.json');
+  writeFileSync(cfgPath, JSON.stringify({ ...CONFIG, databaseHost: null }), 'utf8');
   for (const script of [c.build, c.check]) {
     const r = run(script, []);
     assert.equal(r.code, 1);

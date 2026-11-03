@@ -64,7 +64,7 @@ worse than an hour-old page. The daily check compares the pointer and the block 
 
 | File | What it is |
 |---|---|
-| `config.json` | `databaseHost` (the production database; **`null` until production serves the document**, and every run fails until it is set), `devDatabaseHost` (previews only), page file name, site URL, locales |
+| `config.json` | `databaseHost` (the database of the players the page discloses to: **staging during the beta**, production from launch; every run fails if it is unset), `devDatabaseHost` (previews only), page file name, site URL, locales |
 | `i18n/<locale>.json` | Every word on the page. `en.json` is the reference: other locales must have every key it has |
 | `lib.mjs` | Shared plumbing: reading the config, the document and the strings, and validating the document |
 | `build.mjs` | Renders the pages |
@@ -104,6 +104,9 @@ switch on, the date is when the round opens). So a page changes once more when t
 on the next hourly run. `--now <Unix ms>` stands in for the clock in tests and previews.
 
 ## Switch to production
+
+**Now: `databaseHost` is staging (`starthrown-staging-default-rtdb.firebaseio.com`), the beta's database,
+because the beta testers are the only players (owner, 2026-11-03). At launch, switch with the steps below.**
 
 1. Deploy the `publicTrainingOdds` security rule (`.read: true`, `.write: false`) and the publisher to
    the production project first.

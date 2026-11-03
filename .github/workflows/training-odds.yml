@@ -5,7 +5,7 @@
 # false alarm; the deployed check waits for GitHub Pages to publish that run's push.
 # No secrets: the document is public-read, and the push uses this workflow's own GITHUB_TOKEN.
 # How it works, and how to switch to production: _tools/training-odds/README.md.
-# Until config.json names the production databaseHost, every run fails and writes nothing.
+# config.json databaseHost: staging during the beta (owner, 2026-11-03), production from launch.
 
 name: Training odds
 

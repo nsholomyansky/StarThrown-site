@@ -14,8 +14,8 @@ export function loadConfig() {
   return JSON.parse(readFileSync(join(TOOL_DIR, 'config.json'), 'utf8'));
 }
 
-// databaseHost is the PRODUCTION database and stays null until production serves the document:
-// starthrown.com must never show another environment's odds as the disclosure. --dev reads
+// databaseHost is the database of the players this page discloses odds to: staging during the beta
+// (owner, 2026-11-03), production from launch. starthrown.com must never show dev's odds. --dev reads
 // devDatabaseHost instead, for previews only (build.mjs refuses --dev without --root).
 export function databaseHost(cfg, args = {}) {
   const host = args.dev ? cfg.devDatabaseHost : cfg.databaseHost;
