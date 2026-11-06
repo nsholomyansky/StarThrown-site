@@ -189,7 +189,34 @@
     }
 
     .studio-link:hover { color: rgba(255,255,255,0.6); }
+    /* ── BL-515 opening-day switch (kit: docs/Marketing/design/drafts/beta-opening-day-switch.md) ── */
+html:not(.beta-open) .when-open { display: none !important; }
+.beta-open .when-closed { display: none !important; }
+    .open-success { text-align: left; }
+    .open-title { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
+    .open-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0.35rem 0 1rem; }
+    .open-grid { display: grid; gap: 0.75rem; }
+    @media (min-width: 560px) { .open-grid { grid-template-columns: 1fr 1fr; } }
+    .open-card { border: 1px solid rgba(79,143,255,0.25); border-radius: 12px; padding: 0.9rem 1rem; background: rgba(8,13,26,0.6); }
+    .open-head { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.75rem; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .open-card ol { padding-left: 1.1rem; display: grid; gap: 0.6rem; font-size: 0.8rem; }
+    .open-card span, .open-note { display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+    .open-note { margin: 0 0 0.6rem; }
+    .open-btn { display: inline-block; padding: 0.45rem 0.8rem; border-radius: 6px; text-decoration: none !important; font-weight: 600; font-size: 0.78rem; color: #05080f !important; background: linear-gradient(135deg, #8a6010 0%, #f0c060 100%); }
+    .open-next { font-size: 0.8rem; margin-top: 1rem; }
+    .open-next strong, .date-line strong { color: var(--white); font-weight: 500; }
+    .open-success { color: var(--text); }
+    .open-success ol { margin: 0; }
   </style>
+  <script>
+    (function () {
+      var OPEN_AT = Date.UTC(2026, 10, 7, 17, 0, 0); // Sat Nov 7 2026 12:00 ET. Month is 0-based: 10 = November
+      var open = Date.now() >= OPEN_AT || /[?&]preview-open\b/.test(location.search);
+      document.documentElement.classList.toggle('beta-open', open);
+      var wait = OPEN_AT - Date.now();
+      if (!open && wait < 864e5) setTimeout(function () { location.reload(); }, wait + 1000);
+    }());
+  </script>
 </head>
 <body>
 
@@ -213,9 +240,32 @@
       <p class="message">
         You're on the beta list.
       </p>
-      <p class="message-sub">
+      <p class="message-sub when-closed">
         When the beta opens, we'll email you the install links. Keep an eye on your inbox.
       </p>
+
+            <div class="open-success when-open">
+              <p class="open-title">You're confirmed. Install the game now.</p>
+              <div class="open-grid">
+                <div class="open-card">
+                  <p class="open-head">iPhone</p>
+                  <ol>
+                    <li><a class="open-btn" href="https://apps.apple.com/app/testflight/id899247664" target="_blank" rel="noopener">Get TestFlight from the App Store</a><span>Apple's own app for beta testing. Needs iOS 16 or later.</span></li>
+                    <li><a class="open-btn" href="https://testflight.apple.com/join/1yPgPBUA" target="_blank" rel="noopener">Join the Star Thrown beta on TestFlight</a><span>Tap Accept, then Install.</span></li>
+                  </ol>
+                </div>
+                <div class="open-card">
+                  <p class="open-head">Android</p>
+                  <p class="open-note">Use the Google account signed in to your Play Store app for all three steps.</p>
+                  <ol>
+                    <li><a class="open-btn" href="https://groups.google.com/g/star-thrown-beta" target="_blank" rel="noopener">Join our Google Group</a></li>
+                    <li><a class="open-btn" href="https://play.google.com/apps/testing/com.starthrown" target="_blank" rel="noopener">Become a tester</a><span>Tap the button on the page that opens.</span></li>
+                    <li><a class="open-btn" href="https://play.google.com/store/apps/details?id=com.starthrown" target="_blank" rel="noopener">Install from Google Play</a></li>
+                  </ol>
+                </div>
+              </div>
+              <p class="open-next"><strong>Then:</strong> open Star Thrown, create your account and join the round.</p>
+            </div>
 
       <p class="tagline">Cast to the Stars. Rise. Conquer. Reign.</p>
 
