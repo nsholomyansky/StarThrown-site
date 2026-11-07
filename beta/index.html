@@ -28,10 +28,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
-  <!-- Start the Brevo and reCAPTCHA downloads at the top of the page. Same two scripts and hosts as the tags at the end of the body; nothing new is loaded. -->
-  <link rel="preconnect" href="https://www.google.com" />
-  <link rel="preload" as="script" href="https://sibforms.com/forms/end-form/build/main.js" />
-  <link rel="preload" as="script" href="https://www.google.com/recaptcha/api.js?hl=en" />
 
   <style>
     *, *::before, *::after {
@@ -1127,6 +1123,9 @@
     /* ── BL-515 opening-day switch (kit: docs/Marketing/design/drafts/beta-opening-day-switch.md) ── */
 html:not(.beta-open) .when-open { display: none !important; }
 .beta-open .when-closed { display: none !important; }
+/* Owner 2026-11-07: once the beta is open there is no sign-up. The install steps show straight away; Brevo and reCAPTCHA are not loaded. */
+.beta-open #sib-container, .beta-open #error-message, .beta-open .recaptcha-notice, .beta-open .pin-bar { display: none !important; }
+.beta-open #success-message { display: block !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; }
     .open-success { text-align: left; }
     .open-title { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
     .open-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0.35rem 0 1rem; }
@@ -1230,7 +1229,7 @@ html:not(.beta-open) .when-open { display: none !important; }
 
       <p class="date-line"><span class="dl"><span class="dl-what when-closed">The beta opens</span><span class="dl-what when-open">Sign-ups</span> <strong class="when-closed">Sat,&nbsp;Nov&nbsp;7,&nbsp;12&nbsp;PM&nbsp;EST.</strong><strong class="when-open">Open now.</strong></span><span class="dl"><span class="dl-what">The 18-day, 5x Speed Round starts</span> <strong>Mon,&nbsp;Nov&nbsp;9,&nbsp;12&nbsp;PM&nbsp;EST.</strong></span></p>
 
-      <div class="signup-head"><span class="earth" aria-hidden="true"><span class="earth-in"><span class="earth-glow"></span><span class="earth-body"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-art="/img/hero-earth.webp" width="560" height="210" alt="" /></span></span></span><h2 class="signup-title">Sign up now</h2></div>
+      <div class="signup-head"><span class="earth" aria-hidden="true"><span class="earth-in"><span class="earth-glow"></span><span class="earth-body"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-art="/img/hero-earth.webp" width="560" height="210" alt="" /></span></span></span><h2 class="signup-title"><span class="when-closed">Sign up now</span><span class="when-open">Join now</span></h2></div>
 
       <div class="form-frame">
       <div class="form-card">
@@ -1251,7 +1250,7 @@ html:not(.beta-open) .when-open { display: none !important; }
                 <span class="sib-form-message-panel__inner-text">You're on the list! When the beta opens, we'll email you the install links.</span>
               </div>
             <div class="open-success when-open">
-              <p class="open-title">Almost done! Install the game now.</p>
+              <p class="open-title">Install the game now.</p>
               <div class="open-grid">
                 <div class="open-card">
                   <p class="open-head">iPhone</p>
@@ -1266,8 +1265,8 @@ html:not(.beta-open) .when-open { display: none !important; }
                   <div class="iab-box iab-android-only" role="note">
                     <p class="iab-title">Google sign-in doesn’t work in this in-app browser</p>
                     <p>Do the Android steps in Chrome. This button opens your install steps there.</p>
-                    <a class="open-btn iab-chrome" href="#" data-path="/beta/confirmed/">Open in Chrome</a>
-                    <p class="iab-alt">If it doesn’t open, open Chrome and go to starthrown.com/beta/confirmed.</p>
+                    <a class="open-btn iab-chrome" href="#" data-path="/beta/">Open in Chrome</a>
+                    <p class="iab-alt">If it doesn’t open, open Chrome and go to starthrown.com/beta.</p>
                   </div>
                   <p class="open-note">Use the Google account signed in to your Play Store app for all three steps.</p>
                   <ol>
@@ -1403,7 +1402,7 @@ html:not(.beta-open) .when-open { display: none !important; }
       <section class="info-panel" aria-labelledby="how-heading">
         <h2 class="panel-heading" id="how-heading">How it works</h2>
         <ol class="steps">
-          <li><strong>Sign up above.</strong> Signing up before the beta opens? We'll email you the install links when it opens. Once the beta is open, your install links appear as soon as you send the form.</li>
+          <li class="when-closed"><strong>Sign up above.</strong> Signing up before the beta opens? We'll email you the install links when it opens. Once the beta is open, your install links appear as soon as you send the form.</li>
           <li><strong>Install the game.</strong> iPhone: install Apple's TestFlight app (needs iOS 16 or later), open our TestFlight link, then tap Accept and Install. Android: use the Google account signed in to your Play Store app for all three steps: join our Google Group, open our opt-in link and tap to become a tester, then install from Google Play.</li>
           <li><strong>Join the round.</strong> Open Star Thrown, create your account, and join the beta round.</li>
         </ol>
@@ -1676,8 +1675,17 @@ html:not(.beta-open) .when-open { display: none !important; }
       });
     }());
   </script>
-  <script defer src="https://sibforms.com/forms/end-form/build/main.js" onerror="sibFormLoadFailed()"></script>
-  <script async defer src="https://www.google.com/recaptcha/api.js?hl=en" onerror="sibFormLoadFailed()"></script>
+  <script>
+    // The sign-up form exists only before the beta opens: Brevo and reCAPTCHA load only then.
+    if (!document.documentElement.classList.contains('beta-open')) {
+      ['https://sibforms.com/forms/end-form/build/main.js', 'https://www.google.com/recaptcha/api.js?hl=en'].forEach(function (src) {
+        var el = document.createElement('script');
+        el.src = src;
+        el.onerror = function () { sibFormLoadFailed(); };
+        document.body.appendChild(el);
+      });
+    }
+  </script>
 
 </body>
 </html>
