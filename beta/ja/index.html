@@ -1182,6 +1182,9 @@ html:not(.beta-open) .when-open { display: none !important; }
       r.classList.toggle('iab-android', (iab && /Android/.test(ua)) || q.indexOf('preview-iab-android') !== -1);
       r.classList.toggle('iab-ios', (iab && /iPhone|iPad|iPod/.test(ua)) || q.indexOf('preview-iab-ios') !== -1);
       document.addEventListener('DOMContentLoaded', function () {
+        // Name the app in the notice: Instagram by default; Threads or Facebook when the browser is theirs (owner 2026-11-08).
+        var app = /Instagram/.test(ua) ? '' : /Barcelona/.test(ua) ? 'Threads' : /FBAN|FBAV|FB_IAB/.test(ua) ? 'Facebook' : '';
+        if (app) { var names = document.querySelectorAll('.iab-app'); for (var k = 0; k < names.length; k++) names[k].textContent = app; }
         var links = document.querySelectorAll('a.iab-chrome');
         for (var i = 0; i < links.length; i++) {
           var path = links[i].getAttribute('data-path') || (location.pathname + location.search);
@@ -1246,7 +1249,7 @@ html:not(.beta-open) .when-open { display: none !important; }
           <div class="open-grid">
             <div class="open-card">
               <p class="open-head">iPhone（iOS 16以降）</p>
-              <p class="iab-line iab-ios-only">TestFlightが開かない場合は、画面右上の「•••」メニューから「外部ブラウザで開く」を選んでください。</p>
+              <p class="iab-line iab-ios-only"><span class="iab-app">Instagram</span>のブラウザからTestFlightが開かない場合は、画面右上の「•••」メニューから「外部ブラウザで開く」を選んでください。</p>
               <ol>
                 <li><a class="open-btn" href="https://apps.apple.com/app/testflight/id899247664" target="_blank" rel="noopener">TestFlightを入手</a><span>Appleが提供する、ベータテスト用の無料アプリです。インストールしたら、このページに戻ってステップ2へ進んでください。</span></li>
                 <li><a class="open-btn" href="https://testflight.apple.com/join/1yPgPBUA" target="_blank" rel="noopener">TestFlightの招待を開く</a><span>このボタンが招待です。Appleのページで「TestFlightで表示」をタップし、続いて「承認」、「インストール」をタップします。</span></li>
@@ -1255,7 +1258,7 @@ html:not(.beta-open) .when-open { display: none !important; }
             <div class="open-card">
               <p class="open-head">Android</p>
               <div class="iab-box iab-android-only" role="note">
-                <p class="iab-title">このアプリ内のブラウザでは、Googleにログインできません</p>
+                <p class="iab-title"><span class="iab-app">Instagram</span>のブラウザでは、Googleにログインできません</p>
                 <p>Androidの手順は、Chromeで進めてください。下のボタンを押すと、このページがChromeで開きます。</p>
                 <a class="open-btn iab-chrome" href="#">Chromeで開く</a>
                 <p class="iab-alt">開かない場合は、画面右上の「⋮」メニューから「Chromeで開く」を選んでください。</p>

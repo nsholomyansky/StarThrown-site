@@ -1182,6 +1182,9 @@ html:not(.beta-open) .when-open { display: none !important; }
       r.classList.toggle('iab-android', (iab && /Android/.test(ua)) || q.indexOf('preview-iab-android') !== -1);
       r.classList.toggle('iab-ios', (iab && /iPhone|iPad|iPod/.test(ua)) || q.indexOf('preview-iab-ios') !== -1);
       document.addEventListener('DOMContentLoaded', function () {
+        // Name the app in the notice: Instagram by default; Threads or Facebook when the browser is theirs (owner 2026-11-08).
+        var app = /Instagram/.test(ua) ? '' : /Barcelona/.test(ua) ? 'Threads' : /FBAN|FBAV|FB_IAB/.test(ua) ? 'Facebook' : '';
+        if (app) { var names = document.querySelectorAll('.iab-app'); for (var k = 0; k < names.length; k++) names[k].textContent = app; }
         var links = document.querySelectorAll('a.iab-chrome');
         for (var i = 0; i < links.length; i++) {
           var path = links[i].getAttribute('data-path') || (location.pathname + location.search);
@@ -1247,7 +1250,7 @@ html:not(.beta-open) .when-open { display: none !important; }
           <div class="open-grid">
             <div class="open-card">
               <p class="open-head">iPhone(iOS 16 이상)</p>
-              <p class="iab-line iab-ios-only">이 앱 안의 브라우저에서는 TestFlight가 열리지 않을 수 있습니다. 열리지 않으면 화면 오른쪽 위 '•••' 메뉴에서 '외부 브라우저에서 열기'를 선택하세요.</p>
+              <p class="iab-line iab-ios-only"><span class="iab-app">Instagram</span> 브라우저에서는 TestFlight가 열리지 않을 수 있습니다. 열리지 않으면 화면 오른쪽 위 '•••' 메뉴에서 '외부 브라우저에서 열기'를 선택하세요.</p>
               <ol>
                 <li><a class="open-btn" href="https://apps.apple.com/app/testflight/id899247664" target="_blank" rel="noopener">TestFlight 받기</a><span>Apple이 제공하는 무료 베타 테스트 앱입니다. 설치한 뒤 이 페이지로 돌아와 2단계로 진행하세요.</span></li>
                 <li><a class="open-btn" href="https://testflight.apple.com/join/1yPgPBUA" target="_blank" rel="noopener">TestFlight 초대 열기</a><span>이 버튼이 초대 링크입니다. Apple 페이지에서 'TestFlight에서 보기'를 누른 다음 '수락', '설치'를 차례로 누르세요.</span></li>
@@ -1256,7 +1259,7 @@ html:not(.beta-open) .when-open { display: none !important; }
             <div class="open-card">
               <p class="open-head">Android</p>
               <div class="iab-box iab-android-only" role="note">
-                <p class="iab-title">이 앱 안의 브라우저에서는 Google에 로그인할 수 없습니다</p>
+                <p class="iab-title"><span class="iab-app">Instagram</span> 브라우저에서는 Google에 로그인할 수 없습니다</p>
                 <p>Android 단계는 Chrome에서 진행해 주세요. 아래 버튼을 누르면 이 페이지가 Chrome에서 열립니다.</p>
                 <a class="open-btn iab-chrome" href="#">Chrome에서 열기</a>
                 <p class="iab-alt">열리지 않으면 화면 오른쪽 위 '⋮' 메뉴에서 'Chrome에서 열기'를 선택하세요.</p>
