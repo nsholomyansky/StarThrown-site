@@ -156,7 +156,7 @@
 
     <p class="meta">
       Boundless Alchemy LLC<br />
-      Last updated: 3 November 2026<br />
+      Last updated: 21 November 2026<br />
       Contact: <a href="mailto:support@starthrown.com">support@starthrown.com</a>
     </p>
 
@@ -240,6 +240,21 @@
         To protect the game from modified apps and automated abuse, the app asks Google (Firebase App Check) to
         confirm it is a genuine copy on a genuine device. It uses Google Play Integrity on Android and Apple App
         Attest on iOS.
+      </dd>
+
+      <dt>Push alerts</dt>
+      <dd>
+        Alerts are off until you turn them on in the game. There are three: when your stardom is attacked, when one of
+        your fleets is attacked, and when a round you signed up for starts. If you turn one on, we store, for each phone
+        you use, the Firebase installation ID that Google's Firebase gives the app on that phone, whether it is an iPhone
+        or an Android phone, its language setting and the game session that registered it, together with which alerts you
+        turned on. We use them only to send those alerts, through Google (Firebase Cloud Messaging); on iPhones, Apple's
+        push service delivers them. An alert carries only a fixed message, such as "Your Stardom is under attack.", and
+        never another player's name. We delete a phone's record when you turn all your alerts off, when you sign out of
+        the game on that phone, or when Google tells us the game is no longer installed there. When you ask us to delete
+        your account, we also ask Google to delete the installation ID of each of your phones. Our record that an alert
+        was sent is deleted after about 3 days. You can turn alerts off in the game or in your phone's notification
+        settings.
       </dd>
 
       <dt>Age</dt>
